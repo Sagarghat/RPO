@@ -1,0 +1,248 @@
+<nav class="navbar  bg-white p-1  bg-white rounded shadow p-3 mb-3 ">
+  <span><a class="ml-3">
+      <h3>Client</h3>
+    </a>
+    <div class="collapse" id="navbarToggleExternalContent">
+      <div class="dropdown">
+        <button type="button" class="btn btn-success ml-4">Actions</button>
+        <div class="dropdown-content" *ngFor="let f of clientList">
+          <a class="btn btn-sm btn-light" (click)="mail()">Send EMail</a>
+        </div>
+      </div>
+    </div>
+  </span>
+  <button class="btn  btn-white shadow  rounded" routerLink='../addclient'>
+    <i class="fa fa-plus" style="color:cornflowerblue;" aria-hidden="true"></i>
+  </button>
+</nav>
+
+<!-- search code -->
+<div class="mt-4  col-sm-10  offset-sm-1  shadow p-1 bg-white rounded">
+  <div class="position-relative mt-2 ">
+    <div class="form-group dummyclass" *ngIf="dummy">
+      <div class="position-relative  col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 ">
+        <i class="fa fa-search  fa-search1 pull-right "></i>
+        <input type="text" class="form-control madhu form-control_search4" id="usr"
+          (click)="dummy=false;asli=true;first=true" placeholder="Search with Client Name">
+      </div>
+    </div>
+    <div class="form-group dummyinp" *ngIf="asli">
+      <div class=" col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1    position-relative">
+        <i class="fa fa-angle-down pull-right" id="usr" (click)="first=false;second=true"></i>
+        <input type="text" class="form-control_search4" id="usr" value={{searchInput}} (click)="first=true;second=false"
+          [formControl]="searchTerm">
+      </div>
+    </div>
+    <div class="first item   col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 p-0 mt1-0 " *ngIf="first"
+      tabindex="0" id="usr">
+      <div class=" p-3 mt-2" id="usr">
+        <strong>Search with Client Name</strong>
+        <p *ngIf="showNodata" id="usr">No Data</p>
+        <p *ngIf="search_result" id="usr">Search Result</p>
+        <p *ngIf="search_Previous_result" id="usr">Previous Search Result</p>
+        <ul *ngFor="let p of clientList " id="usr">
+          <li id="usr" (click)="search_values(p.clientName)" style="list-style-type: none; cursor: pointer;">
+            {{ p.clientName }} </li>
+        </ul>
+      </div>
+    </div>
+    <div class="second item   col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 mt1-0 " *ngIf="second"
+      id="usr">
+      <form id="usr" [formGroup]="serchform" (ngSubmit)="save()">
+        <br>
+        <div class="form-group row" id="usr">
+          <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">AM Name</label>
+          <div class="col-sm-10" id="usr">
+            <input id="usr" class="form-control boxcolor" formControlName="amName">
+          </div>
+        </div>
+        <div class="form-group row" id="usr">
+          <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">startDate</label>
+          <div class="col-sm-10" id="usr">
+            <input type="date" id="usr" class="form-control boxcolor" formControlName="startDate">
+          </div>
+        </div>
+        <button type="reset" id="usr" class="btn bg-info pull-left">Reset</button>
+        <button type="submit" id="usr" class="btn bg-info pull-right">submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- search code end -->
+
+<div class="container-fluid pt-4 ">
+  <div class=" shadow p-3 mb-5  ml-4 mr-4 bg-white rounded ">
+    <abbr title="download Excel"><i class="fa fa-file-excel-o mr-4 mb-1"
+        style="color:green ;font-size: x-large; float:right" (click)="downloadExcel()" aria-hidden="true"></i></abbr>
+    <table class="table table-responsive-sm table-responsive-md table-responsive-lg">
+      <thead class="text-center">
+        <tr>
+          <th class="font-weight-light"></th>
+          <th></th>
+          <th></th>
+          <th class="font-weight-light">CLIENT ID</th>
+          <th class="font-weight-light">CUSTOMER NAME</th>
+          <th class="font-weight-light">CUSTOMER TYPE</th>
+          <th class="font-weight-light">EMPANELMENT DATE</th>
+          <th class="font-weight-light">LAST DATE ON</th>
+          <th class="font-weight-light">AM NAME</th>
+          <th class="font-weight-light">LEAD NAME</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr
+          *ngFor="let c of clientList | paginate: { itemsPerPage: pageSize,currentPage: currentPage,totalItems: totalItems }">
+          <td><i class="fa fa-pencil" style="cursor: pointer;" [routerLink]="['../editclient',c.id]"></i></td>
+          <td><input type="radio"  name="foobar" data-toggle="collapse" data-target="#navbarToggleExternalContent"
+              aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation"
+              (click)="getclientId(c.id)"></td>
+          <td><i class="fa fa-list" data-toggle="modal" data-target="#description" (click)="getClientById(c.id)" style="cursor: pointer;"></i>
+          </td>
+          <td>{{c.id}}</td>
+          <td class="pointer"  (click)="clientnameclick(c.id)"style="color:#2C7BD0;">{{c.clientName}} </td>
+          <td>{{c.customerType}}</td>
+          <td>{{c.startDate|date:"dd-MM-yyyy"}}</td>
+          <td>{{c.endDate|date:"dd-MM-yyyy"}}</td>
+          <td>{{c.amName}}</td>
+          <td>{{c.email}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="col-xs-12 col-12 text-right">
+        <pagination-controls (pageChange)="setPage($event)"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- description modal -->
+<div class="modal right fade" id="description" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="myModalLabel2">{{clientName}}</h3><br><br>
+        <h4 class="modal-title" id="myModalLabel2"></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <nav>
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-Details-tab" data-toggle="tab" href="#nav-Details" role="tab"
+              aria-controls="nav-Details" aria-selected="true">Details</a>
+            <a class="nav-item nav-link" id="nav-Attachments-tab" data-toggle="tab" href="#nav-Attachments" role="tab"
+              aria-controls="nav-Attachments" aria-selected="false">Attachments</a>
+          </div>
+        </nav>
+        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-Details" role="tabpanel" aria-labelledby="nav-Details-tab">
+            <div class="container" id="Details">
+              <h5 class="pt-5"><b>Client Information</b></h5>
+              <table class="paddingBetweenCols">
+                <thead>
+                  <th class="id">Client Name</th>&nbsp;
+                  <th class="id">Customer Type</th>
+                </thead>
+                <tbody><br>
+                  <tr>
+                    <td>{{clientName}}</td>&nbsp;
+                    <td class="id">{{customerType}}</td>
+                  </tr>
+                </tbody><br>
+                <thead>
+                  <th class="id">EmpanelDate</th>&nbsp;
+                  <th class="id">End Date</th>
+                </thead>
+                <tbody><br>
+                  <tr>
+                    <td>{{startDate | date:'M/d/yy'}}</td>&nbsp;
+                    <td>{{endDate| date:'M/d/yy'}}</td>
+                  </tr>
+                </tbody><br>
+                <thead>
+                  <th class="id">Contact Number</th>&nbsp;
+                  <th class="id">Email</th>
+                </thead>
+                <tbody><br>
+                  <tr>
+                    <td>{{phone}}</td>&nbsp;
+                    <td>{{email}}</td>
+                  </tr>
+                </tbody><br>
+                <thead>
+                  <th class="id">Leaves Allowed</th>&nbsp;
+                  <th class="id">Source</th>
+                </thead>
+                <tbody><br>
+                  <tr>
+                    <td>{{leavesAllowed}}</td>&nbsp;
+                    <td>{{sourceName}}</td>
+                  </tr>
+                </tbody>
+                <thead>
+                  <th class="id">Fax</th>&nbsp;
+                  <th class="id">Website</th>
+                </thead>
+                <tbody><br>
+                  <tr>
+                    <td>{{fax}}</td>&nbsp;
+                    <td>{{website}}</td>
+                  </tr>
+                </tbody><br>
+
+                <h5 class="pt-5"><b>Address Information</b></h5>
+                <thead>
+                  <th class="id">Type of Address</th>&nbsp;
+                </thead>
+                <tbody><br>
+                  <tr>
+                    <td>{{typeAddress}}</td>&nbsp;
+                  </tr>
+                </tbody><br>
+
+                <thead>
+                  <th class="id">Street1</th>&nbsp;
+                  <th class="id">Street2</th>
+                </thead>
+                <tbody><br>
+                  <tr>
+                    <td>{{addressLine1}}</td>&nbsp;
+                    <td>{{addressLine2}}</td>
+                  </tr>
+                </tbody><br>
+
+                <thead>
+                  <th class="id">City</th>&nbsp;
+                  <th class="id">Country</th>
+                </thead>
+                <tbody><br>
+                  <tr>
+                    <td>{{city}}</td>&nbsp;
+                    <td>{{country}}</td>
+                  </tr>
+                </tbody><br>
+              </table>
+              <hr>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="nav-Description" role="tabpanel" aria-labelledby="nav-Description-tab">
+            <div class="container">
+              <h5 class="pt-5"><b>Job Description</b></h5><br>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="nav-Attachments" role="tabpanel" aria-labelledby="nav-Attachments-tab">
+            <div class="d-flex justify-content-center pt-5">
+              <abbr title="Download pdf"> <i class="fa fa-file-pdf-o" style="color:red" (click)="download()"
+                  aria-hidden="true"></i></abbr>
+              <div>
+                <pdf-viewer [src]="'data:application/*;base64,'+contractFile" [original-size]="true">
+                </pdf-viewer>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

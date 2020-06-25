@@ -1,0 +1,25 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-homeadmin',
+  templateUrl: './homeadmin.component.html',
+  styleUrls: ['./homeadmin.component.css']
+})
+export class HomeadminComponent implements OnInit {
+  user_name: string;
+
+  constructor( private route:Router) { }
+
+  ngOnInit() {
+
+    this.user_name = sessionStorage.getItem('name');
+  }
+
+
+  signOut(){
+    sessionStorage.clear(); 
+    this.route.navigateByUrl('');
+   }
+
+}

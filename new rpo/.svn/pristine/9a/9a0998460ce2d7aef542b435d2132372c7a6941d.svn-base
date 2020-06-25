@@ -1,0 +1,557 @@
+<div Class="container-fluid ">
+    <div class="row">
+
+        <div class="w-20 " style="background-color:#EEEEEE">
+            <br><br>
+            <div id="list-example" class="list-group sidenavbartext sticky-top">
+                <table>
+                    <tr>
+                        <td><a class="nav-item nav-link" href="#top" style="color:rgb(38, 105, 238)">Information</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a class="nav-item nav-link">TimeLine</a></td>
+                    </tr>
+                    <tr>
+                        <td><a class="nav-item nav-link">Associated Candidates</a></td>
+                    </tr>
+                    <tr>
+                        <td><a class="nav-item nav-link " style="color:#9197A3">RELATED LIST</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#list-item-1" class="nav-item nav-link sidenavbartext">Notes</a></td>
+                    </tr>
+
+                    <tr>
+                        <td> <a href="#list-item-2" class="nav-item nav-link sidenavbartext">Job Openings</a></td>
+                    </tr>
+                    <tr>
+                        <td> <a href="#list-item-3" class="nav-item nav-link sidenavbartext ">Interviews</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="w-75" id="top">
+            <div class="shadow p-3 mb-5  ml-4 mr-4 bg-white rounded p-0 pb-5 " data-spy="scroll"
+                data-target="#list-example" class="scrollspy-example">
+
+                <div class="example z-depth-1 bg-white ml-3 mr-3">
+                    <div class=" p-0  pb-5">
+                        <nav class="navbar navbar-expand-lg sticky-top sticky-offset navbar-light bg-light">
+                            <i class="fa fa-arrow-left fa-lg" aria-hidden="true"
+                                routerLink="/superadmin/contact"></i>&nbsp;&nbsp;
+                            <i class="fa fa-briefcase fa-2x" aria-hidden="true"></i>
+                            <h4 class="pl-2">{{lastName}}</h4>
+                        </nav>
+
+
+                        <div class="col-6 pb-2 pt-4  ml-5">
+                            <table>
+                                <tr>
+                                    <td><span class="mr-5">Modified Time</span></td>
+                                    <td><span class="ml-5">{{diffOfDays}}</span> &nbsp;
+                                        <i class="fa fa-user" aria-hidden="true" data-toggle="modal"
+                                            data-target="#myModal"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="mr-5">Job Title</span></td>
+                                    <td><span class="ml-5">{{jobTitle}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Mobile</span></td>
+                                    <td><span class="ml-5">{{mobile}}</span> </td>
+                                </tr>
+                                <tr *ngFor>
+                                    <td><span>Email</span></td>
+                                    <td><span class="ml-5">{{email}}</span> </td>
+                                </tr>
+                                <tr>
+                                    <td><span>Domain</span></td>
+                                    <td><span class="ml-5">{{domain}}</span> </td>
+                                </tr>
+                            </table>
+                            <br>
+
+                            <button class="btn btn-sm pt-3" (click)="hidedd()"
+                                style="color:#2C7BD0; font-size: 1.2rem;">
+                                {{text}}
+                                <i class="fa fa-angle-down"></i> </button>
+                        </div>
+
+
+                        <div *ngIf="status1">
+                            <div class="container-fluid pt-5 pb-5 ">
+                                <form [formGroup]="registerForm" (ngSubmit)="save()">
+                                    <h4 class="ml-4">Contact Information</h4>
+
+                                    <div class="row">
+                                        <div class=" col-sm-5 ml-5">
+                                            <div class="row p-0">
+                                                <div class="col-sm-4 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="First Name:"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class="col-sm-7 p-0">
+                                                    <input type="text" name="firstName" disabled class="form-control"
+                                                        formControlName="firstName">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-sm-5  ml-5">
+                                            <div class="row p-0">
+                                                <div class="col-sm-4 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="Last Name:"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class="col-sm-7 p-0">
+                                                    <input type="text" name="lastName" disabled class="form-control"
+                                                        formControlName="lastName">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class=" col-sm-5 ml-5"   [ngClass]="{'inputStatus':domain == '' || domain == null}">
+                                            <div class="row p-0">
+                                                <div class="col-sm-4 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="Domain:"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class="col-sm-7 p-0">
+                                                    <input type="text" name="domain" disabled class="form-control"
+                                                        formControlName="domain">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-sm-5 ml-5" [ngClass]="{'inputStatus':clientName == '' || clientName == null}">
+                                            <div class="row p-0">
+                                                <div class="col-sm-4 p-0 my-2"  >
+                                                    <input type="text" class="form-control" 
+                                                    disabled value="Client Name:" style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class="col-sm-7 p-0">
+                                                    <span class="tool-tip" data-toggle="tooltip" data-placement="top"
+                                                        title="Can't edit client">
+                                                        <input type="text" name="clientName" disabled
+                                                            class="form-control" formControlName="clientName" disabled>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class=" col-sm-5 ml-5"  [ngClass]="{'inputStatus':email == '' || email == null}">
+                                            <div class="row p-0">
+                                                <div class="col-sm-4 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="Email Id:"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class="col-sm-7 p-0">
+                                                    <input type="text" name="email" disabled class="form-control"
+                                                        id="email" formControlName="email">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class=" col-sm-5  ml-5" [ngClass]="{'inputStatus':mobile == '' || mobile == null}">
+                                            <div class="row p-0">
+                                                <div class="col-sm-4 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="mobile:"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class="col-sm-7 p-0">
+                                                    <input type="number" name="mobile" disabled class="form-control"
+                                                        formControlName="mobile">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class=" col-sm-5 ml-5" [ngClass]="{'inputStatus':jobTitle == '' || jobTitle == null}">
+                                            <div class="row p-0">
+                                                <div class="col-sm-4 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="Job Title:"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class="col-sm-7 p-0">
+                                                    <input type="text" name="jobTitle" disabled class="form-control"
+                                                        id="jobTitleid" formControlName="jobTitle">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-sm-5 ml-5" [ngClass]="{'inputStatus':phone == '' || phone == null}">
+                                            <div class="row p-0">
+                                                <div class="col-sm-4 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="Phone:"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class="col-sm-7 p-0">
+                                                    <input type="number" name="phone" disabled class="form-control"
+                                                        id="phone" formControlName="phone">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class=" col-sm-5 ml-5" [ngClass]="{'inputStatus':skypeId == '' || skypeId == null}">
+                                            <div class="row p-0">
+                                                <div class="col-sm-4 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="Skype Id:"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class="col-sm-7 p-0">
+                                                    <input type="text" disabled class="form-control"
+                                                        formControlName="skypeId">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-sm-5  ml-5" [ngClass]="{'inputStatus':twitterId == '' || twitterId == null}">
+                                            <div class="row p-0">
+                                                <div class="col-sm-4 p-0 my-2">
+                                                    <input type="text" class="form-control" value="Twitter Id:"
+                                                        style=" border-bottom: 0px;" readonly>
+                                                </div>
+                                                <div class="col-sm-7 p-0">
+                                                    <input type="text" disabled class="form-control"
+                                                        formControlName="twitterId">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><br>
+
+                                    <h4 class="ml-4" [ngClass]="{'inputStatus':(source == null || source == '') && 
+                                   ( contactOwner == null || contactOwner == '') && (isPrimaryContact == null || isPrimaryContact == '' )&& 
+                                    (emailOptOut == null || emailOptOut == '')}">Other Information</h4><br>
+
+                                    <div class="row">
+                                        <div class=" col-sm-5  ml-5" [ngClass]="{'inputStatus':source == '' || source == null}">
+                                            <div class="row p-0">
+                                                <div class="col-sm-4 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="Source:"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class="col-sm-7 p-0">
+                                                    <input type="text" name="source" disabled class="form-control"
+                                                        formControlName="source">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-sm-5  ml-5" [ngClass]="{'inputStatus':contactOwner == '' || contactOwner == null}">
+                                            <div class="row p-0">
+                                                <div class="col-sm-4 p-0 my-2"  >
+                                                    <label type="text" class="form-control"
+                                                        style=" border-bottom: 0px;">Contact Owner:</label>
+                                                </div>
+                                                <div class="col-sm-7 p-0">
+                                                    <input type="text" name="contactOwnername" class="form-control"
+                                                        formControlName="contactOwner" placeholder="Enter ContactOwner"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class=" col-sm-5  ml-5" [ngClass]="{'inputStatus':isPrimaryContact == '' || isPrimaryContact == null}">
+                                            <div class="row p-0">
+                                                <div class="col-sm-4 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled
+                                                        value="IsPrimaryContact" style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class="col-sm-1 my-2">
+                                                    <input type="checkbox" name="primaryContact" disabled
+                                                        class="form-control" formControlName="primaryContact">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-sm-5  ml-5" [ngClass]="{'inputStatus':emailOptOut == '' || emailOptOut == null}">
+                                            <div class="row p-0">
+                                                <div class="col-sm-4 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled
+                                                        value="Email Opt Out:" style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class="col-sm-1 my-2">
+                                                    <input type="checkbox" name="emailoptOut" disabled
+                                                        class="form-control" formControlName="emailoptOut">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h4 class="ml-4" [ngClass]="{'inputStatus':description == '' || description == null}">
+                                        Description Information</h4><br>
+
+                                    <div class="row">
+                                        <div class=" col-sm-5  ml-5"
+                                            [ngClass]="{'inputStatus':description == '' || description == null}">
+                                            <div class="row p-0">
+                                                <div class="col-sm-4 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled
+                                                        value="Description:" style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class="form-group col-sm-10 p-0">
+                                                    <textarea type="text" disabled class="form-control" id="comment"
+                                                        formControlName="description"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> <br>
+
+                                     <h4 class="ml-4"  [ngClass]="{'inputStatus':(typeOfAddress == null || typeOfAddress == '') && 
+                                     ( addressLine1 == null || addressLine1 == '') && (addressLine2 == null || addressLine2 == '' )&& 
+                                      (state == null || state == '') && (pincode == null || pincode == '') &&(city == null || city == '') && (country == null || country == '') }">
+                                      Additional Information</h4><br> 
+
+                                    <div class="row">
+                                        <div class="  col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5  ml-5"  [ngClass]="{'inputStatus':typeOfAddress == '' || typeOfAddress == null}">
+                                            <div class="row p-0">
+                                                <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 my-2">
+                                                    <label type="text" class="form-control"
+                                                        style=" border-bottom: 0px;">Address Type<span
+                                                            class="star"></span></label>
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control"
+                                                        formControlName="typeOfAddress" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="  col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5" [ngClass]="{'inputStatus':addressLine1 == '' || addressLine1 == null}">
+                                            <div class="row p-0">
+                                                <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="Street1"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control"
+                                                        formControlName="addressLane1" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="  col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5" [ngClass]="{'inputStatus':addressLine2 == '' || addressLine2 == null}">
+                                            <div class="row p-0">
+                                                <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+                                                    <input type="text" class="form-control" disabled value="Street2"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control"
+                                                        formControlName="addressLane2" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="  col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5" [ngClass]="{'inputStatus':state == '' || state == null}">
+                                            <div class="row p-0">
+                                                <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="State"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="state"
+                                                        disabled>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5" [ngClass]="{'inputStatus':pincode == '' || pincode == null}">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+
+                                                    <input type="text" class="form-control" disabled value="Pincode"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="pincode"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="  col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5" [ngClass]="{'inputStatus':city == '' || city == null}">
+                                            <div class="row p-0">
+                                                <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="city"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="city"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5" [ngClass]="{'inputStatus':country == '' || country == null}">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+                                                    <input type="text" class="form-control" disabled value="Country"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="country"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+
+
+                                   
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="left" id="list-item-1" class="to-be-changed">
+                <h5><b>Notes</b></h5>
+            </div>
+            <table width="100%" class="table ml-5">
+                <tbody>
+                    <tr *ngFor="let c of getdetails">
+                        <td>
+                            <div class="italic" style="margin-top:15px; margin-bottom:15px;">
+                                <b>{{c.noteData}}</b>
+                                <i class="fa fa-trash fa-lg" aria-hidden="true" data-toggle="tooltip"
+                                    title="delete note" (click)="ContactNotedelete(c.id)" style="float: right;cursor: pointer; "></i>
+                            </div>
+                            <div class="italic" style="margin-top:15px; margin-bottom:15px;">
+                                {{c.noteType}}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <form [formGroup]="noteForm" (ngSubmit)="contactnotesaveee()">
+                <table width="5%" class="table ml-5">
+                    <tbody>
+                        <div class="jumbotron col-sm-9">
+                            <div *ngIf="!status">
+                                <p>Note Type</p>
+                                <select name="cars" class="col-4 " formControlName="noteSelect">
+                                    <option value="Call" class="form-control">Call</option>
+                                    <option value="Meeting" class="form-control">Meeting</option>
+                                    <option value="Notes" class="form-control">Notes</option>
+                                    <option value="Others" class="form-control">Others</option>
+                                </select>
+                                <textarea class="form-control" rows="2" id="comment" formControlName="note"> </textarea>
+                            </div>
+                            <div *ngIf="status">
+                                <textarea class="form-control" rows="2" (click)="ShowHideClick()"></textarea>
+                            </div><br>
+                            <button type="submit" class="btn btn-primary btn-sm"
+                                style="float: right;">Save</button>&nbsp;&nbsp;
+                            <button type="reset" class="btn btn-success btn-sm" style="float: right;">Cancel</button>
+                        </div>
+                    </tbody>
+                </table>
+            </form>
+
+            <div>
+                <h5 class="float-left to-be-changed" id="list-item-2"><b>Job Openings</b></h5>
+                <h6 class="float-right" style="color: blue;" (click)="jobopening()">+New JobOpening</h6>
+            </div>
+
+            <table class="table table responsive bg-white ml-5">
+                <thead>
+                    <tr>
+                        <th class="font-weight-light">JOB OPENING ID</th>
+                        <th class="font-weight-light">POSTING TITLE</th>
+                        <th class="font-weight-light">START DATE</th>
+                        <th class="font-weight-light">END DATE</th>
+                        <th class="font-weight-light">JOB OPENING STATUS</th>
+                        <th class="font-weight-light">CITY</th>
+                        <th class="font-weight-light">CLIENT NAME</th>
+                        <th class="font-weight-light">CONTACT NAME</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let c of profileDetails">
+                        <td>{{c.id}}</td>
+                        <td class="postingtitlesytle">{{c.nameOfRequirement}}</td>
+                        <td>{{c.requirementStartdate|date:"dd-MM-yyyy"}}</td>
+                        <td>{{c.requirementEndDate|date:"dd-MM-yyyy"}}</td>
+                        <td>{{c.requirementStatus}}</td>
+                        <td>{{c.city}}</td>
+                        <td>{{c.clientName}}</td>
+                        <td>{{c.contactFirstName}}</td>
+                </tbody>
+            </table>
+
+            <div class="mb-3">
+                <h6 class="ml-5 float-right" style="color:green; cursor: pointer;" (click)="viewmorejobopening()">View
+                    more
+                </h6>
+            </div><br><br>
+
+            <div>
+                <h5 class="float-left to-be-changed" id="list-item-3"><b>Interviews</b></h5>
+                <h6 class="float-right" style="color: blue;" (click)="interview()">+Schedule Interviews</h6>
+            </div>
+
+            <table class="table table responsive bg-white ml-5">
+                <thead>
+                    <tr>
+                        <th class="font-weight-light">INTERVIEW NAME</th>
+                        <th class="font-weight-light">FROM</th>
+                        <th class="font-weight-light">TO</th>
+                        <th class="font-weight-light">CANDIDATE NAME</th>
+                        <th class="font-weight-light">CLIENT NAME</th>
+                        <th class="font-weight-light">POSTING TITLE</th>
+                        <th class="font-weight-light">INTERVIEW STATUS</th>
+                        <th class="font-weight-light">INTERVIEW OWNER</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let interview of interviewList">
+                        <td>{{interview.interviewName}}</td>
+                        <td>{{interview.from}} </td>
+                        <td>{{interview.to}} </td>
+                        <td>{{interview.candidateName}}</td>
+                        <td>{{interview.clientName}} </td>
+                        <td>{{interview.postingTitle}} </td>
+                        <td>{{interview.interviewStatus}} </td>
+                        <td>{{interview.interviewOwner}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="mb-3">
+                <h6 class="ml-5 float-right" style="color:green; cursor: pointer;" (click)="viewmoreinterview()">View
+                    more
+                </h6>
+            </div><br><br>
+            <button type="button" class="float-right btn btn-secondary ml-5" routerLink="/superadmin/contact">Cancel</button>
+
+            <div class=" pb-5 pt-2 footer">
+                <button class="btn btn-lg btn-light shadow " (click)="gotoTop()" style="border-radius: 50%;">
+                    <i class="fa fa-angle-up" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

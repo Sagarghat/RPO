@@ -1,0 +1,417 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators, FormGroup, FormControl, FormGroupName } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { environment } from 'src/environments/environment';
+import { SuperadminserviceService } from 'src/app/superadmin/superadminservice.service';
+import * as CryptoJS from 'crypto-js';
+
+
+@Component({
+  selector: 'app-addcontact',
+  templateUrl: './addcontact.component.html',
+  styleUrls: ['./addcontact.component.css']
+})
+export class AddcontactComponent implements OnInit {
+  baseUrl = `${environment.serviceUrl}`;
+  cus;
+  isEdit: any;
+  cus1: any;
+  optionsSelect;
+  selectedclient: any;
+  submitted: boolean;
+  LeadList;
+  AmList;
+  LeadListData: any;
+  BdmList;
+  AddressList: any;
+  Address: any;
+  Customer;
+  CustomerDetails: any;
+  BdmList1: any;
+  ClientContact: any;
+  typeOfAddress: any;
+  amId: any;
+  BdmId: any;
+  leadId: any;
+  clientId: any;
+  geClientlist;
+  ClientList: any;
+  selectedClient: any;
+  selectedAddress: any;
+  selectedUsername: any;
+
+  registerForm = this.formBuilder.group({
+    clientName: ['', Validators.required],
+    contactOwner: ['', Validators.required],
+    firstName: ['', [Validators.required, Validators.pattern('[A-Za-z]+')]],
+    lastName: ['', [Validators.required, , Validators.pattern('[A-Za-z]+')]],
+    domain: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    jobTitle: ['', Validators.required],
+    mobile: ['', [Validators.required, Validators.pattern('^(\([0-9]{3}\) |[6-9]{1})[0-9]{9}$')]],
+    phone: ['', [Validators.pattern('^(\([0-9]{3}\) |[6-9]{1})[0-9]{9}$')]],
+    primaryContact: [''],
+    emailoptOut: [''],
+    description: [''],
+    skypeId: [''],
+    twitterId: [''],
+    addressLane1: [''],
+    addressLane2: [''],
+    country: [''],
+    state: [''],
+    pincode: ['', [Validators.pattern('^[5]{1}[0-9]{5}$')]],
+    city: [''],
+    gst: [''],
+    gstpercent: [''],
+    isSez: [''],
+    typeOfAddress: [''],
+    source: ['', Validators.required],
+    browse: [''],
+ 
+
+  });
+  clientDetails;
+  clientList: any;
+
+  SourceList: any;
+  source: any;
+  selectedSource;
+  sourceName: any;
+  sourceId: any;
+  selectedCientName: any;
+  ownerList: any;
+  Owner: any;
+  selectedClientOwnerId: any;
+  selectedCientOwnerName: any;
+  files: any;
+  filestringContact: any;
+  registrationId: string;
+  userToken: string;
+  RegId: string;
+  pageSize = 4;
+  totalClientItems;
+  currentPageClient = 1;
+  encryptSecretKey = "OJAS-Rpo";
+  temp: any;
+  obj: any;
+  temp1: number;
+  obj2: string;
+  
+
+  profileForm = new FormGroup({
+    typeOfAddress: new FormControl('',Validators.required),
+    addressLane1: new FormControl('',Validators.required),
+    addressLane2: new FormControl('',Validators.required),
+    state: new FormControl('',Validators.required),
+    pincode: new FormControl('',Validators.required),
+    // ,[Validators.pattern('^[5]{1}[0-9]{5}$')]
+    city: new FormControl('',Validators.required),
+    country: new FormControl('',Validators.required),
+  });
+
+  fileTypeWithName: any;
+
+  encrpt: any;
+  decrpt: string;
+  value: any;
+  obj1 = [];
+  // tslint:disable-next-line:no-inferrable-types
+  divshow: boolean  = false;
+  obj5: any[];
+  ClientNameClickid: any;
+  currentPage: number=1;
+
+
+
+
+  count: any;
+  type: any[];
+  term: any;
+ 
+  client;
+  userId: string;
+  currentpage: any=1;
+  pagesize: any=4;
+  flag: boolean;
+  role: string;
+  ownerDetails: any;
+  totalItems;
+  OwnerId: any;
+  addressArray: any=[];
+  addressArrayid: any;
+  AddressData: any;
+  marked: any;
+  bc: any;
+  totalItemsOwner;
+  currentpageOwner=1;
+  amEmail: any;
+  contactOwnerId: any;
+  clientinterviewList;
+  clientinterviewListById: any;
+ 
+  constructor(private formBuilder: FormBuilder, private toaster: ToastrManager, private router: Router, 
+    private addclientservice: SuperadminserviceService, private activer: ActivatedRoute) 
+    {
+      localStorage.setItem("count","0"); 
+       this.activer.queryParams.subscribe(params => {
+      this.ClientNameClickid = params['val'];
+       console.log(this.ClientNameClickid, "ContactNameClickid");
+    });
+}
+setPageClient(pages: number): void {
+  this.currentPageClient = pages;
+  this.clientPostData();
+}
+setPageOwner(pageNo: number): void {
+  this.currentpageOwner = pageNo;
+ 
+}
+
+ngOnInit() {
+    this.userToken = sessionStorage.getItem('Token');
+    this.RegId = sessionStorage.getItem('registrationId');
+    this.registrationId = sessionStorage.getItem('registrationId');
+    this.userId = sessionStorage.getItem('userId');
+    this.role=sessionStorage.getItem('role');
+    console.log(this.registerForm, 'form data');
+    // this.getClientList();
+ 
+     this.getContactTypeAddress();
+    this.getContactSource();
+    this.clientPostData();
+    this.getClientById();
+    this.getUsers();
+   
+  }
+  get f() {
+    return this.registerForm.controls;
+  }
+  getClientById() {
+    this.addclientservice.getClientById(this.ClientNameClickid, this.RegId).subscribe(res => {
+      this.clientinterviewList = res;
+      this.clientinterviewListById = this.clientinterviewList.result;
+      console.log(this.clientinterviewListById, 'clientcontactByid----');
+      this.registerForm.controls.clientName.setValue(this.clientinterviewListById.client.clientName);
+      console.log(this.clientinterviewListById.client.clientName, "sariiiii");
+    });
+  }
+ getContactTypeAddress() {
+    this.addclientservice.getContactTypeAddress().subscribe(resp => {
+      console.log(resp);
+      this.AddressList = resp;
+      this.AddressData = this.AddressList.result;
+      // this.registerForm.controls.addressType.setValue(this.AddressList.result)
+      console.log( this.AddressData, 'this from responce Address')
+    });
+  }
+  UserRoleAmById() {
+    this.addclientservice.getUserById(this.contactOwnerId, this.registrationId).subscribe(resp => {
+      this.ownerList = resp;
+      this.Owner = this.ownerList.result;
+      this.amEmail = this.Owner.email;
+      this.UserRoleAmById();
+      this.registerForm.controls.contactOwner.setValue(this.amEmail);
+    });
+  }
+
+  clientPostData() {
+     var post = {
+      pageNum: this.currentPageClient,
+      pageSize: this.pageSize,
+      registrationId: this.registrationId,
+      flag:true
+    }
+    this.addclientservice.getClientList(post).subscribe(resp => {
+      console.log(resp, "client data---------");
+      this.client = resp;
+      this.totalClientItems = this.client.totalRecords;
+      console.log("total client records",this.totalClientItems);
+      this.clientDetails = this.client.result;
+      console.log(this.clientDetails, "post clientdata---------")
+     })
+  }
+//   getOwnerUserListById() {
+//   this.role='am';
+//   this.flag=true;
+//   this.RegId = sessionStorage.getItem('registrationId');
+//   this.addclientservice.getOwnerUserListById(this.registrationId).subscribe(resp=> {
+//   // this.ownerList = resp;
+//   console.log(resp, 'ownerlist');
+//   this.Owner = resp;
+//   this.ownerDetails = this.Owner.result;
+//   this.totalItems=this.Owner.totalRecords;
+//   })
+
+  
+
+
+// }
+owwnerlist;
+resp;
+getUsers() {
+  let postdata = {
+    pageNo: this.currentPage,
+    pageSize: this.pageSize,
+    flag: true,
+    registrationId: this.RegId,
+    role:this.role
+    
+  }
+  this.addclientservice.getuserList(postdata).subscribe((resp: any) => {
+
+
+    this.ownerDetails=resp.result.list;
+    console.log(this.owwnerlist,"gggggggggg")
+  })
+
+
+}
+
+getContactSource() {
+    this.addclientservice.getContactSource().subscribe(resp => {
+      console.log(resp);
+      this.SourceList = resp;
+      this.source = this.SourceList.result;
+      console.log(this.source, "sourcelist");
+    })
+  }
+getContactFile(contact) {
+    this.files = contact.target.files;
+    var reader = new FileReader();
+    reader.onload = this.handleReaderLoad.bind(this);
+    reader.readAsBinaryString(this.files[0]);
+  }
+handleReaderLoad(readerEvt) {
+    var binaryString = readerEvt.target.result;
+    this.filestringContact = btoa(binaryString);
+    console.log(this.filestringContact, "file string");
+    // Converting binary string data.
+  }
+submit() 
+  {
+      this.submitted = true;
+      var source = this.registerForm.value.source
+      for (var i = 0; i < this.source.length; i++) {
+        if (this.source[i].sourceName == source) {
+          this.sourceName = this.source[i].sourceName;
+          this.sourceId = this.source[i].id;
+
+        }
+      }
+      var client = this.registerForm.value.clientName;
+      for (let i = 0; i < this.clientDetails.length; i++) {
+        if (this.clientDetails[i].clientName == client) {
+          this.selectedClient = this.clientDetails[i].id;
+          this.selectedCientName = this.clientDetails[i].clientName;
+          console.log(this.selectedClient, "this is id by clicking client");
+        }
+      }
+      var contactowner = this.selectedUsername;
+      for (let i = 0; i < this.ownerDetails.length; i++) {
+        if (this.ownerDetails[i].email == contactowner) {
+          this.OwnerId = this.ownerDetails[i].id;
+          break;
+        }
+      }
+let data = {
+        contact: {
+          createdBy:this.userId,
+          firstName: this.registerForm.value.firstName,
+          lastName: this.registerForm.value.lastName,
+          domain: this.registerForm.value.domain,
+          mobile: this.registerForm.value.mobile,
+          email: this.registerForm.value.email,
+          client:
+          {
+            id: this.selectedClient
+          },
+          phone: this.registerForm.value.phone,
+          jobTitle: this.registerForm.value.jobTitle,
+          twitterId: this.registerForm.value.twitterId,
+          skypeId: this.registerForm.value.skypeId,
+          registrationId: this.RegId,
+          contactOwner: this.OwnerId,
+          isPrimaryContact: this.registerForm.value.primaryContact,
+          emailOptOut: this.registerForm.value.emailoptOut,
+          others: this.filestringContact,
+          description: this.registerForm.value.description,
+          source:
+          {
+            id: this.sourceId
+          }
+        },
+        address: this.addressArray
+      }
+    this.addclientservice.addcontactdata(data).subscribe(res => {
+      console.log(res, 'sucessflly contact is added');
+      this.ClientContact = res;
+      if (this.ClientContact.status === 'StatusSuccess') {
+        this.toaster.successToastr('contact added successfully');
+        this.router.navigate(['/superadmin/contact']);
+        // alert("duplicate record");
+      } else {
+       this.toaster.warningToastr('contact already exist !!', 'Warning!');
+      }
+    });
+  }
+
+onSubmit() {
+    if (this.profileForm.invalid) {
+      console.log(this.profileForm.value, 'registorm data');
+      this.toaster.errorToastr('Please fill the mandatory fields', 'Notification');
+    }
+    else{
+    var data=this.AddressData.find(d=>d.typeOfAddress==this.profileForm.value.typeOfAddress);
+    this.profileForm.controls.typeOfAddress.setValue(data);
+    console.log("jvskbvshdv",this.profileForm.value);
+    this.addressArray.push(this.profileForm.value);
+     console.log("jvskbvshdv",this.addressArray);
+    this.divshow= true;
+    this.profileForm.reset();
+    this.selectedAddress=null;
+  }
+  }
+view() {
+   this.divshow = true;
+  }
+ toggleVisibility(e) {
+    this.marked = e.target.checked;
+  }
+addresstypeselected(){  
+    console.log("address ------>  ",this.AddressData);
+    var selectedData=this.AddressData.find(d=>d.typeOfAddress==this.selectedAddress)
+    this.profileForm.controls.typeOfAddress.setValue(selectedData.typeOfAddress)
+  }
+ delete(e){
+    this.addressArray.splice(e, 1);
+  }
+ editAddress(e,d){
+    console.log("saritha",e,d);
+    this.addressArrayid=d
+    this.profileForm.controls.typeOfAddress.setValue(e.typeOfAddress.typeOfAddress)
+    this.profileForm.controls.addressLane1.setValue(e.addressLane1)
+    this.profileForm.controls.addressLane2.setValue(e.addressLane2)
+    this.profileForm.controls.state.setValue(e.state)
+    this.profileForm.controls.city.setValue(e.city)
+    this.profileForm.controls.country.setValue(e.country)
+    this.profileForm.controls.pincode.setValue(e.pincode)
+  }
+  cancelReq(){
+    this.profileForm.reset()
+    this.profileForm.clearAsyncValidators()
+  }
+updateAddress(){
+    console.log("array",this.addressArray[this.addressArrayid]);
+    var data=this.AddressData.find(d=>d.typeOfAddress==this.profileForm.value.typeOfAddress)
+     console.log(data,"nee")
+      this.addressArray[this.addressArrayid].typeOfAddress=data
+      this.addressArray[this.addressArrayid].addressLane1=this.profileForm.value.addressLane1
+      this.addressArray[this.addressArrayid].addressLane2=this.profileForm.value.addressLane2
+      this.addressArray[this.addressArrayid].state=this.profileForm.value.state
+      this.addressArray[this.addressArrayid].city=this.profileForm.value.city
+      this.addressArray[this.addressArrayid].country=this.profileForm.value.country
+      this.addressArray[this.addressArrayid].pincode=this.profileForm.value.pincode
+     console.log("hello",this.addressArray);
+  }
+}

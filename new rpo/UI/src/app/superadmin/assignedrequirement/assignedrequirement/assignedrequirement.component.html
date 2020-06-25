@@ -1,0 +1,274 @@
+<nav class="navbar  bg-white p-1  bg-white rounded shadow p-3 mb-3 ">
+  <span>
+    <a class="ml-3">
+      <h4>Assigned Requirements</h4>
+    </a>
+  </span>
+</nav>
+
+<!-- search code -->
+<div class="mt-4  col-sm-10  offset-sm-1  shadow p-1 bg-white rounded">
+  <div class="position-relative mt-2 ">
+
+    <div class="form-group dummyclass" *ngIf="dummy">
+      <div class="position-relative  col-sm-8 offset-sm-2  col-md-8 offset-md-2    col-10 offset-1">
+        <i class="fa fa-search  fa-search1 pull-right "></i>
+        <input type="text" class="form-control madhu form-control_search1" id="usr"
+          (click)="dummy=false;asli=true;first=true" placeholder="Search with Requirement Name">
+      </div>
+    </div>
+
+    <div class="form-group dummyinp" *ngIf="asli">
+      <div class=" col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1    position-relative">
+        <i class="fa fa-angle-down pull-right" id="usr" (click)="first=false;second=true"></i>
+        <input type="text" class="form-control_search1" id="usr" value={{searchInput}} (click)="first=true;second=false"
+          [formControl]="searchTerm">
+      </div>
+    </div>
+
+    <div class="first item   col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 p-0 mt1-0 " *ngIf="first"
+      tabindex="0" id="usr">
+      <div class=" p-3 mt-2" id="usr">
+        <strong>Search with Requirement Name</strong>
+        <p *ngIf="showNodata" id="usr">No Data</p>
+        <p *ngIf="search_result" id="usr">Search Result</p>
+        <p *ngIf="search_Previous_result" id="usr">Previous Search Result</p>
+        <ul *ngFor="let p of assignedRequirementDetails" id="usr">
+          <li id="usr" (click)="search_values(p.requirementName)" style="list-style-type: none; cursor: pointer;">
+            {{ p.requirementName }} </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="second item   col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 mt1-0 " *ngIf="second"
+      id="usr">
+      <form id="usr" [formGroup]="serchform" (ngSubmit)="save()">
+        <br>
+        <div class="form-group row" id="usr">
+          <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">Requirement Name</label>
+          <div class="col-sm-10" id="usr">
+            <input id="usr" class="form-control boxcolor" formControlName="requirementName">
+          </div>
+        </div>
+
+        <div class="form-group row" id="usr">
+          <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">Lead Name</label>
+          <div class="col-sm-10" id="usr">
+            <input id="usr" class="form-control boxcolor" formControlName="leadName">
+          </div>
+        </div>
+
+        <div class="form-group row" id="usr">
+          <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">Assigned Date</label>
+          <div class="col-sm-10" id="usr">
+            <input type="date" id="usr" class="form-control boxcolor" formControlName="assignedDate">
+          </div>
+        </div>
+
+
+        <div class="form-group row" id="usr">
+          <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">Client Id</label>
+          <div class="col-sm-10" id="usr">
+            <input id="usr" class="form-control boxcolor" formControlName="clientId">
+          </div>
+        </div>
+
+        <div class="form-group row" id="usr">
+          <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">Client Name</label>
+          <div class="col-sm-10" id="usr">
+            <input id="usr" class="form-control boxcolor" formControlName="clientName">
+          </div>
+        </div>
+
+        <button type="reset" id="usr" class="btn bg-info pull-left">Reset</button>
+        <button type="submit" id="usr" class="btn bg-info pull-right">submit</button>
+
+      </form>
+    </div>
+
+  </div>
+</div>
+<!-- search code end -->
+
+<div class="container-fluid pt-4 ">
+  <div class=" shadow p-3 mb-5  ml-4 mr-4 bg-white rounded ">
+    <abbr title="download Excel"><i class="fa fa-file-excel-o mr-4 mb-1"
+        style="color:green ;font-size: x-large; float:right" (click)="downloadExcel()" aria-hidden="true"></i></abbr>
+
+    <table class="table table responsive bg-white">
+      <thead class="text-center">
+        <tr>
+          <th></th>
+          <th class="font-weight-light">NAME OF THE REQUIREMENT</th>
+          <th class="font-weight-light">REQUIREMENT ID</th>
+          <th class="font-weight-light">RECRUITER</th>
+          <th class="font-weight-light">CLIENT ID</th>
+          <th class="font-weight-light">CLIENT NAME</th>
+          <th class="font-weight-light">ASSIGNED BY</th>
+          <th class="font-weight-light">DATE-TIME</th>
+          <th class="font-weight-light">DELETE</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr
+          *ngFor="let c of assignedRequirementDetails | paginate: { itemsPerPage: pageSize,currentPage: currentPage,totalItems: totalItems }">
+          <td><i class="fa fa-list" data-toggle="modal" data-target="#description"
+              (click)="getRequirementById(c.requirementId,c.clientId,c.assignedBy)"></i></td>
+          <td>{{c.requirementName}}</td>
+          <td>{{c.requirementId}}</td>
+          <td>{{c.recruitersName}}</td>
+          <td>{{c.clientId}}</td>
+          <td>{{c.clientName}}</td>
+          <td>{{c.assignedBy}}</td>
+          <td>{{c.assignedDate|date:"dd-MM-yyyy,hh:mm:ss a"}}</td>
+          <td><i class="fa fa-trash" aria-hidden="true"
+              (click)="deleteAssignedRequirements(c.clientId,c.requirementId,c.recruiterId)"></i></td>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <div class="col-xs-12 col-12 text-right">
+        <pagination-controls (pageChange)="setPage($event)"></pagination-controls>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- description modal -->
+<div class="modal right fade" id="description" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel2"><b>Name of the Requirement</b> - {{requirementType}}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <nav>
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-Details-tab" data-toggle="tab" href="#nav-Details" role="tab"
+              aria-controls="nav-Details" aria-selected="true">Details</a>
+            <a class="nav-item nav-link" id="nav-Notes-tab" data-toggle="tab" href="#nav-Notes" role="tab"
+              aria-controls="nav-Notes" aria-selected="false">Notes</a>
+          </div>
+        </nav>
+        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-Details" role="tabpanel" aria-labelledby="nav-Details-tab">
+            <div class="container" id="Details">
+              <h5 class="pt-5"><b>Requirement Information</b></h5><br>
+              <table class="paddingBetweenCols">
+                <thead>
+                  <th class="id">RequirementName</th>
+                  <th class="id">RequirementID</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{requirementType}}</td>
+                    <td class="id">{{id}}</td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <th class="id">Client Name</th>
+                  <th class="id">Client ID</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{clientName}}</td>
+                    <td class="id">{{clientId}}</td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <th class="id">Assgned By</th>
+                  <th class="id">Contact Number</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{assignedBy}}</td>
+                    <td class="id">{{phone}}</td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <th class="id">Posting Title</th>
+                  <th class="id">Job Type</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{postingTitle}}</td>
+                    <td class="id">{{jobType}}</td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <th class="id">Start Date</th>
+                  <th class="id">End Date</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{startDate |date:"dd-MM-yyyy"}}</td>
+                    <td class="id">{{endDate |date:"dd-MM-yyyy"}}</td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <th class="id">Experience</th>
+                  <th class="id"></th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{totalExperience}}</td>
+                    <td class="id"></td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <th class="id">minBudget</th>
+                  <th class="id">maxBudget</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id" [ngClass]="{'inputStatus':minBudget == '' || minBudget == null}">{{minBudget}}</td>
+                    <td class="id">{{maxBudget}}</td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <th class="id">Designation</th>
+                  <th class="id">Qualifications</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{designationName}}</td>
+                    <td class="id">{{qualificationName}}</td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <th class="id">Skills</th>
+                  <th class="id">Certificates</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{skillName}}</td>
+                    <td class="id">{{certificationName}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="nav-Notes" role="tabpanel" aria-labelledby="nav-Notes-tab">
+            <div class="container">
+              <h5 class="pt-5"><b>Requirement Notes</b></h5><br>
+              <p>{{isHotComment}}</p>
+            </div>
+            <div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

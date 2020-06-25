@@ -1,0 +1,23 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { QualificationsComponent } from './qualifications/qualifications.component';
+import { RouterModule } from '@angular/router';
+import { routes } from './qualifications.routing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
+
+@NgModule({
+  declarations: [QualificationsComponent],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    FormsModule, 
+    ReactiveFormsModule,
+    NgxPaginationModule
+  ]
+})
+export class QualificationsModule {
+  constructor(){
+    console.log("QualificationsModule");
+  }
+ }

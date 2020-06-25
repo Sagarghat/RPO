@@ -1,0 +1,87 @@
+input[type="number"] 
+{
+  -moz-appearance: textfield;
+}
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type="text"],input[type="date"],
+input[type="file"],
+label[type="text"],
+input[type="number"],
+
+select.form-control {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #979797;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+ 
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="file"]:focus,
+label[type="text"]:focus,
+input[type="number"]:focus,
+select.form-control:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-bottom: 2px solid #1f537e;
+}
+ 
+.form-control::-webkit-input-placeholder,
+input[type=date].form-control::-webkit-datetime-edit {
+    color: rgb(145, 143, 143);
+  }
+ 
+  span {
+    position: relative;
+    overflow: hidden;
+  }
+  .i {
+    position: absolute;
+    font-size: 50px;
+    opacity: 0;
+    right: 0;
+    top: 0;
+  }
+ 
+  .btn-file-upload{
+    width: 100%;
+    position:relative;
+  }
+   
+  .btn-file-upload:after{
+   content:  attr(value);
+   position: absolute;
+   top: 0;
+   left: 0;
+   bottom: 0;    
+   width: 34%;
+   background:white;
+   color: black;
+   /* border-radius: 2px; */
+   text-align: center;
+   font-size: 12px;
+   line-height: 2;
+  }
+
+  .star,.valid{
+    color: red;
+  }
+  
+    
+.control-label.required:after{
+  color:#d00;content:"*";
+  position:absolute;
+  margin-left:5px;top:7px;
+}
+
+input[type="radio"],
+input[type="checkbox"]{
+  margin: 0 20px 0 20px;
+}

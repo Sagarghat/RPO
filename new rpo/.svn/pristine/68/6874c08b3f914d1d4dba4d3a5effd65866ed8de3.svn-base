@@ -1,0 +1,104 @@
+<nav class="navbar  bg-white p-1  bg-white rounded shadow p-3 mb-3 ">
+  <span><a class="ml-3">
+      <h3> Users</h3>
+    </a>
+  </span>
+  <button class="btn  btn-white shadow  rounded" (click)="adduser()" routerLink='../adduser'>
+    <i class="fa fa-plus" style="color:cornflowerblue;" aria-hidden="true"></i>
+  </button>
+</nav>
+
+<!-- search code -->
+<div class="mt-4  col-sm-10  offset-sm-1  shadow p-1 bg-white rounded">
+  <div class="position-relative mt-2 ">
+    <div class="form-group dummyclass" *ngIf="dummy">
+      <div class="position-relative  col-sm-8 offset-sm-2  col-md-8 offset-md-2    col-10 offset-1">
+        <i class="fa fa-search  fa-search1 pull-right "></i>
+        <input type="text" class="form-control madhu form-control_search1" id="usr"
+          (click)="dummy=false;asli=true;first=true" placeholder="Search with User Name">
+      </div>
+    </div>
+    <div class="form-group dummyinp" *ngIf="asli">
+      <div class=" col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1    position-relative">
+        <i class="fa fa-angle-down pull-right" id="usr" (click)="first=false;second=true"></i>
+        <input type="text" class="form-control_search1" id="usr" value={{searchInput}} (click)="first=true;second=false"
+          [formControl]="searchTerm">
+      </div>
+    </div>
+    <div class="first item   col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 p-0 mt1-0 " *ngIf="first"
+      tabindex="0" id="usr">
+      <div class=" p-3 mt-2" id="usr">
+        <strong>Search with User Name</strong>
+        <p *ngIf="showNodata" id="usr">No Data</p>
+        <p *ngIf="search_result" id="usr">Search Result</p>
+        <p *ngIf="search_Previous_result" id="usr">Previous Search Result</p>
+        <ul *ngFor="let p of usersData " id="usr">
+          <li id="usr" (click)="search_values(p.fullName)" style="list-style-type: none; cursor: pointer;">
+            {{ p.fullName }} </li>
+        </ul>
+      </div>
+    </div>
+    <div class="second item   col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 mt1-0 " *ngIf="second"
+      id="usr">
+      <form id="usr" [formGroup]="searchform" (ngSubmit)="save()">
+        <br>
+        <div class="form-group row" id="usr">
+          <label for="inputPassword" class="col-sm-2 col-form-label " id="usr">Email</label>
+          <div class="col-sm-10" id="usr">
+            <input id="usr" class="form-control boxcolor" formControlName="email">
+          </div>
+        </div>
+        <div class="form-group row" id="usr">
+          <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">Contact</label>
+          <div class="col-sm-10" id="usr">
+            <input id="usr" class="form-control boxcolor" formControlName="contact">
+          </div>
+        </div>
+        <div class="form-group row" id="usr">
+          <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">Role</label>
+          <div class="col-sm-10" id="usr">
+            <input id="usr" class="form-control boxcolor" formControlName="role">
+          </div>
+        </div>
+        <button type="reset" id="usr" class="btn bg-info pull-left">Reset</button>
+        <button type="submit" id="usr" class="btn bg-info pull-right">submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- search code end -->
+
+<div class="container-fluid pt-4 ">
+  <div class=" shadow p-3 mb-5  ml-4 mr-4 bg-white rounded ">
+    <abbr title="download Excel"><i class="fa fa-file-excel-o mr-4 mb-1"
+        style="color:green ;font-size: x-large; float:right" (click)="downloadExcel()" aria-hidden="true"></i></abbr>
+    <table class="table table-responsive-sm table-responsive-md table-responsive-lg">
+      <thead class="text-center">
+        <tr>
+          <th></th>
+          <th class="font-weight-light">USER NAME</th>
+          <th class="font-weight-light">CONTACT NUMBER</th>
+          <th class="font-weight-light">EMAIL</th>
+          <th class="font-weight-light">ROLE</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr
+          *ngFor="let users of usersData | paginate: { itemsPerPage: pageSize,currentPage: currentPage,totalItems: totalItems }">
+          <td><i class="fa fa-pencil" [routerLink]="['../edituser',users.id]"></i></td>
+          <td>{{users.fullName}} </td>
+          <td>{{users.contactNumber}} </td>
+          <td>{{users.email}} </td>
+          <td>{{users.role}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <div class="col-xs-12 col-12 mt-4">
+        <pagination-controls (pageChange)="setPage($event)"></pagination-controls>
+      </div>
+    </div>
+
+  </div>
+</div>

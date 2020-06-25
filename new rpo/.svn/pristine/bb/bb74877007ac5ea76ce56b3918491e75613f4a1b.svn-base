@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <div class="container">
+    <nav class="navbar navbar-expand-sm navbar-light bg-white">
+      <a class="navbar-brand navbar-header img-Responsive " href="#"><img src="\assets\RecruitExlogo.jpg"
+          width="150px"></a>
+    </nav>
+    <div class="img-background">
+      <img class="d-block w-100 h-40" src=".\assets\template.jpg">
+    </div>
+    <div class="plans-content">
+      <h3 class="mt-5 text-primary">Get Your Plans </h3>
+     
+      <div class="row p-5">
+          <div class="col-sm-4" *ngFor="let p of plans">
+              <div class="container shadow-lg p-3 mb-5 bg-white rounded">
+                  <h3 class="text-center mt-4 mb-4 text-warning">{{p.planType}}</h3>
+                  <h6 class="text-center mt-3"> {{p.noOfEmails}} Emails</h6>
+                  <h6 class="text-center mt-3"> {{p.noOfUsers}} Users</h6>
+                  <h6 class="text-center mt-3"> $ {{p.planType}} </h6>
+                  <div class="text-center mt-5 mb-5">
+                    <button class="btn  rounded-pill mr-3" style="background-color: #428BCA;color: white"
+                      (click)="register(p.planId)">Register</button>
+                    <button type="button" class="btn  rounded-pill w-40 btn-block-md"
+                      style=" background-color: rgb(255, 195, 112); color: white">Buy</button>
+                  </div>
+                 
+                 </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

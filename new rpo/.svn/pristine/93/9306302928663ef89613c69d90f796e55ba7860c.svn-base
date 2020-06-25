@@ -1,0 +1,63 @@
+import { Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+
+
+export const routes: Routes = [
+  {
+    path: '', component: HomeComponent,
+
+    children: [
+      {
+        path: '', children: [
+          { path: '', loadChildren: '../dashboard/dashboard.module#DashboardModule' }
+        ]
+      },
+      {
+        path: 'dashboard', children: [
+          { path: '', loadChildren: '../dashboard/dashboard.module#DashboardModule' }
+        ]
+      },
+      {
+        path: 'user', children: [
+          { path: '', loadChildren: '../user/user.module#UserModule' }
+        ]
+      },
+      {
+        path: 'client', children: [
+          { path: '', loadChildren: '../client/client.module#ClientModule' }
+        ]
+      },
+      {
+        path: 'contact', children: [
+          { path: '', loadChildren: '../contact/contact.module#ContactModule' }
+        ]
+      },
+      {
+        path: 'jobopening', children: [
+          { path: '', loadChildren: '../jobopening/jobopening.module#JobopeningModule' }
+        ]
+      },
+      {
+        path: 'interview', children: [
+          { path: '', loadChildren: '../interview/interview.module#InterviewModule' }
+        ]
+      },
+      {
+        path:'candidate',children:[
+        { path:'', loadChildren: '../candidate/candidate.module#CandidateModule'}
+      ]
+    },
+      {
+        path:'assignedrequirement',children:[
+        { path:'', loadChildren: '../assignedrequirement/assignedrequirement.module#AssignedrequirementModule'}
+      ]
+    },
+    {
+        path:'reports',children:[
+        { path:'', loadChildren: '../reports/reports.module#ReportsModule'}
+      ]
+    }
+    ]
+  }
+
+];

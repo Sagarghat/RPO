@@ -1,0 +1,317 @@
+<nav class="navbar  bg-white p-1  bg-white rounded shadow p-3 mb-3 ">
+  <span><a class="ml-3">
+      <h3>Contact</h3>
+    </a>
+    <div class="collapse" id="navbarToggleExternalContent">
+      <div class="dropdown">
+        <button type="button" class="btn btn-success ml-4">Actions</button>
+        <div class="dropdown-content" *ngFor="let c of contactDetails">
+          <a class="btn btn-sm btn-light" [routerLink]="['../email',contactid]">Send EMail</a>
+        </div>
+      </div>
+    </div>
+  </span>
+  <button class="btn  btn-white shadow  rounded" routerLink='../addcontact'>
+    <i class="fa fa-plus" style="color:cornflowerblue;" aria-hidden="true"></i>
+  </button>
+</nav>
+
+<!-- search code -->
+
+<div class="mt-4  col-sm-10  offset-sm-1  shadow p-1 bg-white rounded">
+  <div class="position-relative mt-2 ">
+    <div class="form-group dummyclass" *ngIf="dummy">
+      <div class="position-relative   col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1">
+        <i class="fa fa-search  fa-search1 pull-right "></i>
+        <input type="text" class="form-control madhu form-control_search2" id="usr"
+          (click)="dummy=false;asli=true;first=true" placeholder="Search with Contact Name">
+      </div>
+    </div>
+    <div class="form-group dummyinp" *ngIf="asli">
+      <div class=" col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1    position-relative">
+        <i class="fa fa-angle-down pull-right" id="usr" (click)="first=false;second=true"></i>
+        <input type="text" class="form-control_search2" id="usr" value={{searchInput}} (click)="first=true;second=false"
+          [formControl]="searchTerm">
+      </div>
+    </div>
+    <div class="first item   col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 p-0 mt1-0 " *ngIf="first"
+      tabindex="0" id="usr">
+      <div class=" p-3 mt-2" id="usr">
+        <p *ngIf="showNodata" id="usr">No Data</p>
+        <p *ngIf="search_result" id="usr">Search Result</p>
+        <p *ngIf="search_Previous_result" id="usr">Previous Search Result</p>
+        <strong>Contact Name</strong>
+        <ul *ngFor="let p of contactDetails" id="usr">
+          <li id="usr" (click)="search_values(p.lastName)" style="list-style-type: none; cursor: pointer;">
+            {{ p.lastName }} </li>
+        </ul>
+      </div>
+    </div>
+    <div class="second item   col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 mt1-0 " *ngIf="second"
+      id="usr">
+      <div class=" p-3  mt-2" id="usr">
+        <form id="usr" [formGroup]="serchform" (ngSubmit)="save()">
+          <div class="form-group row" id="usr">
+            <label for="inputPassword" class="col-sm-3 col-form-label" id="usr">Contact Name</label>
+            <div class="col-sm-9" id="usr">
+              <input id="usr" class="form-control boxcolor" formControlName="contactName">
+            </div>
+          </div>
+
+          <div class="form-group row" id="usr">
+            <label for="inputPassword" class="col-sm-3 col-form-label" id="usr">Phone</label>
+            <div class="col-sm-9" id="usr">
+              <input id="usr" class="form-control boxcolor" formControlName="phone">
+            </div>
+          </div>
+
+          <div class="form-group row" id="usr">
+            <label for="inputPassword" class="col-sm-3 col-form-label" id="usr">Email</label>
+            <div class="col-sm-9" id="usr">
+              <input id="usr" class="form-control boxcolor" formControlName="email">
+            </div>
+          </div>
+          <button type="reset" id="usr" class="btn bg-info pull-left">Reset</button>
+          <button type="submit" id="usr" class="btn bg-info pull-right">submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- search code end -->
+
+<div class="container-fluid pt-4 ">
+  <div class=" shadow p-3 mb-5  ml-4 mr-4 bg-white rounded ">
+    <abbr title="download Excel"><i class="fa fa-file-excel-o mr-4 mb-1"
+        style="color:green ;font-size: x-large; float:right" (click)="downloadExcel()" aria-hidden="true"></i></abbr>
+    <table class="table table-responsive-sm table-responsive-md table-responsive-lg">
+      <thead class="text-center">
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th class="font-weight-light">CONTACT ID</th>
+          <th class="font-weight-light">FIRST NAME</th>
+          <th class="font-weight-light">LAST NAME</th>
+          <th class="font-weight-light">CLIENT NAME</th>
+          <th class="font-weight-light">EMAIL</th>
+          <th class="font-weight-light">JOB TITLE</th>
+          <th class="font-weight-light">MOBILE</th>
+          <th class="font-weight-light">CONTACT OWNER</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr
+          *ngFor="let c of contactDetails | paginate: { itemsPerPage: pageSize,currentPage: currentPage,totalItems: totalItems }">
+          <td><i class="fa fa-pencil" aria-hidden="true" title="Edit" style=" cursor: pointer;"
+              [routerLink]="['../editcontact', c.id]"></i></td>
+          <td><input type="radio" name="foobar" data-toggle="collapse" data-target="#navbarToggleExternalContent"
+              aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation"
+              (click)="getcontactById(c.id)"></td>
+          <td><i class="fa fa-list" style=" cursor: pointer;" title=" Show List" data-toggle="modal"
+              data-target="#description" (click)="getcontactById(c.id)"></i>
+          </td>
+          <td>{{c.id}}</td>
+          <td>{{c.firstName}}</td>
+          <!-- <td class="color" [routerLink]="['../clickContactName', c.id]">{{c.lastName}} </td> -->
+          <td class="color" style=" cursor: pointer;" (click)="clickContactName(c.id)">{{c.lastName}}</td>
+          <td>{{c.clientName}}</td>
+          <td>{{c.email}}</td>
+          <td>{{c.jobTitle}}</td>
+          <td>{{c.mobile}}</td>
+          <td>{{c.contactOwner}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="col-xs-12 col-12 text-right">
+        <pagination-controls (pageChange)="setPage($event)"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- description modal -->
+<div class="modal right fade" id="description" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="myModalLabel2">{{lastName}}</h3><br><br>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <nav>
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-Details-tab" data-toggle="tab" href="#nav-Details" role="tab"
+              aria-controls="nav-Details" aria-selected="true">Details</a>
+            <!-- <a class="nav-item nav-link" id="nav-Notes-tab" data-toggle="tab" href="#nav-Notes" role="tab"
+              aria-controls="nav-Notes" aria-selected="false">Notes</a> -->
+            <a class="nav-item nav-link" id="nav-Attachments-tab" data-toggle="tab" href="#nav-Attachments" role="tab"
+              aria-controls="nav-Attachments" aria-selected="false">Attachments</a>
+          </div>
+        </nav>
+        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-Details" role="tabpanel" aria-labelledby="nav-Details-tab">
+            <div class="container" id="Details">
+              <h5 class="pt-5"><b>Contact Information</b></h5><br><br>
+              <table class="paddingBetweenCols">
+                <thead>
+                  <th class="id">First Name</th>&nbsp;
+                  <th class="id">Last Name</th>
+                </thead>
+                <tbody><br>
+                  <tr>
+                    <td class="id">{{firstName}}</td>&nbsp;
+                    <td class="id">{{lastName}}</td>
+                  </tr>
+                </tbody><br>
+                <thead>
+                  <th class="id">Domain</th>&nbsp;
+                  <th class="id">Client Name</th>
+                </thead>
+                <tbody><br>
+                  <tr>
+                    <td class="id">{{domain}}</td>&nbsp;
+                    <td class="id">{{clientName}}</td>
+                  </tr>
+                </tbody><br>
+
+                <thead>
+                  <th class="id">EmailId</th>&nbsp;
+                  <th class="id">Mobile</th>
+                </thead>
+                <tbody><br>
+                  <tr>
+                    <td class="id">{{email}}</td>&nbsp;
+                    <td class="id">{{mobile}}</td>
+                  </tr>
+                </tbody><br>
+
+                <thead>
+                  <th class="id">Job Title</th>&nbsp;
+                  <th class="id">Phone</th>
+                </thead>
+                <tbody><br>
+                  <tr>
+                    <td class="id">{{jobTitle}}</td>&nbsp;
+                    <td class="id">{{phone}}</td>
+                  </tr>
+                </tbody><br>
+
+                <thead>
+                  <th class="id">SkypeId</th>&nbsp;
+                  <th class="id">TwitterId</th>
+                </thead>
+                <tbody><br>
+                  <tr>
+                    <td class="id">{{skypeId}}</td>&nbsp;
+                    <td class="id">{{twitterId}}</td>
+                  </tr>
+                </tbody><br>
+                <h5><b>Address Information</b></h5><br>
+                <thead>
+                  <th class="id">Street1</th>&nbsp;
+                  <th class="id">Street2</th>
+                </thead>
+                <tbody><br>
+                  <tr>
+                    <td class="id">{{addressLane1}}</td>&nbsp;
+                    <td class="id">{{addressLane2}}</td>
+                  </tr>
+                </tbody><br>
+                <thead>
+                  <th class="id">Country</th>&nbsp;
+                  <th class="id">State</th>
+                </thead>
+                <tbody><br>
+                  <tr>
+                    <td class="id">{{country}}</td>&nbsp;
+                    <td class="id">{{state}}</td>
+                  </tr>
+                </tbody><br>
+                <thead>
+                  <th class="id">Pincode</th>&nbsp;
+                  <th class="id">City</th>
+                </thead>
+                <tbody><br>
+                  <tr>
+                    <td class="id">{{pincode}}</td>&nbsp;
+                    <td class="id">{{city}}</td>
+                  </tr>
+                </tbody><br>
+                <h5><b>Owner Information</b></h5><br>
+                <thead>
+                  <th class="id">Source</th>&nbsp;
+                </thead>
+                <tbody><br>
+                  <tr>
+                    <td class="id">{{source}}</td>&nbsp;
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- <div class="tab-pane fade" id="nav-Notes" role="tabpanel" aria-labelledby="nav-Notes-tab"> 
+
+           <table width="100%" class="table ">
+              <tbody>
+                  <tr *ngFor="let c of getdetails">
+                      <td>
+                          <div class="italic" style="margin-top:15px; margin-bottom:15px;">
+                              <b>{{c.noteData}}</b>
+                              <i class="fa fa-trash fa-lg" aria-hidden="true" data-toggle="tooltip"
+                                  title="delete note" (click)="ContactNotedelete(c.id)"
+                                  style="float: right; "></i>
+                          </div>
+                          <div class="italic" style="margin-top:15px; margin-bottom:15px;">
+                              {{c.noteType}}
+                          </div>
+                      </td>
+                  </tr>
+              </tbody>
+              </table>
+
+             <form [formGroup]="noteForm" (ngSubmit)="contactnotesaveee()">
+                <table width="5%" class="table ml-4">
+                    <tbody>
+                        <div class="jumbotron col-sm-9">
+                            <div *ngIf="!status">
+                                <p>Note Type</p>
+                                <select name="cars" class="col-4 " formControlName="noteSelect">
+                                    <option value="Call" class="form-control">Call</option>
+                                    <option value="Meeting" class="form-control">Meeting</option>
+                                    <option value="Notes" class="form-control">Notes</option>
+                                    <option value="Others" class="form-control">Others</option>
+                                </select>
+                                <textarea class="form-control" rows="2" id="comment" formControlName="note"> </textarea>
+                            </div>
+                            <div *ngIf="status">
+                                <textarea class="form-control" rows="2" (click)="ShowHideClick()"></textarea>
+                            </div><br>
+                            <button type="submit" class="btn btn-primary btn-sm"
+                                style="float: right;">Save</button>&nbsp;&nbsp;
+                            <button type="reset" class="btn btn-success btn-sm" style="float: right;">Cancel</button>
+                        </div>
+                    </tbody>
+                </table>
+            </form> 
+           </div>  -->
+
+          <div class="tab-pane fade" id="nav-Attachments" role="tabpanel" aria-labelledby="nav-Attachments-tab">
+            <div class="d-flex justify-content-center pt-5">
+              <abbr title="Download pdf"><i class="fa fa-file-pdf-o" style="color:red" (click)="download()"
+                  aria-hidden="true"></i></abbr>
+              <div>
+                <pdf-viewer [src]="'data:application/*;base64,'+cntactresumee" [original-size]="true">
+                </pdf-viewer>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

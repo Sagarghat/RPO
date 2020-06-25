@@ -1,0 +1,633 @@
+<div class="container-fluid pt-5 pb-5 ">
+  <div class="example z-depth-1  bg-white ml-3 mr-3 shadow p-3 mb-5 bg-white rounded">
+
+    <form [formGroup]="registerForm" (ngSubmit)="submit()">
+      <div class="container-fluid">
+        <br>
+        <h3>Contact /Add </h3>
+        <br>
+        <h5>Contact Information</h5>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">First Name:<span
+                    class="star">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" onkeypress="return  /[a-z]/i.test(event.key)" placeholder="Enter First Name"
+                  name="firstName" class="form-control" formControlName="firstName">
+                <div *ngIf="f.firstName.touched && f.firstName.invalid">
+                  <p *ngIf="f.firstName.errors.required" class="valid" style="color: red;"> FirstName is required</p>
+                  <!-- <p *ngIf="f.firstName.errors.pattern" class="valid" style="color: red;">Please enter only alphabets</p> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Last Name:<span
+                    class="star">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" onkeypress="return  /[a-z]/i.test(event.key)" placeholder="Enter Last Name"
+                  name="lastName" class="form-control" formControlName="lastName">
+                <div *ngIf="f.lastName.touched && f.lastName.invalid">
+                  <p *ngIf="f.lastName.errors.required" class="valid" style="color: red;">LastName is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Domain:<span
+                    class="star">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="domain" class="form-control" placeholder="Enter Domain"
+                  formControlName="domain">
+                <div *ngIf="f.domain.touched && f.domain.invalid">
+                  <p *ngIf="f.domain.errors.required" class="valid" style="color: red;"> Domain is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Client Name:<span
+                    class="star">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="clientName" class="form-control" formControlName="clientName"
+                  placeholder="Enter Client Name" [(ngModel)]="selectedclient" data-toggle="modal"
+                  data-target="#clientName">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;" data-toggle="modal"
+                  data-target="#clientName"> <i class="fa fa-users" aria-hidden="true" data-toggle="tooltip"
+                    title="show options"></i></span>
+                <div *ngIf="f.clientName.touched && f.clientName.invalid">
+                  <p *ngIf="f.clientName.errors.required" class="valid" style="color: red;"> ClientName is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Email Id:<span
+                    class="star">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="email" class="form-control" id="email" formControlName="email"
+                  placeholder="Enter EmailId">
+                <div *ngIf="f.email.touched && f.email.invalid">
+                  <p *ngIf="f.email.errors.required" class="valid" style="color: red;"> Email is required</p>
+                  <p *ngIf="f.email.errors.email" class="valid" style="color: red;">Enter valid email</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">mobile:<span
+                    class="star">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="number" name="mobile" class="form-control" formControlName="mobile"
+                  placeholder="Enter Mobile Number">
+                <div *ngIf="f.mobile.touched && f.mobile.invalid">
+                  <p *ngIf="f.mobile.errors.required" class="valid" style="color: red;">Mobile Number is required</p>
+                  <p *ngIf="f.mobile.errors.pattern" class="valid" style="color: red;">Please enter valid number</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Job Title:<span class="star">*
+                  </span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="jobTitle" class="form-control" id="jobTitleid" formControlName="jobTitle"
+                  placeholder="Enter Job Title">
+                <div *ngIf="f.jobTitle.touched && f.jobTitle.invalid">
+                  <p *ngIf="f.jobTitle.errors.required" class="valid" style="color: red;"> JobTitle is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Phone:" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="number" name="phone" class="form-control" id="phone" formControlName="phone"
+                  placeholder="Enter Phone Number">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Skype Id:" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" class="form-control" formControlName="skypeId" placeholder="Enter SkypeId">
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" value="Twitter Id:" style=" border-bottom: 0px;" readonly>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" class="form-control" formControlName="twitterId" placeholder="Enter TwitterId">
+              </div>
+            </div>
+          </div>
+        </div><br>
+
+        <h5>Address Information</h5>
+
+        <form [formGroup]="profileForm">
+          <div class="row">
+            <div class="col-sm-5 ml-5">
+              <div class="row p-0">
+                <div class="col-sm-4 p-0 my-2">
+                  <label type="text" class="form-control" for="disabled" style=" border-bottom: 0px;">Address Type<span
+                      class="star">*</span></label>
+                </div>
+                <div class=" col-sm-7 p-0 my-2">
+                  <input type="text" class="form-control" formControlName="typeOfAddress"
+                    placeholder="Select Address Type "  data-toggle="modal"
+                    data-target="#TypeAddress"  [(ngModel)]="selectedAddress">
+                   <div *ngIf="f.typeOfAddress.touched && f.typeOfAddress.invalid">
+                      <p *ngIf="f.typeOfAddress.errors.required" class="valid" style="color: red;">Address Type
+                          is required</p>
+                  </div>
+                  <span class="d-inline float-right" style="margin-top: -1.6rem;" data-toggle="modal"
+                    data-target="#TypeAddress"> <i class="fa fa-money"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-5 ml-5">
+              <div class="row p-0">
+                <div class="col-sm-4 p-0 my-2">
+                  <input type="text" class="form-control" disabled value="Street1" style=" border-bottom: 0px;">
+                </div>
+                <div class=" col-sm-7 p-0 my-2">
+                  <input type="text" class="form-control" placeholder="Enter Street" formControlName="addressLane1">
+                   <div *ngIf="f.addressLane1.touched && f.addressLane1.invalid">
+                    <p *ngIf="f.addressLane1.errors.required" class="valid" style="color: red;">Street1 is required</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-5 ml-5">
+              <div class="row p-0">
+                <div class="col-sm-4 p-0 my-2">
+                  <input type="text" class="form-control" disabled value="Street2" style=" border-bottom: 0px;">
+                </div>
+                <div class=" col-sm-7  p-0 my-2">
+                  <input type="text" class="form-control" placeholder="Enter Street" formControlName="addressLane2">
+                  <div *ngIf="f.addressLane2.touched && f.addressLane2.invalid">
+                    <p *ngIf="f.addressLane2.errors.required" class="valid" style="color: red;">Street2 is
+                         required</p>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-5 ml-5">
+              <div class="row p-0">
+                <div class="col-sm-4 p-0 my-2">
+                  <input type="text" class="form-control" disabled value="State" style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0 my-2">
+                  <input type="text" class="form-control" placeholder="Enter State" formControlName="state">
+                  <div *ngIf="f.state.touched && f.state.invalid">
+                    <p *ngIf="f.state.errors.required" class="valid" style="color: red;">State
+                        is required</p>
+                </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-5 ml-5">
+              <div class="row p-0">
+                <div class="col-sm-4 p-0 my-2">
+                  <input type="text" class="form-control" disabled value="Pincode" style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0 my-2">
+                  <input type="number" class="form-control" placeholder="Enter Pincode" formControlName="pincode">
+                  <div *ngIf="f.pincode.touched && f.pincode.invalid">
+                    <p *ngIf="f.pincode.errors.required" class="valid" style="color: red;">Pincode
+                        is required</p>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-5 ml-5">
+              <div class="row p-0">
+                <div class="col-sm-4 p-0 my-2">
+                  <input type="text" class="form-control" disabled value="city" style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0 my-2">
+                  <input type="text" class="form-control" placeholder="Enter City" formControlName="city">
+                  <div *ngIf="f.city.touched && f.city.invalid">
+                    <p *ngIf="f.city.errors.required" class="valid" style="color: red;">City
+                        is required</p>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-5 ml-5">
+              <div class="row p-0">
+                <div class="col-sm-4 p-0 my-2">
+                  <input type="text" class="form-control" disabled value="Country" style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0 my-2">
+                  <input type="text" class="form-control" placeholder="Enter Country" formControlName="country">
+                  <div *ngIf="f.country.touched && f.country.invalid">
+                    <p *ngIf="f.country.errors.required" class="valid" style="color: red;">Country is
+                        is required</p>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button *ngIf="!isEdit"  class="btn btn-primary btn-sm float-right" [disabled]="!profileForm.valid"
+          (click)="onSubmit()" >
+          Add Address
+      </button>
+      <button *ngIf="isEdit" class="btn btn-primary btn-sm float-right m-2" 
+          (click)="cancelReq();isEdit=!isEdit">
+         Cancel
+      </button>
+      <button *ngIf="isEdit" class="btn btn-primary btn-sm float-right m-2" [disabled]="!profileForm.valid"
+          (click)="updateAddress();isEdit=!isEdit;profileForm.reset()">
+         Update Address
+      </button>
+        </form>
+
+        <div class="container-fluid bg-white  mt-5" *ngIf="divshow" style="margin-top: 30px;">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Address Type</th>
+                  <th scope="col">Street1</th>
+                  <th scope="col">Street2</th>
+                  <th scope="col">State</th>
+                  <th scope="col">Pincode</th>
+                  <th scope="col">City</th>
+                  <th scope="col">Country</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let p of addressArray; let i=index">
+                  <td>{{p.typeOfAddress.typeOfAddress }}</td>
+                  <td> {{p.addressLane1}} </td>
+                  <td> {{p.addressLane2 }}</td>
+                  <td> {{p.state }}</td>
+                  <td> {{p.pincode }}</td>
+                  <td> {{p.city }}</td>
+                  <td> {{p.country }}</td>
+                  <td><i class="fa fa-edit" style="font-size:24px" (click)="editAddress(p,i);isEdit=!isEdit"></i></td>
+                  <td><i class="fa fa-trash" style="font-size:24px" (click)="delete(i)"></i></td>
+                </tr>
+                <tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+     <br>
+        <h5>Other Information</h5>
+
+        <div class="row">
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Source:<span
+                    class="star">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="source" class="form-control" formControlName="source"
+                  placeholder="Enter Source" [(ngModel)]="selectedSource" data-toggle="modal" data-target="#souceModal">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;" data-toggle="modal"
+                  data-target="#souceModal">
+                  <i class="fa fa-users" aria-hidden="true" data-toggle="tooltip" title="show options"></i></span>
+                <div *ngIf="f.source.touched && f.source.invalid">
+                  <p *ngIf="f.source.errors.required" class="valid" style="color: red;">Source is required
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Contact Owner:<span
+                    class="star">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="contactOwnername" class="form-control" data-toggle="modal"
+                  data-target="#basicExampleModal1" formControlName="contactOwner" placeholder="Enter ContactOwner"
+                  [(ngModel)]="selectedUsername">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;" data-toggle="modal"
+                  data-target="#basicExampleModal1">
+                  <i class="fa fa-users" aria-hidden="true" data-toggle="tooltip" title="show options"></i></span>
+                <div *ngIf="f.contactOwner.touched && f.contactOwner.invalid">
+                  <p *ngIf="f.contactOwner.errors.required" class="valid" style="color: red;">ContactOwner is required
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Is primary contact:"
+                  style=" border-bottom: 0px;">
+              </div>
+              <div class="col-md-2 my-3">
+                <input type="checkbox" name="primaryContact" formControlName="primaryContact">
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Email Opt Out:" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-md-2 my-3">
+                <input type="checkbox" name="emailoptOut" formControlName="emailoptOut">
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+
+        <h5>Description Information</h5><br>
+
+        <div class="row">
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Description:" style=" border-bottom: 0px;">
+              </div>
+              <div class="form-group col-sm-7 p-0">
+                <textarea class="form-control" id="comment" formControlName="description"></textarea>
+              </div>
+            </div>
+          </div>
+        </div><br>
+
+        <h5>Attachment Information</h5><br>
+
+        <div class="row">
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Others:</label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <!-- <input type="text" name="browse" class="form-control" formControlName="browse"> -->
+                <input type="file" class="btn-file-upload form-control" value="Browser" formControlName="browse" ngModel
+                  (change)="getContactFile($event)" />
+                <!-- <div *ngIf="f.browse.touched && f.browse.invalid">
+                    <p *ngIf="f.browse.errors.required" class="valid" style="color: red;">browse is required
+                    </p>
+                  </div> -->
+              </div>
+            </div>
+          </div>
+        </div><br>
+
+        <button type="button" class="btn btn-secondary ml-2" routerLink="/superadmin/contact">Cancel</button>
+        <button type="submit" class="btn btn-success ml-2" style="float:right">Submit</button>
+        <button type="reset" class="btn btn-success" style="float:right">Reset</button>
+      </div>
+    </form>
+   </div>
+</div>
+
+<!-- SouceModal -->
+<div class="modal fade " id="souceModal" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Source: </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fa fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <thead>
+            <th></th>
+            <th>Source Name</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of source">
+              <td> <input class="form-check-input" type="radio" value="{{s.sourceName}}" [(ngModel)]="selectedSource">
+              </td>
+              <td> {{s.sourceName}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-sm btn-primary ml-3" style="float: right;"
+          data-dismiss="modal">Savechanges</button>
+        <button type="button" class="btn btn-sm btn-success" style="float: right;" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- contact owner modal -->
+<div class="modal fade" id="basicExampleModal1" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Contact Owner: </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fa fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <thead>
+            <th></th>
+            <th>Owner Name</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let owner of ownerDetails | paginate: { itemsPerPage: pageSize,currentPage: currentpageOwner,totalItems: totalItems }">
+              <td>
+                <input class="form-check-input" type="radio" value="{{owner.email}}" [(ngModel)]="selectedUsername">
+              </td>
+              <td>{{owner.email}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-xs-12 col-12 mt-4">
+            <pagination-controls (pageChange)="setPageOwner($event)"></pagination-controls>
+          </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-primary ml-3" style="float: right;"
+          data-dismiss="modal">Savechanges</button>
+        <button type="button" class="btn btn-sm btn-success" style="float: right;" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AddressType Modal -->
+<div class="modal fade" id="TypeAddress" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="TypeAddress" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Address Type: </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fa fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <thead>
+            <th></th>
+            <th>TypeOfAddress</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let address of AddressData | paginate: {id:'test2', itemsPerPage: pageSize,currentPage: currentPageClient,totalItems: totalClientItems }">
+              <td> <input class="form-check-input" type="radio" name="foobar"  value="{{address.typeOfAddress}}"
+                  [(ngModel)]="selectedAddress">
+
+              </td>
+              <td> {{address.typeOfAddress}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-xs-12 col-12">
+              <pagination-controls id="test2" (pageChange)="setPageClient($event)"></pagination-controls>
+          </div>
+      </div>
+        <button type="button" class="btn btn-sm btn-primary ml-3" style="float: right;"
+          data-dismiss="modal"   (click)="addresstypeselected()">Savechanges</button>
+        <button type="button" class="btn btn-sm btn-success" style="float: right;" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Client Name  Modal-->
+<div class="modal fade " id="clientName" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Client Name:</h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fa fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Client Name</th>
+              <th>Contact Number</th>
+              <th>Client Owner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let client1 of clientDetails | paginate: {id:'test2', itemsPerPage: pageSize,currentPage: currentPageClient,totalItems: totalClientItems }">
+              <td>
+                <input type="radio" [value]="client1.clientName" [(ngModel)]="selectedclient">
+              </td>
+              <td>{{client1.clientName}}</td>
+              <td>{{client1.phone}}</td>
+              <td>{{client1.amName}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-xs-12 col-12">
+            <pagination-controls id="test2" (pageChange)="setPageClient($event)"></pagination-controls>
+          </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-primary ml-3" style="float: right;"
+          data-dismiss="modal">Savechanges</button>
+        <button type="button" class="btn btn-sm btn-success" style="float: right;" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

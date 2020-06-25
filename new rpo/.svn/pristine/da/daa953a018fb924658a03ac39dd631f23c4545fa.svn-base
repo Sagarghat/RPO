@@ -1,0 +1,36 @@
+
+
+<div class="wrapper ">
+    <div id="formContent">
+        <div class="first">
+            <img src="\assets\RecruitExlogo.jpg" id="icon" alt="logo" />
+        </div>
+        <h2 class="active"> Sign In </h2>
+      
+         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <label class="label_style">
+                        
+                    <input type="text" id="login" class="second" formControlName="username"  placeholder="Email">
+                    <!-- <span class="span_style"> Email</span> -->
+                    <p  style="margin-top: -40px;  margin-left: -212px;"><i class="fa fa-user  fa-2x" aria-hidden="true"  style="font-size: 1.4em;"></i></p>
+              </label>
+              <label  class="label_style">
+                    <input  type="password"  id="password" class=" third"    formControlName="password"  placeholder="Password">
+                    <!-- <span class="span_style">Password</span> -->
+                    <p  style="margin-top: -40px;  margin-left: -212px;"><i class="fa fa-key  fa-2x" aria-hidden="true"  style="font-size: 1.4em;"></i></p>
+              </label>
+              <label  class="label_style">
+                    <input type="text" id="domain" class=" third"    formControlName="domain"  placeholder="Domain">
+                    <!-- <span class="span_style">Domain</span> -->
+                    <p  style="margin-top: -40px;  margin-left: -212px;"><i class="fa fa-briefcase  fa-2x" aria-hidden="true"  style="font-size: 1.4em;"></i></p>
+              </label>
+
+            <button type="submit"  class="fourth" value="Log In" > Log In</button>
+        </form>
+        <div id="formFooter">
+            <a class="underlineHover" routerLink="/register">SignUp</a>
+            <hr style="border: 2px  #eafbea;" />
+            <a class="underlineHover" href="#">Forgot Password? </a>
+        </div>
+    </div>
+</div>

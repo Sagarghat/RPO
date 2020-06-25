@@ -1,0 +1,125 @@
+<nav class="navbar  bg-white p-1  bg-white rounded shadow p-3 mb-3 ">
+    <span>
+      <a class="ml-3">
+        <h4>Reports</h4>
+      </a>
+    </span>
+  </nav>
+  
+  <div class="mt-4  col-sm-10  offset-sm-1  shadow p-1 bg-white rounded">
+    <div class="position-relative mt-2 ">
+  
+      <div class="form-group dummyclass" *ngIf="dummy">
+        <div class="position-relative  col-sm-8 offset-sm-2  col-md-8 offset-md-2    col-10 offset-1">
+          <i class="fa fa-search  fa-search1 pull-right "></i>
+          <input type="text" class="form-control madhu form-control_search1" id="usr"
+            (click)="dummy=false;asli=true;first=true" placeholder="Search with Requirement Name">
+        </div>
+      </div>
+  
+      <div class="form-group dummyinp" *ngIf="asli">
+        <div class=" col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1    position-relative">
+          <i class="fa fa-angle-down pull-right" id="usr" (click)="first=false;second=true"></i>
+          <input type="text" class="form-control_search1" id="usr" value={{searchInput}} (click)="first=true;second=false"
+            [formControl]="searchTerm">
+        </div>
+      </div>
+  
+      <div class="first item   col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 p-0 mt1-0 " *ngIf="first"
+        tabindex="0" id="usr">
+        <div class=" p-3 mt-2" id="usr">
+          <strong>Search with Job Title</strong>
+          <p *ngIf="showNodata" id="usr">No Data</p>
+          <p *ngIf="search_result" id="usr">Search Result</p>
+          <p *ngIf="search_Previous_result" id="usr">Previous Search Result</p>
+          <ul *ngFor="let p of profileDetails " id="usr">
+            <li id="usr" (click)="search_values(p.nameOfRequirement)" style="list-style-type: none; cursor: pointer;">
+              {{ p.nameOfRequirement }} </li>
+          </ul>
+        </div>
+      </div>
+  
+      <div class="second item   col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 mt1-0 " *ngIf="second"
+        id="usr">
+        <form id="usr" [formGroup]="serchform" (ngSubmit)="save()">
+  
+  <br>
+  
+          <div class="form-group row" id="usr">
+            <label for="inputPassword" class="col-sm-2 col-form-label " id="usr">Id</label>
+            <div class="col-sm-10" id="usr">
+              <input id="usr" class="form-control boxcolor" formControlName="id">
+            </div>
+          </div>
+  
+          <div class="form-group row" id="usr">
+            <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">Status</label>
+            <div class="col-sm-10" id="usr">
+              <input id="usr" class="form-control boxcolor" formControlName="requirementStatus">
+            </div>
+          </div>
+          <!-- <div class="form-group row" id="usr">
+            <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">Mark Comment</label>
+            <div class="col-sm-10" id="usr">[ngClass]="{'isHotcomment':isHotcomment == 1,'checkbox':isHotcomment == 0}"/>
+              <input id="usr" class="form-control boxcolor" formControlName="isHot" *ngIf="isHot!=0">
+            </div>
+          </div> -->
+          <div class="form-group row" id="usr">
+            <label for="inputPassword" class="col-sm-2 col-form-label" id="usr"> Comment</label>
+            <div class="col-sm-10" id="usr">
+             <input id="usr" formControlName="isHotcomment" type="checkbox"  (click)="addprop1($event)"/>   
+        </div>
+      </div>
+  
+          <div class="form-group row" id="usr">
+            <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">AM Name</label>
+            <div class="col-sm-10" id="usr">
+              <input id="usr" class="form-control boxcolor" formControlName="amName">
+            </div>
+          </div>
+  
+  
+          <div class="form-group row" id="usr">
+            <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">Start Date</label>
+            <div class="col-sm-10" id="usr">
+              <input type="date" id="usr" class="form-control boxcolor " formControlName="reqstartDate">
+            </div>
+          </div>
+  
+          <div id="usr">
+          <div id="usr" class="form-group row" >
+            <label id="usr" for="inputPassword" class="col-sm-2 col-form-label" >End Date</label>
+            <div id="usr" class="col-sm-10" >
+              <input id="usr"  type="date" class="form-control boxcolor" formControlName="reqstartDate">
+            </div>
+          </div>
+        </div>
+  
+          <button type="reset" id="usr" class="btn bg-info pull-left">Reset</button>      
+          <button type="submit" id="usr" class="btn bg-info pull-right">submit</button>
+  
+        </form>
+      </div>
+  
+    </div>
+  </div> 
+
+
+ <br>
+ <br>
+
+
+
+<div class="row no-gutters">
+ 
+  <div class="col-6 col-md-4">
+    <button class="btn btn-primary" type="submit" (click)="submissions()" >Submissions Vs Rejections</button>
+    <!-- <button class="btn btn-primary" type="submit" (click)="submissions()" >Submissions Vs Rejections</button></div> -->
+  </div>
+    
+  <div class="col-12 col-sm-6 col-md-8"> <img src="data:image/png;base64,{{imagee}}"></div>
+</div>
+
+
+
+  

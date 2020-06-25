@@ -1,0 +1,71 @@
+  .kill > * {
+      width: 50%;
+    }
+  
+  .foo{
+    padding:15px;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="search"],
+  input[type="password"],
+  input[type="number"],
+  label[type="text"],
+  select.form-control {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #c4c3c3;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  input[type="text"]:focus,
+  input[type="date"]:focus,
+  input[type="search"]:focus,
+  input[type="password"]:focus,
+  input[type="number"]:focus,
+  label[type="text"]:focus,
+  select.form-control:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 2px solid #1f537e;
+  }
+
+
+  .form-control::-webkit-input-placeholder,
+  input[type=date].form-control::-webkit-datetime-edit {
+      color: rgb(145, 143, 143);
+    }
+
+  i{
+    color:rgb(88, 88, 88);
+  }
+
+  .validationColor{
+    color: red;
+  }
+
+  checkbox-group,
+  input[type="radio"]  {
+    margin-left:5px;
+  }
+  
+  select {
+    background: transparent;
+    border: none;
+    padding: 6px 12px;
+  }
+
+  .input-group-addon {
+    padding: 0!important;
+  }
+
+  .starColor{
+    color: red;
+  }
+
+  input[type="radio"]{
+    margin: 0 20px 0 20px;
+  }

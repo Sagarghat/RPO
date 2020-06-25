@@ -1,0 +1,69 @@
+<nav class="navbar navbar-light bg-light">
+    <h3>Send Email</h3>
+</nav>
+<form [formGroup]="registerForm" (ngSubmit)="save()">
+
+    <div class="row">
+        <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+                <div class="col-sm-4 p-0">
+                    <input type="text" class="form-control" disabled value="TO" style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0">
+                    <input type="email" name="to" class="form-control" formControlName="to">
+                    <!-- [(ngModel)]="mail" -->
+                </div>
+            </div>
+        </div>
+    </div><br>
+
+    <div class="row">
+        <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+                <div class="col-sm-4 p-0">
+                    <input type="text" class="form-control" disabled value="CC" style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0">
+                    <input type="email" name="cc" class="form-control" formControlName="cc" disabled>
+                </div>
+            </div>
+        </div>
+    </div><br>
+
+    <div class="row">
+        <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+                <div class="col-sm-4 p-0">
+                    <input type="text" class="form-control" disabled value="BCC" style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0">
+                    <input type="email" name="bcc" class="form-control" formControlName="bcc">
+
+                </div>
+            </div>
+        </div>
+
+
+    </div><br>
+
+    <div class="row">
+        <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+                <div class="col-sm-4 p-0">
+                    <input type="text" class="form-control" disabled value="Subject" style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0">
+                    <input type="email" name="Subject" class="form-control" placeholder="Add a Subject"
+                        formControlName="Subject">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="ml-4 mr-4" style="width: 70%;">
+        <ejs-richtexteditor name="messageBody" formControlName="messageBody"></ejs-richtexteditor>
+    </div>
+    <button type="submit" class="btn btn-secondary margin-right " routerLink="/superadmin/contact"
+        style="margin:20px;">Cancel</button>
+    <button type="submit" class="btn btn-success margin-left" style="margin:14px;">Submit</button>
+</form>

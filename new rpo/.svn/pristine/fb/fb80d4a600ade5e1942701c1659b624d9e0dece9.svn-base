@@ -1,0 +1,303 @@
+package com.ojas.rpo.security.util;
+
+import org.springframework.http.HttpStatus;
+
+import com.ojas.rpo.security.entity.ExceptionMessage;
+import com.ojas.rpo.security.entity.IntMapper;
+import com.ojas.rpo.security.entity.InterviewDetails;
+import com.ojas.rpo.security.entity.InterviewMapper;
+import com.ojas.rpo.security.entity.Response;
+
+public class InterviewDetailsValidation {
+	private InterviewDetailsValidation() {
+		super();
+	}
+
+	public static Response validateIinterview(IntMapper mapper) {
+
+		Response response = new Response();
+
+		if (mapper.getDetails().getInterviewName() == null) {
+
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setRes("Select InterviewName");
+			return response;
+
+		} else if (mapper.getDetails().getRegistrationId() == null) {
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setRes("Enter RegId");
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+			return response;
+		}
+
+		else if (mapper.getDetails().getClient() == null) {
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setRes("Select ClientName");
+			return response;
+
+		} else if (mapper.getDetails().getBdmReq() == null) {
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setRes("Select PostingTitle");
+			return response;
+		}
+
+		else if (mapper.getDetails().getInterviewOwner() == null) {
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+			response.setRes("Select Interview Owner");
+			return response;
+
+		} else if (mapper.getDetails().getAssesmentName() == null) {
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setRes("Select Assesment Name");
+			return response;
+		} else if (mapper.getDetails().getInterviewLocation() == null) {
+			response.setRes("Select Interview Location");
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setConflict(HttpStatus.CONFLICT);
+			return response;
+		} else if (mapper.getDetails().getInterviewFrom() == null) {
+			response.setRes("Select Date of the Interview");
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setConflict(HttpStatus.CONFLICT);
+			return response;
+		}
+
+		else if (mapper.getDetails().getFromtime() == null) {
+			response.setRes("Select Time of the Interview");
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setConflict(HttpStatus.CONFLICT);
+			return response;
+		}
+
+		else {
+			response.setStatus(ExceptionMessage.Accepted);
+			return response;
+		}
+
+	}
+
+	public static Response validateIinterviewDetails(InterviewMapper mapper) {
+
+		Response response = new Response();
+
+		if (mapper.getInterviewName() == null) {
+
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setRes("Select InterviewName");
+			return response;
+
+		} else if (mapper.getRegistrationId() == null) {
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setRes("Enter RegId");
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+			return response;
+		}
+
+		else if (mapper.getClient() == null) {
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setRes("Select ClientName");
+			return response;
+
+		} else if (mapper.getBdmReq() == null) {
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setRes("Select PostingTitle");
+			return response;
+		}
+
+		else if (mapper.getCandidate() == null) {
+
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setRes("Select atleast one candidate");
+			return response;
+		} else if (mapper.getInterviewOwner() == null) {
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+			response.setRes("Select Interview Owner");
+			return response;
+
+		} else if (mapper.getAssesmentName() == null) {
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setRes("Select Assesment Name");
+			return response;
+		} else if (mapper.getInterviewLocation() == null) {
+			response.setRes("Select Interview Location");
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setConflict(HttpStatus.CONFLICT);
+			return response;
+		} else if (mapper.getInterviewFrom() == null) {
+			response.setRes("Select Date of the Interview");
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setConflict(HttpStatus.CONFLICT);
+			return response;
+		}
+
+		else if (mapper.getFromtime() == null) {
+			response.setRes("Select Time of the Interview");
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setConflict(HttpStatus.CONFLICT);
+			return response;
+		}
+
+		else {
+			response.setStatus(ExceptionMessage.Accepted);
+			return response;
+		}
+
+	}
+
+	public static InterviewDetails createInterviewDetails(InterviewMapper interviewMapper) {
+		InterviewDetails interviewDetail = new InterviewDetails();
+		interviewDetail.setInterviewName(interviewMapper.getInterviewName());
+		interviewDetail.setClient(interviewMapper.getClient());
+		interviewDetail.setBdmReq(interviewMapper.getBdmReq());
+		interviewDetail.setInterviewer(interviewMapper.getInterviewer());
+		interviewDetail.setInterviewOwner(interviewMapper.getInterviewOwner());
+		interviewDetail.setAssesmentName(interviewMapper.getAssesmentName());
+		interviewDetail.setInterviewLocation(interviewMapper.getInterviewLocation());
+		interviewDetail.setScheduleComments(interviewMapper.getScheduleComments());
+		interviewDetail.setToTime(interviewMapper.getToTime());
+		interviewDetail.setFromtime(interviewMapper.getFromtime());
+		// interviewDetail.setInterviewFrom(interviewMapper.getInterviewFrom());
+		// interviewDetail.setInterviewEnd(interviewMapper.getInterviewEnd());
+		interviewDetail.setRegistrationId(interviewMapper.getRegistrationId());
+		interviewDetail.setAttachement(interviewMapper.getAttachement());
+		interviewDetail.setRemainder(interviewMapper.getRemainder());
+		interviewDetail.setStatus(interviewMapper.getStatus());
+
+		if (interviewMapper.getId() != null)
+			interviewDetail.setId(interviewMapper.getId());
+		return interviewDetail;
+	}
+
+	public static Response validateFindById(InterviewDetails details) {
+
+		Response response = new Response();
+
+		if (details.getInterviewName() == null) {
+
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setRes("Select InterviewName");
+			return response;
+
+		} else if (details.getRegistrationId() == null) {
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setRes("Enter RegId");
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+			return response;
+		}
+
+		else if (details.getClient() == null) {
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setRes("Select ClientName");
+			return response;
+
+		} else if (details.getBdmReq() == null) {
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setRes("Select PostingTitle");
+			return response;
+		}
+
+		else if (details.getCandidate() == null) {
+
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setRes("Select atleast one candidate");
+			return response;
+		} else if (details.getInterviewOwner() == null) {
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+			response.setRes("Select Interview Owner");
+			return response;
+
+		} else if (details.getAssesmentName() == null) {
+			response.setConflict(HttpStatus.CONFLICT);
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setRes("Select Assesment Name");
+			return response;
+		} else if (details.getInterviewLocation() == null) {
+			response.setRes("Select Interview Location");
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setConflict(HttpStatus.CONFLICT);
+			return response;
+		} else if (details.getInterviewFrom() == null) {
+			response.setRes("Select Date of the Interview");
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setConflict(HttpStatus.CONFLICT);
+			return response;
+		}
+
+		else if (details.getFromtime() == null) {
+			response.setRes("Select Time of the Interview");
+			response.setStatus(ExceptionMessage.DataIsEmpty);
+
+			response.setConflict(HttpStatus.CONFLICT);
+			return response;
+		}
+
+		else {
+			response.setStatus(ExceptionMessage.Accepted);
+			return response;
+		}
+
+	}
+
+	public static InterviewDetails createInterview(IntMapper mapper) {
+		InterviewDetails interviewDetail = new InterviewDetails();
+		interviewDetail.setInterviewName(mapper.getDetails().getInterviewName());
+		interviewDetail.setClient(mapper.getDetails().getClient());
+		interviewDetail.setBdmReq(mapper.getDetails().getBdmReq());
+		interviewDetail.setInterviewer(mapper.getDetails().getInterviewer());
+		interviewDetail.setInterviewOwner(mapper.getDetails().getInterviewOwner());
+		interviewDetail.setAssesmentName(mapper.getDetails().getAssesmentName());
+		interviewDetail.setInterviewLocation(mapper.getDetails().getInterviewLocation());
+		interviewDetail.setScheduleComments(mapper.getDetails().getScheduleComments());
+		interviewDetail.setToTime(mapper.getDetails().getToTime());
+		interviewDetail.setFromtime(mapper.getDetails().getFromtime());
+		interviewDetail.setInterviewFrom(mapper.getDetails().getInterviewFrom());
+		interviewDetail.setInterviewEnd(mapper.getDetails().getInterviewEnd());
+		interviewDetail.setRegistrationId(mapper.getDetails().getRegistrationId());
+		interviewDetail.setAttachement(mapper.getDetails().getAttachement());
+		interviewDetail.setRemainder(mapper.getDetails().getRemainder());
+		interviewDetail.setStatus(mapper.getDetails().getStatus());
+		interviewDetail.setFileName(mapper.getDetails().getFileName());
+			if (mapper.getDetails().getId() != null)
+			interviewDetail.setId(mapper.getDetails().getId());
+
+		if (mapper.getDetails().getCandidate() != null)
+			interviewDetail.setCandidate(mapper.getDetails().getCandidate());
+		return interviewDetail;
+	}
+
+}

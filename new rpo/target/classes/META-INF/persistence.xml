@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+	<persistence-unit name="examplePU">
+		<class>com.ojas.rpo.security.entity.AccessToken</class>
+		<class>com.ojas.rpo.security.entity.BlogPost</class>
+		<class>com.ojas.rpo.security.entity.User</class>
+		<class>com.ojas.rpo.security.entity.Location</class>
+		<class>com.ojas.rpo.security.entity.Skill</class>
+		<class>com.ojas.rpo.security.entity.Candidate</class>
+		<class>com.ojas.rpo.security.entity.Designation</class>
+		<class>com.ojas.rpo.security.entity.InterviewDetails</class>
+		<class>com.ojas.rpo.security.entity.InterviewType</class>
+		<class>com.ojas.rpo.security.entity.NoticePeriod</class>
+		<class>com.ojas.rpo.security.entity.Status</class>
+		<class>com.ojas.rpo.security.entity.CustomerType</class>
+		<class>com.ojas.rpo.security.entity.Slab</class>
+		<class>com.ojas.rpo.security.entity.Certificate</class>
+		<class>com.ojas.rpo.security.entity.AddQualification</class>
+		<!--  phani entities starts Here-->
+		<class>com.ojas.rpo.security.entity.Industry</class>
+		<class>com.ojas.rpo.security.entity.AssignedRecruiters</class>
+		<class>com.ojas.rpo.security.entity.Notes</class>
+		<class>com.ojas.rpo.security.entity.CandidateNotes</class>
+		<class>com.ojas.rpo.security.entity.ClientNotes</class>
+		<class>com.ojas.rpo.security.entity.InterviewNotes</class>
+		<class>com.ojas.rpo.security.entity.RequirementNotes</class>
+		<class>com.ojas.rpo.security.entity.ContactNotes</class>
+<!--  phani entities ends Here -->
+		
+
+		<!-- ******************** -->
+		<class>com.ojas.rpo.security.entity.AddContact</class>
+		<class>com.ojas.rpo.security.entity.AddressDetails</class>
+		<class>com.ojas.rpo.security.entity.Addrole</class>
+		<class>com.ojas.rpo.security.entity.CostType</class>
+		<class>com.ojas.rpo.security.entity.Assign</class>
+		<class>com.ojas.rpo.security.entity.BdmReq</class>
+		<class>com.ojas.rpo.security.entity.Client</class>
+		<class>com.ojas.rpo.security.entity.Contact</class>
+		<class>com.ojas.rpo.security.entity.HiringMode</class>
+		<class>com.ojas.rpo.security.entity.TypeOfAddress</class>
+		<class>com.ojas.rpo.security.entity.UserDetailsList</class>
+		<class>com.ojas.rpo.security.entity.IncentiveConfigurations</class>
+		<class>com.ojas.rpo.security.entity.Remainder</class>
+
+	</persistence-unit>
+</persistence>

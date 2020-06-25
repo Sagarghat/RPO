@@ -1,0 +1,656 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AdminserviceService {
+
+  baseUrl = `${environment.serviceUrl}`;
+  userToken;
+
+  constructor(public http:HttpClient) {
+    this.userToken = sessionStorage.getItem('Token');
+
+   }
+
+  
+
+
+
+
+
+// Masters post Methods
+
+
+
+addSkills(skill) {
+  return this.http.post(this.baseUrl + 'skill', skill,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+}
+
+
+addModeofInterview(mod) {
+  return this.http.post(this.baseUrl + 'modeofInterview', mod,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+}
+
+
+
+
+
+
+addcustomers(cust) {
+  return this.http.post(this.baseUrl + 'customerType', cust,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+}
+
+
+
+addnoticePeriod(note) {
+  return this.http.post(this.baseUrl + 'noticePeriod/save', note,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+}
+
+
+
+ addqualifications(qualify) {
+  return this.http.post(this.baseUrl + 'Qualification/save', qualify,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+ }
+
+
+
+ addbillingModal(billing) {
+  return this.http.post(this.baseUrl + 'BillingModel', billing,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+ }
+
+
+
+ addserviceList(serve) {
+  return this.http.post(this.baseUrl + 'services', serve,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+ }
+
+
+ addpaymentTerms(pay) {
+  return this.http.post(this.baseUrl + 'PaymentTerms', pay,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+ }
+
+
+
+ addpermissions(permission){
+  return this.http.post(this.baseUrl + 'permissions', permission ,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+addroles(role){
+  return this.http.post(this.baseUrl + 'roles', role,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+
+addfeatures(features){
+  return this.http.post(this.baseUrl + 'featureResource', features,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+addcertificates(cer){
+  return this.http.post(this.baseUrl + 'certificates', cer,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+addjoblocation(loc){
+  return this.http.post(this.baseUrl + 'location', loc,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+
+
+
+
+
+
+
+
+
+// edit by ID Methods
+
+
+editskills(skill,id) {
+  return this.http.post(this.baseUrl + 'skill/' + id, skill,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+}
+
+editModeofInterview(mod,id) {
+  return this.http.post(this.baseUrl + 'modeofInterview/' + id, mod,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+}
+
+
+editcustomerType(custype,id) {
+  return this.http.post(this.baseUrl + 'customerType/' + id, custype,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+}
+
+
+editnoticeperiod(note,id) {
+  return this.http.post(this.baseUrl + 'noticePeriod/' + id, note,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+}
+
+editqualifications(qualify,id) {
+  return this.http.post(this.baseUrl + 'Qualification/' + id, qualify,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+}
+
+
+editbillingModel(bill,id) {
+  return this.http.post(this.baseUrl + 'BillingModel/' + id, bill,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+}
+
+
+
+editservicelist(sl,id) {
+  return this.http.post(this.baseUrl + 'services/' + id, sl,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+}
+
+
+editpaymentTerms(pay,id) {
+  return this.http.post(this.baseUrl + 'PaymentTerms/' + id, pay,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+}
+
+
+editpermissions(perm,id) {
+  return this.http.post(this.baseUrl + 'permissions/' + id, perm,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+}
+
+
+
+editroles(role,id) {
+  return this.http.post(this.baseUrl + 'roles/' + id, role,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+}
+
+editfeatures(features,id) {
+  return this.http.post(this.baseUrl + 'featureResource/' + id, features,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+}
+
+
+editcertificates(cer,id) {
+  return this.http.post(this.baseUrl + 'certificates/' + id, cer,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+}
+
+
+editjoblocations(loc,id) {
+  return this.http.post(this.baseUrl + 'location/' + id, loc,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+  }); 
+}
+
+
+
+
+// get By Id Medhods
+
+
+modeofInterviewgetId(id){
+  return this.http.get(this.baseUrl + 'modeofInterview/' + id,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+skillsgetId(id){
+  return this.http.get(this.baseUrl + 'skill/' + id,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+customertypegetId(id){
+  return this.http.get(this.baseUrl + 'customerType/' + id,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+
+noticeperiodgetId(id){
+  return this.http.get(this.baseUrl + 'noticePeriod/' + id,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+qualificationgetId(id){
+  return this.http.get(this.baseUrl + 'Qualification/' + id,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+billingmodelgetId(id){
+  return this.http.get(this.baseUrl + 'BillingModel/'+ id,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+servicelistgetId(id){
+  return this.http.get(this.baseUrl + 'services/'+ id,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+
+paymenttermsgetId(id){
+  return this.http.get(this.baseUrl + 'PaymentTerms/' + id,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+permissionsgetId(id){
+  return this.http.get(this.baseUrl + 'permissions/getById/'+ id,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+rolesgetId(id){
+  return this.http.get(this.baseUrl + 'roles/' + id,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+featuresgetId(id){
+  return this.http.get(this.baseUrl + 'featureResource/' + id,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+certificatesgetId(id){
+  return this.http.get(this.baseUrl + 'certificates/' + id,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+
+joblocationgetId(id){
+  return this.http.get(this.baseUrl + 'location/' + id,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+
+
+
+
+ // Masters GET Methods
+
+ customertypeget(totalItems,currentPage) {
+  return this.http.get(this.baseUrl + 'customerType/getdata/' + currentPage + '/'+ totalItems,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+ }
+
+
+ billingmodalget(totalItems,currentPage) {
+  return this.http.get(this.baseUrl + 'BillingModel/getdata/' + currentPage + '/'+ totalItems,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+ }
+
+
+ serviceget(totalItems,currentPage) {
+  return this.http.get(this.baseUrl + 'services/findAll/' + currentPage + '/'+ totalItems,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+ }
+
+
+
+
+
+skillsget(totalItems,currentPage) {
+  return this.http.get(this.baseUrl + 'skill/findAll/' + currentPage + '/'+ totalItems,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+ }
+
+
+
+paymentTermsget(totalItems,currentPage){
+  return this.http.get(this.baseUrl + 'PaymentTerms/findAll/' + currentPage + '/'+ totalItems,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+locationsget(){
+  return this.http.get(this.baseUrl + 'location/findAll/1/1',
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+
+modeofInterviewget(totalItems,currentPage) {
+  return this.http.get(this.baseUrl + 'modeofInterview/findAll/' + currentPage + '/'+ totalItems,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+ }
+
+
+
+
+
+noticeperiodget(totalItems,currentPage) {
+  return this.http.get(this.baseUrl + 'noticePeriod/search/' + currentPage + '/'+ totalItems,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+ }
+
+
+qualificationsget(totalItems,currentPage){
+  return this.http.get(this.baseUrl + 'Qualification/findAll/' + currentPage + '/'+ totalItems,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+permissionsget(totalItems,currentPage){
+  return this.http.get(this.baseUrl + 'permissions/findAll/' + currentPage + '/'+ totalItems,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+}
+
+
+rolesget(totalItems,currentPage) {
+  return this.http.get(this.baseUrl + 'roles/findAll/' + currentPage + '/'+ totalItems,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+ }
+
+
+
+
+ featuresget(totalItems,currentPage) {
+  return this.http.get(this.baseUrl + 'featureResource/getAll/' + currentPage + '/'+ totalItems,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+ }
+
+
+ certificatesget(totalItems,currentPage) {
+  return this.http.get(this.baseUrl + 'certificates/findAll/' + currentPage + '/'+ totalItems,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+ }
+
+
+
+
+ joblocationsget(totalItems,currentPage) {
+  return this.http.get(this.baseUrl + 'location/findAll/' + currentPage + '/'+ totalItems,
+  {
+    headers:{
+      'X-Access-Token': this.userToken,
+      'Content-Type': 'application/json'
+    }
+   });
+ }
+
+
+
+
+}

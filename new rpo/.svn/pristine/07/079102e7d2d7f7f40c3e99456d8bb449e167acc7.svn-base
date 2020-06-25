@@ -1,0 +1,61 @@
+<nav  class="navbar navbar-expand-lg " style="background-color: #3f729b; padding: .2rem 1rem;">
+    <a class="navbar-brand text-white ">Super Admin</a>
+    <button class="navbar-toggler text-dark" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item ">
+          <a class="nav-link  text-white abc mr-2" routerLink="./dashboard"  routerLinkActive="router-link-active" >Dashboard </a>
+        </li>
+
+
+        <!-- <li class="nav-item ">
+          <a class="nav-link  text-white abc mr-2" routerLink="./reports"  routerLinkActive="router-link-active" >Reports </a>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link text-white abc mr-2"  routerLink="./user"  routerLinkActive="router-link-active" >User</a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link text-white abc mr-2" routerLink="./client"  routerLinkActive="router-link-active">Client</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white abc mr-2" routerLink="./contact"  routerLinkActive="router-link-active">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white abc mr-2" routerLink="./jobopening"  routerLinkActive="router-link-active">Job Openings</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link text-white abc mr-2" routerLink="./interview"  routerLinkActive="router-link-active">Interviews</a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link text-white abc mr-2" routerLink="./candidate"  routerLinkActive="router-link-active">Candidates</a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link text-white abc mr-2" routerLink="./assignedrequirement" routerLinkActive="router-link-active">Assigned Requirements</a>
+          </li> 
+          
+      </ul>
+      <form class="form-inline my-2 my-lg-0 text-white">
+        <a class="my-2 my-sm-0" >
+          <i class="fa fa-user fa-lg" aria-hidden="true" ></i></a>
+      </form>
+
+      <form class="form-inline my-2 my-lg-0 text-white">
+        <a class="my-2 my-sm-0 ml-2"  Style=" cursor: pointer;" >{{user_name}}</a>
+      </form>
+
+      <form class="form-inline my-2 my-lg-0 text-white">
+        <a class="my-2 my-sm-0 ml-2"   (click)="signOut()" Style="color:rgb(255, 195, 112); cursor: pointer;" > SignOut </a>
+      </form>
+
+    </div>
+  </nav>
+
+
+  
+  
+  <div class="container-fluid p-0">
+      <router-outlet></router-outlet>
+  </div>

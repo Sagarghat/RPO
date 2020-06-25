@@ -1,0 +1,146 @@
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { AdminserviceService } from '../../adminservice.service';
+import { FormBuilder,Validators } from '@angular/forms';
+@Component({
+  selector: 'app-billingmodal',
+  templateUrl: './billingmodal.component.html',
+  styleUrls: ['./billingmodal.component.css']
+})
+export class BillingmodalComponent implements OnInit {
+
+
+  showtag:boolean= false;
+  showtag1:boolean= false;
+  
+  billingModalshow:boolean = false;
+
+  billingModalForm = this.formBuilder.group({
+    billingModel: ['', Validators.required],
+  });
+
+  data: any;
+  datashow: any;
+  total: any;
+  
+  obj: any;
+  value: any;
+  dataID: any;
+  varaible: any;
+  response: any;
+  resultresp: any;
+
+  constructor(public toastr: ToastrManager, public ser: AdminserviceService, private formBuilder: FormBuilder) { }
+
+  pages =3;
+  currentPage = 1;
+ 
+  setPages(pageNo: number): void {
+    this.currentPage = pageNo;
+    this.getmethod();
+  }
+
+  ngOnInit() {
+
+ this.getmethod();
+
+  }
+ 
+
+  getmethod(){
+    this.ser.billingmodalget(this.pages,this.currentPage).subscribe(resp => {
+      console.log("yooo due",resp);
+      this.data = resp;
+      this.datashow = this.data.result;
+      console.log("totalRecords",this.data.totalRecords)
+        this.total  =  this.data.totalRecords
+    });
+  }
+
+
+
+
+  
+  getId(id){
+    console.log("id",id);
+
+    this.value= id;
+    this.ser.billingmodelgetId(id).subscribe(resp => {
+      this.dataID = resp;
+      console.log("data",resp);
+       console.log("dataID",this.dataID.result.billingModel);
+       this.varaible = this.dataID.result.billingModel;
+       console.log(this.varaible ,"fffffffffff");
+
+      this.billingModalForm.controls.billingModel.setValue(this.varaible);
+
+    });
+
+    this.billingModalshow = true;
+    this.showtag1 = true;
+    this.showtag = false;
+  }
+
+  editbillingmodel(){
+      
+    let obj1={
+      billingModel:this.billingModalForm.value.billingModel
+    }
+    console.log("Edit data" ,obj1);
+    console.log("Edit data" ,this.value);
+      this.ser.editbillingModel(obj1,this.value).subscribe(resp => {
+      console.log("edit response",resp);
+      if(resp){
+        this.getmethod();
+      }
+      
+
+      this.response= resp;
+      if(this.response.status === 'StatusSuccess'){
+        this.toastr.successToastr( 'Billing Model  Modified');
+      } else {
+        this.toastr.infoToastr( 'Duplicate Data  (or)   Empty Set');
+      }
+      
+    
+    });
+      this.billingModalshow = false; 
+  }
+
+
+
+
+  billingModal(){
+    this.billingModalshow = !this.billingModalshow; 
+    this.billingModalForm.reset();
+    this.showtag = true;
+    this.showtag1 = false;
+  }
+
+  
+  addbillingModal(){
+    var billing={
+      billingModel:this.billingModalForm.value.billingModel
+     }
+      console.log(this.billingModalForm.value);
+          this.ser.addbillingModal(billing).subscribe(resp => {
+        console.log(resp);
+        if(resp){
+          this.getmethod();
+        }
+
+        this.resultresp= resp;
+        if(this.resultresp.status === 'StatusSuccess' ){
+          this.toastr.successToastr('BillingModal Added');
+        this.billingModalForm.reset();
+        } else {
+          this.toastr.infoToastr( 'Duplicate Data  (or)  Empty Set');
+        }
+      });
+      
+      this.billingModalshow=false;
+    }
+  
+
+}

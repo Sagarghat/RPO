@@ -1,0 +1,475 @@
+<nav class="navbar  bg-white p-1  bg-white rounded shadow p-3 mb-3 ">
+  <span><a class="ml-3">
+      <h3> Interviews</h3>
+    </a>
+  </span>
+  <button class="btn  btn-white shadow  rounded" routerLink='../addinterview'>
+    <i class="fa fa-plus" style="color:cornflowerblue;" aria-hidden="true"></i>
+  </button>
+</nav>
+
+
+
+<!-- search code -->
+
+
+<div class="mt-4  col-sm-10  offset-sm-1  shadow p-1 bg-white rounded">
+  <div class="position-relative mt-2 ">
+    <div class="form-group dummyclass" *ngIf="dummy">
+      <div class="position-relative  col-sm-8 offset-sm-2  col-md-8 offset-md-2    col-10 offset-1">
+        <i class="fa fa-search  fa-search1 pull-right "></i>
+        <input type="text" class="form-control madhu form-control_search2" id="usr"
+          (click)="dummy=false;asli=true;first=true"  placeholder="Search with Candidate Name">
+      </div>
+    </div>
+
+    <div class="form-group dummyinp" *ngIf="asli">
+      <div class=" col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1    position-relative">
+
+        <i class="fa fa-angle-down pull-right" id="usr" (click)="first=false;second=true"></i>
+
+
+        <input type="text" class="lahari form-control_search2" id="usr" value={{searchInput}} (click)="first=true;second=false"
+          [formControl]="searchTerm">
+
+      </div>
+    </div>
+    <!-- 
+    <input id="usr" class="form-control" id="usr" value={{searchInput}} (click)="first=true;second=false"
+    [formControl]="searchTermFromDate"> -->
+
+
+    <div class="first item   col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 p-0 mt1-0 " *ngIf="first"
+      tabindex="0" id="usr">
+
+      <div class=" p-3 mt-2" id="usr">
+        <strong>candidate Name</strong>
+        <p *ngIf="showNodata" id="usr">No Data</p>
+        <p *ngIf="search_result" id="usr">Search Result</p>
+        <p *ngIf="search_Previous_result" id="usr">Previous Search Result</p>
+      
+        <ul *ngFor="let p of interviewList" id="usr">
+
+          <li id="usr" (click)="search_values(p.candidateName)" style="list-style-type: none; cursor: pointer;">
+            {{ p.candidateName }} </li>
+
+        </ul>
+
+      </div>
+    </div>
+    <div class="second item   col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 mt1-0 " *ngIf="second"
+      id="usr">
+
+      <div class=" p-3  mt-2" id="usr">
+        <form id="usr" [formGroup]="serchform" (ngSubmit)="save()">
+
+
+
+
+
+
+          <!-- <div class="form-group row" id="usr">
+            <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">Candidate Name</label>
+            <div class="col-sm-10" id="usr">
+              <input id="usr" class="form-control" formControlName="candidatename">
+            </div>
+          </div>
+ -->
+
+          <div class="form-group row" id="usr">
+            <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">From Date:</label>
+            <div class="col-sm-10" id="usr">
+              <input type="date" id="usr" class="form-control boxcolor " formControlName="fromDate">
+            </div>
+          </div>
+
+          <div class="form-group row" id="usr">
+            <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">To Date:</label>
+            <div class="col-sm-10" id="usr">
+              <input type="date" id="usr" class="form-control boxcolor" formControlName="toDate">
+            </div>
+          </div>
+          <button type="reset" id="usr" class="btn bg-info pull-left">Reset</button>
+
+          <button type="submit" id="usr" class="btn bg-info pull-right">submit</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<!-- search code end -->
+
+
+
+
+<div class="container-fluid pt-4">
+
+<div class=" shadow p-3 mb-5 pt-4  ml-4 mr-4 bg-white rounded ">
+  <abbr title="download Excel"><i class="fa fa-file-excel-o mr-4 mb-1" style="color:green ;font-size: x-large; float:right" (click)="downloadExcel()"
+    aria-hidden="true"></i></abbr>
+  <table class="table table-responsive-sm table-responsive-md table-responsive-lg">
+    <thead class="text-center">
+      <tr>
+        <th></th>
+        <th></th>
+        <th class="font-weight-light">INTERVIEW TYPE</th>
+        <th class="font-weight-light">DISCUSSION TYPE</th>
+        <th class="font-weight-light">FROM</th>
+        <!-- <th class="font-weight-light">TO</th> -->
+        <th class="font-weight-light">CANDIDATE NAME</th>
+        <th class="font-weight-light">CLIENT NAME</th>
+        <th class="font-weight-light">POSTING TITLE</th>
+        <th class="font-weight-light">INTERVIEW STATUS</th>
+        <th class="font-weight-light">INTERVIEW OWNER</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+      <tr
+        *ngFor="let interview of interviewList | paginate: { itemsPerPage: pageSize,currentPage: currentPage,totalItems: totalItems }">
+        <td><i class="fa fa-pencil" [routerLink]="['../editinterview',interview.interviewId]"></i></td>
+        <td><i class="fa fa-list" data-toggle="modal" data-target=".bd-example-modal-xl"
+            (click)="getInterviewById(interview.interviewId)"></i></td>
+        <td class="pointers" (click)="interviewnameclick(interview.interviewId)"> {{interview.interviewName}}</td>
+        <td>{{interview.interviewRound}}</td>
+        <td>{{interview.from | date:'MMM d, y'}} </td>
+        <!-- <td [ngClass]="{'inputStatus': interview.to == 'null' || interview.to == ''}">{{interview.to  | date:'MMM d, y'}} </td> -->
+        <td>{{interview.candidateName}}</td>
+        <td>{{interview.clientName}} </td>
+        <td>{{interview.postingTitle}} </td>
+        <td>{{interview.interviewStatus}} </td>
+        <td>{{interview.interviewOwner}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-xs-12 col-12 text-right">
+      <pagination-controls (pageChange)="setPage($event)" ></pagination-controls>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+
+
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="shadow p-1 mb-3 bg-white rounded " style="font-family: Calibri;">
+          <div class="row">
+            <div class="col ml-3 bg-white">
+              <h3><span class="text">{{InterviewName}} </span>for <span class="text"><strong>{{bdmReq}}
+                    Developer</strong></span></h3>
+              <p> 2019-11-15T14:00:00+05:30 (GMT +05.30) 1 hour(s)</p>
+            </div>
+            <div class="col">
+              (Interviewer(s) not assigned)
+            </div>
+            <div class="col">
+
+              <button type="button" class="close mr-3 btn btn-sm" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 mb-5 bg-light" style="font-family: Calibri;">
+          <div class="row">
+            <div class="col">
+              <h3 class="ml-4">Candidate Details</h3>
+            </div>
+            <div class="col">
+              <h3 class=" ml-4">Evaluation</h3>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col  ml-4 shadow p-3  bg-white rounded" style="font-family: Calibri;">
+              <div class="row">
+                <div class="col p-0">
+                  <h4 class="ml-5"><strong>{{candidateNames}}</strong></h4>
+                  <p class="ml-5">+91{{candidatemobile}} | {{candidateEmail}}</p>
+
+                </div>
+                <div class="col p-0 float-right ml-5">
+                  <button color="primary" class="ml-5 mr-3" (click)="details()">Details</button>
+                  <button class="mr-0" (click)="Resume()">Resume</button>
+
+                </div>
+              </div>
+              <hr style="margin-top: -0.4rem;" />
+              <div class="container-fluid">
+                <div style="overflow-y: auto; height: 400px; font-family: Calibri;" *ngIf="status">
+                  <div class="container">
+
+                    <h5><strong>Basic Info</strong></h5>
+                    <div>
+                      <table class="paddingBetweenCols">
+                        <thead>
+                          <th class="id">Candidate ID</th>
+                          <th class="id">Last Name</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="id">{{candidateNameList.id}}</td>
+                            <td class="id"> {{candidateNameList.lastName}}</td>
+                          </tr>
+                        </tbody>
+
+                        <thead>
+                          <th class="id">Email</th>
+                          <th class="id">Phone</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="id">{{candidateNameList.email}}</td>
+                            <td class="id">{{candidateNameList.alternateMobile}}</td>
+                          </tr>
+                        </tbody>
+
+                        <thead>
+                          <th class="id">Fax</th>
+                          <th class="id">Mobile</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="id">{{candidateNameList.fax}}</td>
+                            <td class="id">{{candidateNameList.mobile}}</td>
+                          </tr>
+                        </tbody>
+                        <thead>
+                          <th class="id">Website</th>
+                          <th class="id">Secondary Email</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="id">{{candidateNameList.website}}</td>
+                            <td class="id">{{candidateNameList.altenateEmail}}</td>
+                          </tr>
+                        </tbody>
+                        <h5 class="pt-5"><strong>Address Information</strong></h5>
+                        <thead>
+                          <th class="id">Street</th>
+                          <th class="id">City</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="id">{{candidateNameList.street1}}</td>
+                            <td class="id">{{candidateNameList.city}}</td>
+                          </tr>
+                        </tbody>
+
+                        <thead>
+                          <th class="id">State/Province</th>
+                          <th class="id"> Zip/Postal Code</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="id">{{candidateNameList.state}}</td>
+                            <td class="id">{{candidateNameList.pincode}}</td>
+                            <!-- {{c.city}} -->
+                          </tr>
+                        </tbody>
+                        <h5 class="pt-5"><strong> Professional Details</strong></h5>
+                        <thead>
+                          <th class="id">Experience in Years</th>
+                          <th class="id"> Current Employer</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="id">{{candidateNameList.totalExperience}}</td>
+                            <td class="id">{{candidateNameList.currentCompanyName}}</td>
+                          </tr>
+                        </tbody>
+                        <thead>
+                          <th class="id">Current Job Title</th>
+                          <th class="id">Skill Set</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="id">{{candidateNameList.candidateJobTitle.currentJobTittle}}</td>
+                            <td class="id" *ngFor="let skills of candidateNameList.primarySkills">{{skills.skillName}},</td>
+                          </tr>
+                        </tbody>
+                        <thead>
+                          <th class="id"> Highest Qualification Held</th>
+                          <th class="id">Expected Salary</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="id">{{candidateNameList.addQualificationHeld.qualificationName}}</td>
+                            <td class="id" ngFor="let skills of c.primarySkills">{{candidateNameList.expectedCTC}}</td>
+                          </tr>
+                        </tbody>
+                        <thead>
+                          <th class="id">Current Salary</th>
+                          <th class="id">Skype ID</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="id">{{candidateNameList.currentCTC}}</td>
+                            <td class="id" ngFor="let skills of c.primarySkills">{{candidateNameList.skypeID}}</td>
+                          </tr>
+                        </tbody>
+
+                        <thead>
+                          <th class="id">Additional Info</th>
+                          <th class="id">Created By</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="id">{{candidateNameList.additionalInfo}}</td>
+                            <td class="id" ngFor="let skills of c.primarySkills">{{candidateNameList.skypeID}}</td>
+                          </tr>
+                        </tbody>
+                        <thead>
+                          <th class="id">Modified By</th>
+                          <th class="id">Last Activity Time</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="id">====</td>
+                            <!-- {{c.currentCTC}} -->
+                            <td class="id" ngFor="let skills of c.primarySkills">{{candidateNameList.user.name}},{{candidateNameList.lastUpdatedDate}}
+                            </td>
+                          </tr>
+                        </tbody>
+                        <thead>
+                          <th class="id"> Twitter</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="id">{{candidateNameList.twitterId}}</td>
+                          </tr>
+                        </tbody>
+
+                        <h5 class="pt-5"><strong>Other Info</strong></h5>
+                        <thead>
+                          <th class="id">Candidate Owner</th>
+                          <th class="id">Source</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="id">====</td>
+                            <!-- {{c.currentCTC}} -->
+                            <td class="id" ngFor="let skills of c.primarySkills">{{candidateNameList.source.sourceName}}</td>
+                          </tr>
+                        </tbody>
+
+                        <thead>
+                          <th class="id">Email Opt Out</th>
+                          <th class="id">Candidate Status</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="id">{{candidateNameList.emailOptOut}}</td>
+                            <!-- {{c.currentCTC}} -->
+                            <td class="id" ngFor="let skills of c.primarySkills">{{candidateNameList.candidateStatusMaster.status}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+
+
+
+
+
+                  </div>
+
+                </div>
+                <div *ngIf="!status" style="overflow-y: auto; height: 400px; ;font-family: Calibri">
+                  <nav class="navbar sticky-top  text-white " style="background-color: #3f729b!important;">
+                    {{resumeFileName}}.{{resumefileExtension}}
+                    <abbr title="Download pdf"> <i class="fa fa-file-pdf-o" style="color:red" (click)="download()"
+                        aria-hidden="true"></i></abbr>
+                  </nav>
+                  <div class="container-fluid">
+                    <div>
+                      <pdf-viewer [src]="'data:application/*;base64,'+candiadteresume" [original-size]="true">
+                      </pdf-viewer>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col  shadow p-3  bg-white rounded  ml-3 mr-4">
+              <form [formGroup]="interviewfeedbackForm" (ngSubmit)="postInterviewFeedback()">
+                <h4 class="pt-4">Overall Recommendation</h4>
+                <button type="button" id="one" class="btn" (click)="enableDisableRule('selected')"> <i
+                    class="fa fa-hand-o-right" aria-hidden="true"></i></button>
+                <button class="ml-3" type="button" id="two" class="btn" (click)="enableDisableRule('hold')"> <i
+                    class="fa fa-hand-o-left" aria-hidden="true"></i></button>
+                <button class="ml-3" type="button" id="three" class="btn" (click)="enableDisableRule('abd')"> <i
+                    class="fa fa-hand-o-up" aria-hidden="true"></i></button>
+                <button class="ml-3" type="button" id="four" class="btn" (click)="enableDisableRule('rejected')"> <i
+                    class="fa fa-hand-o-down" aria-hidden="true"></i></button>
+                {{statusOfCandidate}}
+                <h4 class="pt-5">Overall Comments</h4>
+                <label>Comments</label>
+                <textarea formControlName="Comments" type="text" placeholder="Leave a comment"
+                  class="form-control"></textarea>
+                <br>
+                <div class="row container-fluid" *ngIf="show" id="divshow">
+                  <label>Interviews </label>
+                  <input type="text" formControlName="candidateStatus" class="form-control" data-toggle="modal"
+                    [(ngModel)]="selectedCandidateStatus" value="{{selectedCandidateStatus}}"
+                    placeholder="select Interview Name" data-target="#interviewstatus">
+                </div>
+                <input type="checkbox" (change)="show = !show" ng-model="show" />
+                Change candidate status also
+                <hr style="margin-top: -0.3rem;" />
+                <button type="sumit" class="btn btn-success btn-sm d-block float-right">Submit Evaluation</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal -->
+<div class="modal fade" id="interviewstatus" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Interview Name: </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fa fa-search"></i>
+            </form>
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <th></th>
+          <th>Interview Status</th>
+          <tbody>
+            <tr *ngFor="let candidate of candidateStatusList">
+              <td>
+                <input type="radio" [value]="candidate.status" [(ngModel)]="selectedCandidateStatus">
+              </td>
+              <td>{{candidate.status}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-sm btn-primary" style="float: right;"
+          data-dismiss="modal">Savechanges</button>
+        <button type="button" class="btn btn-sm btn-success" style="float: right;" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

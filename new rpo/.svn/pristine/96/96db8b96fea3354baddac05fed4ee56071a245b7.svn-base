@@ -1,0 +1,215 @@
+<nav class="navbar  bg-white p-1  bg-white rounded shadow p-3 mb-3 ">
+    <span><a class="ml-3">
+        <h5>Interviews</h5>
+      </a>
+      <div class="collapse" id="navbarToggleExternalContent">
+        <div class="dropdown">
+          <div class="dropdown">
+            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Action
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target=".bd-example-modal-xl">Interview</a>
+           
+          
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#offerconform">Conforming offer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      </span>
+      </nav>
+<!-- search code -->
+      <div class="mt-4  col-sm-10  offset-sm-1  shadow p-1 bg-white rounded">
+        <div class="position-relative mt-2 ">
+          <div class="form-group dummyclass" *ngIf="dummy">
+            <div class="position-relative  col-sm-8 offset-sm-2  col-md-8 offset-md-2    col-10 offset-1">
+              <i class="fa fa-search  fa-search1 pull-right "></i>
+              <input type="text" class="form-control madhu form-control_search1" id="usr"
+                (click)="dummy=false;asli=true;first=true" placeholder="Search with Client Name">
+            </div>
+          </div>
+          <div class="form-group dummyinp" *ngIf="asli">
+            <div class=" col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1    position-relative">
+              <i class="fa fa-angle-down pull-right" id="usr" (click)="first=false;second=true"></i>
+              <input type="text" class="form-control_search1" id="usr" value={{searchInput}} (click)="first=true;second=false"
+                [formControl]="searchTerm">
+            </div>
+          </div>
+          <div class="first item   col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 p-0 mt1-0 " *ngIf="first"
+            tabindex="0" id="usr">
+            <div class=" p-3 mt-2" id="usr">
+              <strong>Search with Client Name</strong>
+              <p *ngIf="showNodata" id="usr">No Data</p>
+              <p *ngIf="search_result" id="usr">Search Result</p>
+              <p *ngIf="search_Previous_result" id="usr">Previous Search Result</p>
+              <ul *ngFor="let p of interviewdataa" id="usr">
+                <li id="usr" (click)="search_values(p.reqirementName)" style="list-style-type: none; cursor: pointer;">
+                  {{p.reqirementName}} </li>
+              </ul>
+            </div>
+          </div>
+          <div class="second item   col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 mt1-0 " *ngIf="second"
+            id="usr">
+            <form id="usr" [formGroup]="serchform" (ngSubmit)="save()">
+              <br>
+              <div class="form-group row" id="usr">
+                <label for="inputPassword" class="col-sm-2 col-form-label " id="usr">CLIENT NAME</label>
+                <div class="col-sm-10" id="usr">
+                  <input id="usr" class="form-control boxcolor" formControlName="clientName">
+                </div>
+              </div>
+              <div class="form-group row" id="usr">
+                <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">REQUIREMENT NAME</label>
+                <div class="col-sm-10" id="usr">
+                  <input id="usr" class="form-control boxcolor" formControlName="reqirementName">
+                </div>
+              </div>
+              <div class="form-group row" id="usr">
+                <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">FROM DATE</label>
+                <div class="col-sm-10" id="usr">
+                  <input type="date" id="usr" class="form-control boxcolor " formControlName="fromDate">
+                </div>
+              </div>
+              <div class="form-group row" id="usr">
+                <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">TO DATE</label>
+                <div class="col-sm-10" id="usr">
+                  <input type="date" id="usr" class="form-control boxcolor" formControlName="toDate">
+                </div>
+              </div>
+              <button type="reset" id="usr" class="btn bg-info pull-left">Reset</button>
+              <button type="submit" id="usr" class="btn bg-info pull-right">submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+<!-- search code -->
+     
+<div class="container-fluid pt-4">
+<div class=" shadow p-3 mb-5  ml-4 mr-4 bg-white rounded ">
+  <abbr title="download Excel"><i class="fa fa-file-excel-o mr-4 mb-1"
+    style="color:green ;font-size: x-large; float:right" (click)="downloadExcel()" aria-hidden="true"></i></abbr>
+        <table class="table table responsive bg-white">
+          <thead>
+            <tr>
+            <tr>
+              <th></th>
+              <th class="font-weight-light">CANDIDATE ID</th>
+              <th class="font-weight-light">CANDIDATE NAME</th>
+              <th class="font-weight-light">REQUIREMENT NAME</th>
+              <th class="font-weight-light">CLIENT NAME</th>
+              <th class="font-weight-light">RECRUITER NAME</th>
+              <th class="font-weight-light">STAGE</th>
+              <th class="font-weight-light">STATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let c of interviewdataa | paginate: { itemsPerPage: pageSize,currentPage: currentPage,totalItems: totalItems }">
+              <td><input type="checkbox" data-toggle="collapse" data-target="#navbarToggleExternalContent"
+                  aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" (click)="interviewcand(c.mappingId,c.status)"></td>
+              <td>{{c.candidateId}}</td>
+              <td>{{c.candidateName}} </td>
+              <td>{{c.reqirementName}}</td>
+              <td>{{c.clientName}}</td>
+              <td>{{c.userName}}</td>
+              <td>{{c.stage}}</td>
+              <td>{{c.status}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-xs-12 col-12 mt-4">
+            <pagination-controls (pageChange)="setPage($event)"></pagination-controls>
+          </div>
+        </div>
+        </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+  aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="shadow p-1 mb-3 bg-white rounded " style="font-family: Calibri;">
+          <div class="row">
+            <div class="col ml-3 bg-white">
+              <h3><span class="text">Offer Releasing Status</span></h3>
+            </div>
+            <div class="col">
+              <button type="button" class="close mr-3 btn btn-sm" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 mb-5 bg-light" style="font-family: Calibri;">
+          <div class="row">
+            <div class="col  ml-4 shadow p-3  bg-white rounded" style="font-family: Calibri;">
+               <form [formGroup]="CTCform" (ngSubmit)="saveinterview()">
+                <div class="form-group">
+                  <div class="col-8">
+                    <label>CTC</label>
+                    <input  type="number" class="form-control" formControlName="ctcOffered">
+                    </div>
+                    <div class="col-8">
+                     <label>Date</label>
+                      <input type="date" class="form-control" formControlName="offerReleaseDate">
+                      </div>
+                </div>
+                <button type="submit" class="btn  btn-info ml-2" style="float:right">Save</button>
+              </form> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <div class="modal fade bd-example2-modal-xl" id="offerconform" tabindex="-1" role="dialog"
+  aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="shadow p-1 mb-3 bg-white rounded " style="font-family: Calibri;">
+          <div class="row">
+            <div class="col ml-3 bg-white">
+              <h3><span class="text">Customer Feedback</span></h3>
+            </div>
+            <div class="col">
+              <button type="button" class="close mr-3 btn btn-sm" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 mb-5 bg-light" style="font-family: Calibri;">
+          <div class="row">
+            <div class="col  ml-4 shadow p-3  bg-white rounded" style="font-family: Calibri;">
+              <form [formGroup]="commetform">
+                <div class="form-group">
+                  <label for="comment">Remarks:</label>
+                  <div class="col-12"><textarea class="form-control" place-holder="Enter the Remarks"
+                      formControlName="remars" rows="2" id="comment"></textarea></div>
+                </div>
+                <button type="submit" class="btn  btn-info ml-2" style="float:right">Cancel</button>
+                <button type="submit" class="btn btn-danger ml-2" style="float:right"
+                 (click)="offeringstatus(false)">Rejected</button>
+                <button type="submit" class="btn btn-success ml-2" style="float:right"
+                (click)="offeringstatus(true)" >Accepted</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+       
+       
+
+     

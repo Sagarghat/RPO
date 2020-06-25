@@ -1,0 +1,19 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HomeadminComponent } from './homeadmin/homeadmin.component';
+import { RouterModule } from '@angular/router';
+import { routes } from './homeadmin.routing';
+
+
+@NgModule({
+  declarations: [HomeadminComponent],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+  ]
+})
+export class HomeadminModule { 
+  constructor(){
+    console.log("Home AdminModule");
+  }
+}

@@ -1,0 +1,1 @@
+alter table testing.addContact modify others longtext;

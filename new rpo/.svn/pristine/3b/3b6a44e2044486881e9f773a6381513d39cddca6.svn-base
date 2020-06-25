@@ -1,0 +1,803 @@
+<div Class="container-fluid ">
+    <div class="row">
+
+        <div class="w-20" style="background-color:#EEEEEE">
+            <br><br>
+            <div id="list-example" class="list-group sidenavbartext sticky-top">
+                <table>
+                    <tr>
+                        <td><a class="nav-item nav-link" href="#top" style="color:rgb(38, 105, 238)">Information</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a class="nav-item nav-link">TimeLine</a></td>
+                    </tr>
+                    <tr>
+                        <td><a class="nav-item nav-link">Associated Candidates</a></td>
+                    </tr>
+                    <tr>
+                        <td><a class="nav-item nav-link " style="color:#9197A3">RELATED LIST</a></td>
+                    </tr>
+
+                    <tr>
+                        <td><a href="#list-item-1" class="nav-item nav-link sidenavbartext">Notes</a></td>
+                    </tr>
+                    <tr>
+                        <td> <a href="#list-item-2" class="nav-item nav-link sidenavbartext">Attachments</a></td>
+                    </tr>
+                    <tr>
+                        <td> <a href="#list-item-3" class="nav-item nav-link sidenavbartext">Interviews</a></td>
+                    </tr>
+                    <tr>
+                        <td> <a href="#list-item-4" class="nav-item nav-link sidenavbartext ">Client Submissions</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="w-75" id="top">
+            <div class="shadow p-3 mb-5  ml-4 mr-4 bg-white rounded p-0 pb-5 " data-spy="scroll"
+                data-target="#list-example" data-offset="0" class="scrollspy-example">
+                <div class="example z-depth-1  bg-white ml-3 mr-3">
+                    <div class=" p-0  pb-5">
+
+                        <nav class="navbar navbar-expand-lg sticky-top sticky-offset navbar-light bg-light">
+                            <i class="fa fa-arrow-left fa-lg" aria-hidden="true" routerLink="/superadmin/candidate"></i>
+                            <div class="float-left">
+                                <button type="button" class="btn bg-white rounded-circle ml-4">
+                                </button>
+                            </div>
+                            <h2>{{firstname}}{{lastname}}</h2>
+                        </nav>
+
+                        <div class="col-sm-5 pb-2 pt-4  ml-5">
+                            <h5 class="pb-2"><b>Publish</b></h5>
+                            <div class="left side">Candidate Status:</div>
+                            <div class="right  side">{{statusmaster.status}}</div>
+                            <div class="left side"> Mobile:</div>
+                            <div class="right side">{{candidatelist.mobile}}</div>
+                            <div class="left side"> Email:</div>
+                            <div class="right side"> {{candidatelist.email}}</div>
+                            <div class="left side"> Experience in years:</div>
+                            <div class="right side">{{candidatelist.totalExperience}}</div>
+                            <div class="left side"> Candidate ID:</div>
+                            <div class="right side">{{candidateid}}</div>
+                        </div>
+
+                        <div class=" row col-sm-4 pb-2 pt-2 ml-5">
+                            <button class="btn btn-sm pt-3" (click)="hidedd()"
+                                style="color:#2C7BD0; font-size: 1.2rem;">
+                                {{text}}
+                                <i class="fa fa-angle-down"></i> </button>
+                        </div>
+
+                        <div *ngIf="status1">
+                            <div class="container-fluid pt-5 pb-5 ">
+                                <div>
+                                    <form [formGroup]="registerForm" (ngSubmit)="save()">
+
+                                        <h4 class="ml-3">Basic Information</h4><br>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">First Name:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="firstName" class="form-control"
+                                                            disabled formControlName="firstName">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-5  ml-5">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Last Name:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" disabled name="lastName" class="form-control"
+                                                            formControlName="lastName">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Email</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="email" class="form-control" disabled
+                                                            formControlName="email">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-5 ml-5">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0  my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Mobile</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="number" name="mobile" formControlName="mobile"
+                                                            disabled class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':alternateMobile == null || alternateMobile == ''}">
+                                                <div class="row p-0 ">
+                                                    <div class="col-sm-4 p-0  my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Alternate Mobile</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="number" name="alternateMobile" class="form-control"
+                                                            disabled formControlName="alternateMobile">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':fax == null || fax == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Fax</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="fax" formControlName="fax" disabled
+                                                            class="form-control" id="LastName">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':website == null || website == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0">
+                                                        <input type="text" class="form-control" disabled value="Website"
+                                                            style=" border-bottom: 0px;">
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="website" class="form-control" disabled
+                                                            formControlName="website">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':altenateEmail == null || altenateEmail == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <input type="text" class="form-control" disabled
+                                                            value="alternate Email" style=" border-bottom: 0px;">
+                                                    </div>
+                                                    <div class="col-sm-7 p-0 ">
+                                                        <input type="text" name="altenateEmail" class="form-control"
+                                                            disabled formControlName="altenateEmail">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div><br>
+
+                                        <h4 [ngClass]="{'inputStatus':street1 == null || street1 == '' || city == null || city == '' || 
+                                        state == null || state == '' || pincode == null || pincode == '' || country == null || country == ''}"
+                                            class="ml-3">Address Information </h4><br>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':street1 == null || street1 == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Street:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="street1" class="form-control" disabled
+                                                            placeholder="Enter Street" formControlName="street1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':city == null || city == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">City:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="city" formControlName="city" disabled
+                                                            class="form-control" placeholder="Enter City">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':state == null || state == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">State:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="state" class="form-control" disabled
+                                                            placeholder="Enter State" formControlName="state">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':pincode == null || pincode == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Pincode:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="number" name="pincode" formControlName="pincode"
+                                                            disabled class="form-control" placeholder="Enter Pincode">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':country == null || country == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Country:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="country" class="form-control" disabled
+                                                            placeholder="Enter Country" formControlName="country">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+
+                                        <h4 class="ml-3">Professional Details</h4><br>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':totalExperience == null || totalExperience == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Experience:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="totalExperience" class="form-control"
+                                                            placeholder="Enter Experience" disabled
+                                                            formControlName="totalExperience">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-5 ml-5">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Highest Qualification:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="addQualificationHeld"
+                                                            formControlName="addQualificationHeld" class="form-control"
+                                                            [(ngModel)]="selectedqual" disabled
+                                                            placeholder="Enter Highest Qualification">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Job Title:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="candidateJobTitle" class="form-control"
+                                                            placeholder="Enter Job Title"
+                                                            formControlName="candidateJobTitle"
+                                                            [(ngModel)]="selectedjob" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-5 ml-5">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Current Employer:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="currentCompanyName" disabled
+                                                            formControlName="currentCompanyName" class="form-control"
+                                                            placeholder="Enter Current Employer">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Expected Salary:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="expectedCTC" class="form-control"
+                                                            disabled placeholder="Enter Salary"
+                                                            formControlName="expectedCTC">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':currentCTC == null || currentCTC == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Current Salary:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="currentCTC" class="form-control"
+                                                            disabled placeholder="Enter Salary"
+                                                            formControlName="currentCTC">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Notice Period:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="noticePeriod" class="form-control"
+                                                            placeholder="Enter Notice Period" disabled
+                                                            formControlName="noticePeriod">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-5 ml-5">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">PrimarySkillS:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="primarySkills" class="form-control"
+                                                            placeholder="Enter PrimarySkills"
+                                                            [(ngModel)]="selectedskilss" disabled
+                                                            formControlName="primarySkills">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5 sm-5 lg-5 col-5 xs-5"
+                                                [ngClass]="{'inputStatus':skillset == null || skillset == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Skill Set</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" rows="2" id="comment" disabled
+                                                            formControlName="skillset" style="width:180%"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-5 ml-5 sm-5 lg-5 col-5 xs-5"
+                                                [ngClass]="{'inputStatus':additionalInfo == null || additionalInfo == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Additional Info</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" rows="2" id="comment"
+                                                            formControlName="additionalInfo" disabled
+                                                            style="width:180%"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':skypeID == null || skypeID == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <input type="text" class="form-control" disabled
+                                                            value="Skype ID" style=" border-bottom: 0px;">
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="skypeID" class="form-control" disabled
+                                                            placeholder="Enter SkypeId" formControlName="skypeID">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':twitterId == null || twitterId == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <input type="text" class="form-control" disabled value="Twitter"
+                                                            style=" border-bottom: 0px;">
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="twitterId" formControlName="twitterId"
+                                                            disabled class="form-control" placeholder="Enter TwitterId">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><br>
+
+                                        <h4 class="ml-3">Other Information</h4><br>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Candidate Status:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="candidateStatusMaster"
+                                                            class="form-control" disabled
+                                                            formControlName="candidateStatusMaster">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-5 ml-5">
+                                                <div class="row p-0">
+                                                    <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 p-0">
+                                                        <label type="text" class="form-control" for="disabled"
+                                                            style="border-bottom: 0px;">Source</label>
+                                                    </div>
+                                                    <div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                        <input type="text" name="lead" class="form-control"
+                                                            formControlName="source" id="source" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Candidate Owner:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="user" class="form-control"
+                                                            formControlName="user" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+
+                                        <h4 class="ml-3">Educational Details</h4><br>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':school == null || school == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Institute/School:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="nameOfSchool" class="form-control"
+                                                            formControlName="nameOfSchool" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':department == null || department == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Department:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="department" class="form-control"
+                                                            formControlName="department" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':degreeee == null || degreeee == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Degree:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="degree" class="form-control" disabled
+                                                            formControlName="degree" [(ngModel)]="selecteddegree">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':durationFormDate == null || durationFormDate == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">DurationFormDate:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="durationFormDate" class="form-control"
+                                                            formControlName="durationFormDate" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':durationToDate == null || durationToDate == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">DurationToDate:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="durationToDate" class="form-control"
+                                                            disabled formControlName="durationToDate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h4 [ngClass]="{'inputStatus':occupation == null || occupation == '' || companyname == null || companyname == ''
+                                    || summary == null || summary == '' || durationFormDate == null || durationFormDate == '' ||
+                                    durationToDate == null || durationToDate == ''}" class="ml-3">Experience Details
+                                        </h4><br>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':occupation == null || occupation == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Occupation:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="occupation" class="form-control"
+                                                            disabled formControlName="occupation">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':companyname == null || companyname == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Company:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="companyname" class="form-control"
+                                                            disabled formControlName="companyname">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':summary == null || summary == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">Summary:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="summary" class="form-control" disabled
+                                                            formControlName="summary">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':durationFormDate == null || durationFormDate == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">DurationFormDate:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="durationFormDate" class="form-control"
+                                                            disabled formControlName="durationFormDate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class=" col-sm-5 ml-5"
+                                                [ngClass]="{'inputStatus':durationToDate == null || durationToDate == ''}">
+                                                <div class="row p-0">
+                                                    <div class="col-sm-4 p-0 my-2">
+                                                        <label type="text" class="form-control"
+                                                            style=" border-bottom: 0px;">DurationToDate:</label>
+                                                    </div>
+                                                    <div class="col-sm-7 p-0">
+                                                        <input type="text" name="durationToDate" class="form-control"
+                                                            disabled formControlName="durationToDate">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="left ml-5" id="list-item-1">
+                    <h5><b>Notes</b></h5>
+                </div>
+                <table width="100%" class="table cd ml-5">
+                    <tbody>
+                        <tr *ngFor="let c of getdetails">
+                            <td>
+                                <div class="italic" style="margin-top:15px; margin-bottom:15px;">
+                                    <b>{{c.noteData}}</b>
+                                    <i class="fa fa-trash fa-lg" aria-hidden="true" data-toggle="tooltip"
+                                        title="delete note" (click)="candidatedeletedata(c.id)"
+                                        style="float: right;color:red; "></i>
+                                </div>
+                                <div class="italic" style="margin-top:15px; margin-bottom:15px;">
+                                    {{c.noteType}}
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <form [formGroup]="noteForm" (ngSubmit)="notesave()">
+
+                    <table width="5%" class="table ml-5">
+                        <tbody>
+                            <div class="jumbotron col-sm-9">
+                                <div *ngIf="!status">
+                                    <p>Note Type</p>
+                                    <select name="cars" class="col-2 " formControlName="noteSelect">
+                                        <option value="Call" class="form-control">Call</option>
+                                        <option value="Meeting" class="form-control">Meeting</option>
+                                        <option value="Notes" class="form-control">Notes</option>
+                                        <option value="Others" class="form-control">Others</option>
+                                    </select>
+                                    <textarea class="form-control" rows="2" id="comment"
+                                        formControlName="note"> </textarea>
+                                </div>
+                                <div *ngIf="status">
+                                    <textarea class="form-control" rows="2" (click)="ShowHideClick()"></textarea>
+                                </div><br>
+                                <button type="submit" class="btn btn-primary btn-sm"
+                                    style="float: right;">Save</button>&nbsp;&nbsp;
+                                <button type="reset" class="btn btn-success btn-sm"
+                                    style="float: right;">Cancel</button>
+                            </div>
+                        </tbody>
+                    </table>
+
+                </form>
+
+                <div class="left  ml-5" id="list-item-2">
+                    <h5><b>Attachments</b></h5>
+                </div>
+                <table width="100%" class="table  ml-5">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="italic" style="margin-top:15px; margin-bottom:15px;">No Attachment</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="left  ml-5" id="list-item-3">
+                    <h5><b>Interviews</b></h5>
+                </div>
+                <div class="rightlast" style="color: blue;" (click)="interview()">+Schedule Interviews</div>
+                <table width="100%" class="table  ml-5">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="italic" style="margin-top:15px; margin-bottom:15px;">No Records Found</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="left  ml-5" id="list-item-4">
+                    <h5><b>Emails</b></h5>
+                </div>
+                <table width="100%" class="table  ml-5">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <button class="btn btn-success" (click)="emalnav()">Send Email</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="left  ml-5" id="list-item-4">
+                    <h5><b>Client Submissions</b></h5>
+                </div>
+                <table width="100%" class="table  ml-5">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <button class="btn btn-success" (click)="submitclient()">Submit to client</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="left  ml-5" id="list-item-3">
+                    <h5><b>Ratings & Reviews</b></h5>
+                </div>
+                <div class="rightlast">+Submit Review</div>
+                <table width="100%" class="table  ml-5">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="left side mx-2 " style="color: black;">Rating</div>
+                                <div class="right side">
+                                    <ngb-rating [(rate)]="currentRate">
+                                        <ng-template let-fill="fill" let-index="index">
+                                            <span class="star" [class.filled]="fill === 100"
+                                                [class.bad]="index < 3">&#9733;</span>
+                                        </ng-template>
+                                    </ngb-rating>
+                                    <pre>Rate: <b>{{currentRate}}</b></pre>
+                                </div>
+                                <hr>
+                                <div class="left side mx-2 " style="color: black;">Job Opening Name</div>
+                                <div class="right side" *ngFor="let g of profileDetails">{{jobopening}}</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="float-right pb-5 pt-2 footer">
+                    <button class="btn btn-lg btn-light shadow " (click)="gotoTop()" style="border-radius: 50%;">
+                        <i class="fa fa-angle-up" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

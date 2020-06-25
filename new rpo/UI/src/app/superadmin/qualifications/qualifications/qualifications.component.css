@@ -1,0 +1,44 @@
+.btn-info {
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    min-width: 4.2rem !important;
+    min-height: 1rem !important;
+}
+
+
+
+input.form-control{
+    border-top-width: 0px;
+    border-top-color:0;
+    border-right-width: 0px ;
+    border-bottom-width: 2px;
+    border-left-width: 0;
+    padding: 0;
+    border-radius: 0rem; 
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+    
+    .form-control:focus {
+       background-color: #f8f8f8;
+     border-color:#3f729b!important;
+    -webkit-box-shadow: none!important;
+    -moz-box-shadow: none!important;
+    box-shadow: none!important;
+    transition: width 0.2s;
+    }
+    
+
+
+
+    
+
+/*  table css here */
+
+  .border_color_th{
+    border-bottom: 2px solid #3f729b;
+  }
+
+  .table tbody  tr  {
+    border-left : 0.3em solid rgb(255, 195, 112);
+  }

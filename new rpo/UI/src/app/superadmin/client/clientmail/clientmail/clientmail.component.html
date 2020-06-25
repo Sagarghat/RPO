@@ -1,0 +1,154 @@
+<!-- <p>clientmail works!</p> -->
+<nav class="navbar navbar-expand-lg sticky-top sticky-offset navbar-light bg-white">
+    <i class="fa fa-arrow-left fa-lg" aria-hidden="true" routerLink="/superadmin/client"></i>
+    <!-- <h4>{{contactDetails.lastName}}</h4><h6>{{contactDetails.client.clientName}}</h6> -->
+</nav>
+<form [formGroup]="registerForm" (ngSubmit)="save()">
+    <!-- <div class="row">
+        <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+                <div class="col-sm-4 p-0">
+                    <input type="text" class="form-control" disabled value="FROM" style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0">
+                    <input type="email" name="from" class="form-control" formControlName="from">
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div class="row">
+        <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+                <div class="col-sm-4 p-0">
+                    <input type="text" class="form-control" disabled value="PASSWORD" style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0">
+                    <input type="password" name="password" class="form-control" formControlName="password">
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="row">
+        <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+                <div class="col-sm-4 p-0">
+                    <input type="text" class="form-control" disabled value="TO" style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0">
+                    <input type="email" name="to" class="form-control" formControlName="to" disabled>
+                    <!-- <input type="email" name="to" class="form-control" formControlName="to"> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+                <div class="col-sm-4 p-0">
+                    <input type="text" class="form-control" disabled value="CC" style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0">
+                    <input type="email" name="cc" class="form-control" formControlName="cc" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+                <div class="col-sm-4 p-0">
+                    <input type="text" class="form-control" disabled value="BCC" style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0">
+                    <input type="email" name="bcc" class="form-control" formControlName="bcc" disabled>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+                <div class="col-sm-4 p-0">
+                    <input type="text" class="form-control" disabled value="Message Subject"
+                        style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0">
+                    <input type="email" name="messageSubject" class="form-control" placeholder="Add a Subject"
+                        formControlName="messageSubject">
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <br>
+    <div  class="ml-4 mr-4" style="width: 70%;">
+        <ejs-richtexteditor name="messageBody" formControlName="messageBody"></ejs-richtexteditor>
+    </div>
+
+    <!-- <div class="row">
+        <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+                <div class="col-sm-4 p-0">
+                    <input type="text" class="form-control" disabled value="LOGOIMAGEPATH" style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0">
+                    <input type="text" name="logoImagePath" class="form-control" formControlName="logoImagePath">
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div class="row">
+        <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+                <div class="col-sm-4 p-0">
+                    <input type="text" class="form-control" disabled value="STARTDATE" style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0">
+                    <input type="date" name="startDate" class="form-control" formControlName="startDate">
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div class="row">
+        <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+                <div class="col-sm-4 p-0">
+                    <input type="text" class="form-control" disabled value="EndDate" style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0">
+                    <input type="date" name="endDate" class="form-control" formControlName="endDate">
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+    <!-- <div class="row">
+        <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+                <div class="col-sm-4 p-0">
+                    <input type="text" class="form-control" disabled value="LOCATION" style=" border-bottom: 0px;">
+                </div>
+                <div class="col-sm-7 p-0">
+                    <input type="text" name="location" class="form-control" formControlName="location">
+
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+    <button type="submit" class="btn btn-secondary margin-right "
+    style="margin:20px;" routerLink="/superadmin/client">Cancel</button>
+    <button  type="submit" class="btn btn-success margin-left" style="margin:14px;">Submit</button>
+
+</form>

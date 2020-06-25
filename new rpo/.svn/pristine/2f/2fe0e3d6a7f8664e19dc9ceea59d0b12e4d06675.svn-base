@@ -1,0 +1,238 @@
+
+package com.ojas.rpo.security.rest.resources;
+
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
+
+import com.ojas.rpo.security.dao.candidate.CandidatelistDao;
+import com.ojas.rpo.security.dao.user.UserDao;
+import com.ojas.rpo.security.entity.Candidate;
+import com.ojas.rpo.security.entity.ExceptionMessage;
+import com.ojas.rpo.security.entity.Response;
+import com.ojas.rpo.security.entity.ResponseWrapper;
+import com.ojas.rpo.security.entity.User;
+import com.ojas.rpo.security.util.CandidateSearch;
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataParam;
+
+@Component
+@Path("/addcandidate")
+public class CandidateResource {
+
+	@Value("${resumeUploadPath}")
+	private String resumeUpload;
+	@Autowired
+	private CandidatelistDao candidateDao;
+	@Autowired
+	private UserDao userDao;
+
+	@POST
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public @ResponseBody Response create(Candidate candidate) {
+
+		if (candidate == null) {
+			Response response = new Response(HttpStatus.CONFLICT, ExceptionMessage.DataIsEmpty);
+			response.setRes("Invalid Request ");
+			return response;
+		}
+
+		if (candidate.getRegistrationId() == null || candidate.getFirstName() == null
+				|| candidate.getFirstName().trim().equals("") || candidate.getLastName() == null
+				|| candidate.getLastName().trim().equals("") || candidate.getEmail() == null
+				|| candidate.getEmail().trim().equals("") || candidate.getMobile() == null
+				|| candidate.getMobile().equals("") || candidate.getPrimarySkills() == null
+				|| candidate.getPrimarySkills().isEmpty() || candidate.getExpectedCTC() == null
+				|| candidate.getExpectedCTC().trim().equals("") || candidate.getCandidateJobTitle() == null
+				|| candidate.getAddQualificationHeld() == null || candidate.getSource() == null
+				|| candidate.getUser() == null || candidate.getCandidateStatusMaster() == null
+				|| candidate.getResume().trim().equals("") || candidate.getResume() == null) {
+
+			return new Response(HttpStatus.CONFLICT, ExceptionMessage.DataIsEmpty);
+		}
+
+		List<String> ids = candidateDao.chekduplicate(candidate.getMobile(), candidate.getEmail(),
+				candidate.getRegistrationId());
+
+		Candidate find = null;
+
+		if (candidate.getId() != null) {
+
+			find = candidateDao.find(candidate.getId());
+			Iterator<String> iterator = ids.iterator();
+
+			while (iterator.hasNext()) {
+				if (iterator.next().equalsIgnoreCase(find.getEmail())) {
+					iterator.remove();
+				}
+			}
+		}
+		if (candidate.getId() == null && !ids.isEmpty()) {
+
+			return new Response(ExceptionMessage.DuplicateRecord);
+
+		} else if ((candidate.getId() != null && null != ids && !ids.isEmpty()) && ids.contains(candidate.getEmail())) {
+			return new Response(ExceptionMessage.DuplicateRecord);
+
+		} else {
+			try {
+				if (candidate.getId() == null) {
+					candidate.setUser(candidate.getUser());
+					candidate.setModifiedOwner(candidate.getUser());
+				} else if (candidate.getId() != null && find.getUser() != null) {
+					candidate.setUser(find.getUser());
+					candidate.setModifiedOwner(candidate.getUser());
+				}
+				candidate.setLastUpdatedDate(new Date());
+				candidate.setFileExtension(FilenameUtils.getExtension(candidate.getFileExtension()));
+				candidate.setFileName(FilenameUtils.removeExtension(candidate.getFileName()));
+				FilenameUtils.getExtension(candidate.getFileExtension());
+
+				/**
+				 * user save
+				 */
+				User user = new User();
+				user.setFirstName(candidate.getFirstName());
+				user.setLastName(candidate.getLastName());
+				user.setEmail(candidate.getEmail());
+				user.setContactNumber(candidate.getMobile());
+				user.setDate(new Date());
+				userDao.save(user);
+
+				/**
+				 * candidateSave
+				 */
+				Candidate candidateSave = this.candidateDao.save(candidate);
+				return new Response(ExceptionMessage.StatusSuccess, candidateSave);
+			} catch (Exception e) {
+				return new Response(ExceptionMessage.DuplicateRecord, e.getLocalizedMessage());
+			}
+		}
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("{id}")
+	public @ResponseBody Response read(@PathParam("id") Long id) {
+		Candidate find = null;
+
+		if (id != null) {
+			find = candidateDao.find(id);
+		}
+
+		if (find == null || id == null) {
+			return new Response(ExceptionMessage.DataIsEmpty);
+		} else {
+			long currentTimeMillis = System.currentTimeMillis() - find.getLastUpdatedDate().getTime();
+			Long days = TimeUnit.MILLISECONDS.toDays(currentTimeMillis + 0L);
+			find.setSetDiffDays(days);
+
+			String resume = find.getResume();
+			if (resume != null) {
+				find.setResumeByte(resume.getBytes());
+			}
+			find.setResume(null);
+			return new Response(ExceptionMessage.StatusSuccess, find);
+		}
+	}
+
+	@POST
+	@Path("/search")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public @ResponseBody Response findDataBasedOnRegId(CandidateSearch candidateSearch) {
+
+		if (candidateSearch.getPageNum() == null || candidateSearch.getPageSize() == null
+				|| candidateSearch.getRegistrationId() == null)
+			return new Response(ExceptionMessage.Bad_Request, "page size or page number  or registationId missing");
+		else
+			return candidateDao.findAllCandidateBasedOnRegId(candidateSearch);
+	}
+
+	@POST
+	@Path("/uploadresume")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces(MediaType.APPLICATION_JSON)
+	public @ResponseBody Response resumeUpload(@FormDataParam("file") InputStream file,
+			@FormDataParam("file") FormDataContentDisposition fileDetails) {
+		Response response = null;
+		FileSystemResource fileSystemResource = null;
+		java.nio.file.Path path = null;
+		String url = "http://localhost:8081/upload";
+
+		byte[] bytes = null;
+
+		if (resumeUpload == null && resumeUpload.isEmpty()) {
+			response = new Response(ExceptionMessage.Bad_Request, "User Directory not found");
+		}
+
+		try {
+
+			bytes = IOUtils.toByteArray(file);
+			path = Paths.get(resumeUpload + fileDetails.getFileName());
+
+			if (!path.getParent().toFile().exists())
+				Files.createDirectories(path.getParent());
+
+			path = Files.write(path, bytes);
+			fileSystemResource = new FileSystemResource(path.toFile());
+
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(org.springframework.http.MediaType.MULTIPART_FORM_DATA);
+
+			LinkedMultiValueMap<String, Object> linkedMultiValueMap = new LinkedMultiValueMap<String, Object>();
+			linkedMultiValueMap.add("resume", fileSystemResource);
+
+			HttpEntity<LinkedMultiValueMap<String, Object>> httpEntity = new HttpEntity<LinkedMultiValueMap<String, Object>>(
+					linkedMultiValueMap, headers);
+
+			RestTemplate restTemplate = new RestTemplate();
+
+			ResponseEntity<ResponseWrapper> exchange = restTemplate.exchange(url, HttpMethod.POST, httpEntity,
+					ResponseWrapper.class);
+
+			response = new Response(ExceptionMessage.Accepted, exchange.getBody());
+		} catch (Exception e) {
+			e.printStackTrace();
+			response = new Response(ExceptionMessage.Bad_Request, e.getLocalizedMessage());
+		} finally {
+
+			try {
+				Files.deleteIfExists(path);
+			} catch (Exception e) {
+				e.printStackTrace();
+				response = new Response(ExceptionMessage.Bad_Request, e.getLocalizedMessage());
+			}
+		}
+		return response;
+	}
+
+}

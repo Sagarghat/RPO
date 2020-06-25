@@ -1,0 +1,32 @@
+package com.ojas.rpo.security.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+
+@javax.persistence.Entity
+public class AssesmentName implements Entity {
+
+	@Id
+	private Long id;
+
+	@Column(unique = true, nullable = false)
+	private String assesmentName;
+	
+	public String getAssessmentName() {
+		return assesmentName;
+	}
+
+	public void setAssesmentName(String assessmentName) {
+		this.assesmentName = assessmentName;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@Override
+	public Long getId() {
+		return id;
+	}
+
+}

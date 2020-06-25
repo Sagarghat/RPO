@@ -1,0 +1,387 @@
+<div ng-include="'partials/header.html'"></div>
+<div ng-include="'partials/fotter.html'"></div>
+<div class="content-wrapper">
+	<div class="container-fluid" style="margin-top: 60px;">
+
+		<!-- new existin code here -->
+		<!-- Breadcrumbs-->
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<h3>Users/Add User</h3>
+			</li>
+
+		</ol>
+		<form name="userForm" class="myForm" required novalidate>
+			<div class="row">
+				<div class="form-group col-md-3">
+					<label for="user_fname">First Name<sup>*</sup></label> <input
+						type="text" name="userFirstName" placeholder="Enter First Name"
+						ng-model="firstName" required class="form-control" />
+					<div ng-messages="userForm.userFirstName.$error"
+						ng-if="userForm.userFirstName.$touched">
+						<div ng-message="required">This field is required</div>
+					</div>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="user_lname">Last Name<sup>*</sup></label> <input
+						type="text" name="userLastName" placeholder="Enter Last Name"
+						ng-model="lastName" required class="form-control" />
+					<div ng-messages="userForm.userLastName.$error"
+						ng-if="userForm.userLastName.$touched">
+						<div ng-message="required">This field is required</div>
+					</div>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="user_email">Email<sup>*</sup></label> <input
+						type="email" name="userEmail" placeholder="Enter Email"
+						ng-model="email" required class="form-control" />
+					<div ng-messages="userForm.userEmail.$error"
+						ng-if="userForm.userEmail.$touched">
+						<div ng-message="required">This field is required</div>
+						<div ng-message="email">Your email address is invalid</div>
+					</div>
+				</div>
+				<!-- <div class="form-group col-md-3">
+				<label for="user_email">Employee Id<sup>*</sup></label> <input
+						type="text" name="empId" placeholder="Enter Employee Id"
+						ng-model="empId" required class="form-control"
+						ng-pattern="/^(0|[1-9][0-9]*)$/" numbers-only maxlength="5"
+						minlength="3" /><span style="color: red"
+						ng-show="userForm.empId.$dirty && userForm.empId.$error.minlength">Enter
+						valid Employee ID</span>
+					 <span style="color: red"
+						ng-show="">Enter
+						a valid number</span>
+				<div ng-messages="userForm.empId.$error"
+						ng-if="userForm.empId.$touched">
+						<div ng-message="required">Required Employee ID</div>
+					</div>
+
+					<div ng-messages="userForm.empId.$error"
+						ng-if="userForm.empId.$touched">
+						<div ng-message="required">This field is required</div>
+							<div ng-message="email">Your email address is invalid</div>
+					</div>
+				</div> -->
+			</div>
+			<div class="row">
+				<div class="form-group col-md-3">
+					<label for="user_contact">Mobile Number<sup>*</sup></label> <input
+						type="text" name="userContactNumber"
+						placeholder="Enter Contact Number" class="form-control"
+						ng-model="contactNumber" numbers-only
+						ng-pattern="/^(\+[\d]{1,5}|0)?[7-9]\d{9}$/" required
+						maxlength="10" minlength="10" /> 
+						<span style="color: red"
+						ng-show="userForm.userContactNumber.$dirty && userForm.userContactNumber.$error.minlength">Enter
+						valid Mobile Number</span>
+					<!--  <span style="color: red"
+						ng-show="">Enter
+						a valid number</span> -->
+					<div ng-messages="userForm.empId.$error"
+						ng-if="userForm.empId.$touched">
+						<div ng-message="required">Required Mobile Number</div>
+					</div>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="user_contact">Extension Number<sup>*</sup></label> <input
+						type="text" name="extension" placeholder="Enter Extension Number"
+						class="form-control" ng-model="extension" numbers-only
+						ng-pattern="/^[0-9]{3,5}$/" required maxlength="5" /> <span
+						style="color: red"
+						ng-show="userForm.extension.$dirty && userForm.extension.$error.required">not
+						a valid number</span> <span style="color: red"
+						ng-show="userForm.extension.$error.pattern">Number should
+						be 5 digits</span>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="user_role">Role*</label>
+					<div>
+						<select name="userRole" ng-model="role"
+							style="width: 100%; height: 33.33px" class="form-control"
+							required>
+							<option value="">Choose Role</option>
+							<option value="Admin">ADMIN</option>
+							<option value="BDM">BDM</option>
+							<option value="recruiter">Recruiter</option>
+							<option value="AM">Account Manager</option>
+							<option value="Lead">Team Lead</option>
+							<option value="FinanceLead">Finance Lead</option>
+							<option value="FinanceExecutive">Finance Executive</option>
+							<option value="Management">Management</option>
+							<option value="MIS">MIS</option>
+						</select>
+						<div ng-messages="userForm.userRole.$error"
+							ng-if="userForm.userRole.$touched">
+							<div ng-message="required">Choose any Option</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<!-- <div class="form-group col-lg-4">
+							<label for="user_fname">Designation*</label>
+							
+						    <select style="width:358px;" name="desig" ng-model="designation" class="form-control" ng-selected required>
+					          <option value="" disabled selected>Please Select</option>
+					           <option ng-repeat="deg in designationList " value={{deg.designation}}>{{deg.designation}}</option>
+					           
+					         </select>
+
+
+							<div ng-messages="userForm.desig.$error" ng-if="userForm.desig.$touched">
+ 				                <div ng-message="required">This field is required</div>
+			                    </div>
+						
+						</div>
+ -->
+
+
+				<!-- <div class="form-group col-lg-4" >
+							<label for="user_fname">DOB</label>
+							<input type="text" name="dob" placeholder="dd/MM/yy"   class="form-control"
+							ng-change="getDatefuns(idate)" value={{idate}} datepicker-popup="dd/MM/yy" 
+							datepicker-append-to-body="true" ng-model="dob"/>
+							<button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+						<span ng-show="userForm.dob.$dirty && userForm.dob.$error.required"></span>
+						
+						</div>  -->
+				<!-- 	<div class="form-group col-lg-4" >
+						<label for="user_fname">DOB*</label>
+						<p class="input-group">
+							
+							<input type="text" name="doj" placeholder="dd/MM/yy" class="form-control"  uib-datepicker-popup="{{format}}"
+							is-open="popup1.opened" datepicker-options="dateOptions" alt-input-formats="altInputFormats" ng-model="doj" required/>
+							 <span class="input-group-btn">
+									<button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+								</span>	
+    								
+						</p>
+						
+						<div ng-messages="userForm.doj.$error" ng-if="userForm.doj.$touched">
+                        <div ng-message="required">DOJ is required</div>
+                      </div>
+						
+						</div> -->
+				<!-- 	<div class="form-group col-lg-4" >
+						<label for="user_fname">DOJ*</label>
+						<p class="input-group">
+							
+							<input type="text" name="doj1" placeholder="dd/MM/yy" class="form-control"  uib-datepicker-popup="{{format}}"
+							is-open="popup1.opened" datepicker-options="dateOptions" alt-input-formats="altInputFormats" ng-model="doj1" required/>
+							 <span class="input-group-btn">
+									<button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+								</span>	
+    								
+						</p>
+						
+						<div ng-messages="userForm.doj1.$error" ng-if="userForm.doj1.$touched">
+                        <div ng-message="required">DOJ is required</div>
+                      </div>
+						
+						</div> -->
+				<div class="form-group col-md-3" ng-hide="dateshow">
+					<label for="user_fname">DOB</label>
+					<p class="input-group">
+						<input type="text" name="doj" placeholder="dd/MM/yy"
+							class="form-control" uib-datepicker-popup="{{format}}"
+							is-open="popup1.opened" datepicker-options="dateOptions"
+							alt-input-formats="altInputFormats" ng-model="doj" readonly /> <span
+							class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="open1()">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</p>
+				</div>
+				<div class="form-group col-md-3" ng-hide="dateshow1">
+					<label for="user_fname">DOJ</label>
+					<p class="input-group">
+						<input type="text" name="doj1" placeholder="dd/MM/yy"
+							class="form-control" uib-datepicker-popup="{{format}}"
+							is-open="popup2.opened" datepicker-options="dateOptions"
+							alt-input-formats="altInputFormats" ng-model="doj1" readonly />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="open2()">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</p>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="fixedrate">Reporting Manager</label>
+					 <select
+						id="clientName" name="client_name" class="form-control"
+						ng-model="userSelectedId">
+						<option value="" selected ng-disabled="true">Select</option>
+						<option ng-repeat="items in UserDataList" value={{items.id}}>{{items.firstName}}
+							&nbsp; {{items.lastName}}</option>
+					</select>
+					 <!--  <ui-select ng-model="userSelectedId" theme="selectize"  title="" style="color:#0000">
+						<ui-select-match placeholder="Select a Reporting Manager...">{{items.firstName}} &nbsp; {{items.lastName}}</ui-select-match> 
+						<ui-select-choices repeat="items in UserDataList | filter: $select.search" value={{items.id}>
+						  <small> {{items.firstName}} &nbsp; {{items.lastName}} </small>
+						  {{items.firstName}} &nbsp; {{items.lastName}} | highlight: $select.search">
+						</ui-select-choices>
+					</ui-select> -->
+				</div>
+
+				<!-- <div class="form-group col-lg-3" ng-hide="datehide">
+						<label for="user_fname">DOJ</label>
+						<p class="input-group">
+							
+							<input type="text" class="form-control" placeholder="dd/MM/yy" ng-model="doj1" ng-click="open1()" />
+							<span class="input-group-btn">
+									<button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+								</span>	
+
+						</div> -->
+
+			</div>
+			<div class="row">
+			<div class="form-group col-md-3">
+					<label for="user_password">User Name</label> <input type="text"
+						value="{{firstName}}.{{lastName}}@ojas-it.com"
+						class="form-control" readonly>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="user_password">Password*</label> <input type="password"
+						name="userP" placeholder="Enter Password" ng-model="passwordU"
+						ng-minlength="8" ng-maxlength="15" class="form-control"
+						ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/"
+						required />
+					<div ng-messages="userForm.userP.$error"
+						ng-if="userForm.userP.$touched">
+						<div ng-message="pattern">Password should be atleast 8
+							characters long and should contain one number,one character and
+							one special character</div>
+						<div ng-message="required">Password should be atleast 8
+							characters long and should contain one number,one character and
+							one special character</div>
+						<div ng-message-exp="['minlength', 'maxlength']">Password
+							must be between 5 and 15 characters in length</div>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="row">
+				
+
+			</div> -->
+
+
+			<!-- 	
+					<div class="row" ng-show=false>
+						<div class="form-group col-lg-4">
+							<label for="security_question" >Security Question</label>
+	
+											<div>
+ 
+					
+							<select name="userQuestion" ng-options="s.name for s in sample" class="form-control" ng-model="selitem" style="width:100%;height:33.33px" >
+								<option value="">Choose a Question</option>
+						
+								</select>
+										
+							<div ng-messages="userForm.userQuestion.$error" ng-if="userForm.userQuestion.$touched">
+                        <div ng-message="required">Choose any Option</div>
+                      </div>
+							</div>
+							</br>
+							
+					</div>
+						<div class="form-group col-lg-4">
+						<label for="answer">Answer</label>
+							<input type="text" name="userAnswer" placeholder="Enter your Answer" ng-model="answer"  class="form-control"/>
+					
+						<div ng-messages="userForm.userAnswer.$error" ng-if="userForm.userAnswer.$touched">
+                   <div ng-message="required">This field is required</div>
+                           </div>
+					</div>					
+					</div>
+					 -->
+
+
+
+			<hr>
+
+
+
+
+			<label>Salary Details</label>
+			<div class="row">
+				<div class="form-group col-md-3">
+					<label><b>Salary</b>*</label> <input type="text" name="Salary"
+						placeholder="Enter Basic Salary" ng-model="Salary" minlength="5"
+						maxlength="7" class="form-control" numbers-only />
+				</div>
+				<div class="form-group col-md-3">
+					<label><b>Variable Pay</b>*</label> <input type="text"
+						name="Variablle" placeholder="Enter Variable Pay"
+						ng-model="Variablle" class="form-control" minlength="5"
+						maxlength="7" numbers-only />
+				</div>
+				<div class="form-group col-md-3">
+					<label>*<b>CTC</b>*
+					</label> <input type="text" name="CTC" placeholder="Total CTC"
+						ng-model="CTC" minlength="5" maxlength="8" class="form-control"
+						numbers-only />
+				</div>
+				<div class="form-group col-md-3">
+					<label>*<b>Target(min)</b>*
+					</label> <input type="text" name="min" placeholder="Min Target"
+						ng-model="minTarget" class="form-control" minlength="1"
+						maxlength="3" numbers-only />
+				</div>
+				<div class="form-group col-md-3">
+					<label><b>Target(max)</b>*</label> <input type="text" name="max"
+						placeholder="Max Target" ng-model="maxTarget" minlength="1"
+						maxlength="3" class="form-control" numbers-only />
+				</div>
+				<div class="form-group col-md-3">
+					<label><b>Target Duration</b>*</label> <select
+						ng-model="targetDuration" class="form-control">
+						<option value="" selected ng-disabled=true>--Select--</option>
+						<option value="Q1">Q1</option>
+						<option value="Q2">Q2</option>
+						<option value="Q3">Q3</option>
+						<option value="Q4">Q4</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<!--  ng-disabled="userForm.$invalid"  -->
+				<div class="form-group col-lg-12">
+					<button class="btn btn-success pull-right" data-toggle="modal"
+						data-target="#response" 
+						ng-click="addUser()">Register</button>
+					<a href="#!/listOfUsers" type="button"
+						class="btn btn-info pull-left">Cancel</a>
+					<div class="form-group col-lg-4">
+						<button type='reset' class="btn btn-info pull-left">Reset</button>
+					</div>
+				</div>
+			</div>
+			<!--  ng-disabled="userForm.$invalid"-->
+		</form>
+	</div>
+	<!-- User Registration Form -->
+	<div class="modal fade" id="response" role="dialog">
+		<div class="modal-dialog" style="width: 45%; height: auto;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>User Registration</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container">
+						<p style="color: green;">{{responseMes}}</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a ng-show="ok" class="btn btn-info pull-right"
+						data-dismiss="modal" ng-click="redirect()">OK</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- User Registration Form End-->
+</div>

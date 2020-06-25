@@ -1,0 +1,644 @@
+<div Class="container-fluid ">
+    <div class="row">
+        <div class="w-20" style="background-color:#EEEEEE"><br><br>
+            <div id="list-example" class="list-group sidenavbartext sticky-top">
+                <table>
+                    <tr>
+                        <td><a class="nav-item nav-link" href="#top" style="color:rgb(38, 105, 238)">Information</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a class="nav-item nav-link">TimeLine</a></td>
+                    </tr>
+                    <tr>
+                        <td><a class="nav-item nav-link">Associated Candidates</a></td>
+                    </tr>
+                    <tr>
+                        <td><a class="nav-item nav-link " style="color:#9197A3">RELATED LIST</a></td>
+                    </tr>
+
+                    <tr>
+                        <td><a href="#list-item-1" class="nav-item nav-link sidenavbartext">Notes</a></td>
+                    </tr>                
+                    <tr>
+                        <td> <a href="#list-item-3" class="nav-item nav-link sidenavbartext ">Job Openings</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> <a href="#list-item-4" class="nav-item nav-link sidenavbartext">Interviews</a></td>
+                    </tr>
+                    <tr>
+                        <td> <a href="#list-item-5" class="nav-item nav-link sidenavbartext ">Contacts</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="w-75" id="top">
+            <div class="shadow p-3 mb-5  ml-4 mr-4 bg-white rounded p-0 pb-5 " data-spy="scroll"
+                data-target="#list-example" data-offset="0" class="scrollspy-example">
+                <div class="example z-depth-1  bg-white ml-3 mr-3">
+                    <div class=" p-0  pb-5">
+
+                        <nav class="navbar navbar-expand-lg sticky-top sticky-offset navbar-light bg-light">
+                            <i class="fa fa-arrow-left fa-lg" aria-hidden="true"
+                                routerLink="/superadmin/client"></i>&nbsp;&nbsp;
+                            <i class="fa fa-briefcase fa-2x" aria-hidden="true"></i>
+                            <h4 class="pl-2">{{clientDetails.clientName}}</h4>
+                        </nav>
+
+                        <div class="col-6 pb-2 pt-4  ml-5">
+                            <table>
+                                <tr>
+                                    <td><span class="mr-5">Modified Time</span></td>
+                                    <td><span class="ml-5">{{clientDetails.timeDiff}}</span> &nbsp;
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span>Industry</span></td>
+                                    <td><span class="ml-5">{{clientDetails.industry.industryType}}</span> </td>
+                                </tr>
+                                <tr>
+                                    <td><span>Contact Number</span></td>
+                                    <td><span class="ml-5">{{clientDetails.phone}}</span> </td>
+                                </tr>
+                            </table>
+                            <br>
+
+                            <button class="btn btn-sm" (click)="hidedd()"
+                                style="color: cornflowerblue; font-size: 1.2rem;">
+                                {{text}} &nbsp;
+                                <i class="fa fa-angle-down"></i> </button>
+                        </div>
+
+                        <div *ngIf="status1">
+                            <div class="container-fluid pt-5 ">
+
+                                <form [formGroup]="registerForm" (ngSubmit)="save()">
+                                    <h5 class="ml-4">Client Information</h5><br>
+
+                                    <div class="row">
+                                        <div class=" col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5">
+                                            <div class="row p-0">
+                                                <div class=" col-sm-5 col-md-4 col-lg-5 col-xl-5 p-0 my-2 ">
+                                                    <label type="text" class="form-control" for="disabled"
+                                                        style=" border-bottom: 0px;">Customer Name<span class="star">
+                                                        </span></label>
+                                                </div>
+                                                <div class=" col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="clientName"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5  ml-5">
+                                            <div class="row p-0">
+                                                <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0  ">
+                                                    <label type="text" class="form-control"
+                                                        style=" border-bottom: 0px;">Customer Type<span
+                                                            class="star"></span></label>
+                                                </div>
+                                                <div class="col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0 ">
+                                                    <input type="text" class="form-control"
+                                                        formControlName="customerType" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="  col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 my-2">
+                                                    <label type="text" class="form-control" for="disabled"
+                                                        style=" border-bottom: 0px;">Email<span
+                                                            class="star"></span></label>
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="email"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5  ml-5">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 ">
+                                                    <label type="text" class="form-control" for="disabled"
+                                                        style=" border-bottom: 0px;">Phone Number<span
+                                                            class="star"></span></label>
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="phone"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5  ml-5" [ngClass]="{'inputStatus':fax == '' || fax == null}">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 ">
+                                                    <input type="text" class="form-control" disabled value="Fax"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="fax"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="  col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5" [ngClass]="{'inputStatus':website == '' || website == null}">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="Website"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="website"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 my-2">
+                                                    <label type="text" class="form-control" for="disabled"
+                                                        style=" border-bottom: 0px;">TDS
+                                                        Percentage<span class="star"></span></label>
+                                                </div>
+                                                <div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control"
+                                                        formControlName="tdspercentage" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><br>
+
+                                    <h5 class="ml-4">Profesional Details</h5><br>
+
+                                    <div class="row">
+                                        <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+                                                    <label type="text" class="form-control" for="disabled"
+                                                        style=" border-bottom: 0px;">Billing Model</label>
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="billingModel">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5">
+                                            <div class="row p-0">
+                                                <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+                                                    <label type="text" class="form-control" for="disabled"
+                                                        style="border-bottom: 0px;">Services</label>
+                                                </div>
+                                                <div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="services">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="row">
+                                        <div class="  col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+                                                    <label type="text" class="form-control" for="disabled"
+                                                        style=" border-bottom: 0px;">Start Date</label>
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="date" class="form-control" 
+                                                        formControlName="startDate">  
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5  ml-5"  [ngClass]="{'inputStatus':endDate == '' || endDate == null}">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+                                                    <input type="text" class="form-control" disabled value="End Date"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="date" class="form-control" formControlName="endDate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="row">
+                                        <div class="  col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+                                                    <label type="text" class="form-control" for="disabled"
+                                                        style=" border-bottom: 0px;">Leaves Allowed</label>
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" name="name" class="form-control" id="name" 
+                                                        formControlName="leavesAllowed">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="  col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5  ml-5">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+                                                    <label type="text" class="form-control" for="disabled"
+                                                        style=" border-bottom: 0px;">Payment Terms</label>
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="paymentTerms">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                    
+                                    <br>
+                                    <h5 class="ml-4">Owner Details</h5>
+                                    <br>
+
+                                    <div class="row">
+                                        <div class="  col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+                                                    <label type="text" class="form-control" for="disabled"
+                                                        style=" border-bottom: 0px;">Account Manager<span
+                                                            class="star"></span></label>
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" name="accmanager" class="form-control"
+                                                        id="accmanager" formControlName="accManager" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5">
+                                            <div class="row p-0">
+                                                <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+                                                    <label type="text" class="form-control" for="disabled"
+                                                        style=" border-bottom: 0px;">Lead<span
+                                                            class="star"></span></label>
+                                                </div>
+                                                <div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" name="lead" class="form-control"
+                                                        formControlName="lead" id="lead" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+                                                    <input type="text" class="form-control" disabled value="Industry"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" name="industry" class="form-control"
+                                                        id="industry" formControlName="industry" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5" >
+                                            <div class="row p-0">
+                                                <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+                                                    <input type="text" class="form-control" disabled value="Source"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" name="lead" class="form-control"
+                                                        formControlName="source" id="source" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5" [ngClass]="{'inputStatus':about == '' || about == null}">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="About"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="about"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br>
+                                    <h5 class="ml-4">Additional Information</h5><br>
+
+                                    <div class="row">
+                                        <div class="  col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5  ml-5">
+                                            <div class="row p-0">
+                                                <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 my-2">
+                                                    <label type="text" class="form-control"
+                                                        style=" border-bottom: 0px;">Address Type<span
+                                                            class="star"></span></label>
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control"
+                                                        formControlName="typeOfAddress" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="  col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5" [ngClass]="{'inputStatus':addressLine1 == '' || addressLine1 == null}">
+                                            <div class="row p-0">
+                                                <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="Street1"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control"
+                                                        formControlName="addressLane1" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="  col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5" [ngClass]="{'inputStatus':addressLine2 == '' || addressLine2 == null}">
+                                            <div class="row p-0">
+                                                <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+                                                    <input type="text" class="form-control" disabled value="Street2"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control"
+                                                        formControlName="addressLane2" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="  col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5" [ngClass]="{'inputStatus':state == '' || state == null}">
+                                            <div class="row p-0">
+                                                <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="State"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="state"
+                                                        disabled>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5" [ngClass]="{'inputStatus':pincode == '' || pincode == null}">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+
+                                                    <input type="text" class="form-control" disabled value="Pincode"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="pincode"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="  col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5" [ngClass]="{'inputStatus':city == '' || city == null}">
+                                            <div class="row p-0">
+                                                <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="city"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="city"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5" [ngClass]="{'inputStatus':country == '' || country == null}">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+                                                    <input type="text" class="form-control" disabled value="Country"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="country"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="  col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5" [ngClass]="{'inputStatus':gst == '' || gst == null}">
+                                            <div class="row p-0">
+                                                <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 my-2">
+                                                    <input type="text" class="form-control" disabled value="GST"
+                                                        style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control" formControlName="gst"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 ml-5" [ngClass]="{'inputStatus':gstpercentage == '' || gstpercentage == null}">
+                                            <div class="row p-0">
+                                                <div class=" col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+                                                    <input type="text" class="form-control" disabled
+                                                        value="GSTPercentage" style=" border-bottom: 0px;">
+                                                </div>
+                                                <div class=" col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                                                    <input type="text" class="form-control"
+                                                        formControlName="gstpercentage" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="left ml-5" id="list-item-1" class="to-be-changed"><h5><b>Notes</b></h5></div>
+                        <table width="100%" class="table cd ml-5" style="color:black">
+                            <tbody>
+                                <tr *ngFor="let c of getdetails">
+                                    <td>
+                                        <div class="italic" style="margin-top:15px; margin-bottom:15px;">
+                                            <b>{{c.noteData}}</b>
+                                            <i class="fa fa-trash fa-lg" aria-hidden="true" data-toggle="tooltip"
+                                                title="delete note" (click)="notedeletedata(c.id)"
+                                                style="float: right; "></i>
+                                        </div>
+                                        <div class="italic" style="margin-top:15px; margin-bottom:15px;">
+                                            {{c.noteType}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <form [formGroup]="noteForm" (ngSubmit)="notesave()">
+
+                            <table width="5%" class="table ml-5" style="color: black;">
+                                <tbody>
+                                    <div class="jumbotron col-sm-9">
+                                        <div *ngIf="!status2">
+                                            <p>Note Type</p>
+                                            <select name="cars" class="col-2 " formControlName="noteSelect">
+                                                <option value="Call" class="form-control">Call</option>
+                                                <option value="Meeting" class="form-control">Meeting</option>
+                                                <option value="Notes" class="form-control">Notes</option>
+                                                <option value="Others" class="form-control">Others</option>
+                                            </select>
+                                            <textarea class="form-control" rows="2" id="comment"
+                                                formControlName="note"> </textarea>
+                                        </div>
+                                        <div *ngIf="status2">
+                                            <textarea class="form-control" rows="2"
+                                                (click)="ShowHideClick()"></textarea>
+                                        </div><br>
+                                        <button type="submit" class="btn btn-primary btn-sm"
+                                            style="float: right;">Save</button>&nbsp;&nbsp;
+                                        <button type="reset" class="btn btn-success btn-sm"
+                                            style="float: right;">Cancel</button>
+                                    </div>
+                                </tbody>
+                            </table>
+                        </form>
+
+                        <br>
+                        <div>
+                            <h5 class="float-left to-be-changed" id="list-item-3"><b>Job Openings</b></h5>
+                            <h6 class="float-right" style="color: blue;" (click)="jobopening()">+New JobOpening</h6>
+                        </div>
+
+                        <table class="table table-responsive-sm table-responsive-md table-responsive-lg ml-5"
+                            style="color: black;">
+                            <thead style="color: black;">
+                                <tr>
+                                    <th class="font-weight-light">JOB OPENING ID</th>
+                                    <th class="font-weight-light">POSTING TITLE</th>
+                                    <th class="font-weight-light">START DATE</th>
+                                    <th class="font-weight-light">END DATE</th>
+                                    <th class="font-weight-light">JOB OPENING STATUS</th>
+                                    <th class="font-weight-light">CITY</th>
+                                    <th class="font-weight-light">CLIENT NAME</th>
+                                    <th class="font-weight-light">CONTACT NAME</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let c of profileDetails" style="color: black;">
+                                    <td>{{c.id}}</td>
+                                    <td class="postingtitlesytle" (click)="jobnameClick(c.id)">{{c.nameOfRequirement}}</td>                                    
+                                    <td>{{c.requirementStartdate|date:"dd-MM-yyyy"}}</td>
+                                    <td>{{c.requirementEndDate|date:"dd-MM-yyyy"}}</td>
+                                    <td>{{c.requirementStatus}}</td>
+                                    <td>{{c.city}}</td>
+                                    <td>{{c.clientName}}</td>
+                                    <td>{{c.contactFirstName}}</td>
+                            </tbody>
+                        </table>
+
+                        <div class="mb-3">
+                            <h6 class="ml-5 float-right" style="color:green;" (click)="viewmorejobopening()">View more
+                            </h6>
+                        </div><br><br>
+
+                        <div>
+                            <h5 class="float-left to-be-changed" id="list-item-4"><b>Interviews</b></h5>
+                            <h6 class="float-right" style="color: blue;" (click)="interview()">+Schedule Interviews</h6>
+                        </div>
+
+                        <table class="table table-responsive-sm table-responsive-md table-responsive-lg ml-5"
+                            style="color: black;">
+                            <thead>
+                                <th></th>
+                                <th class="font-weight-light">INTERVIEW NAME</th>
+                                <th class="font-weight-light">FROM</th>
+                                <th class="font-weight-light">TO</th>
+                                <th class="font-weight-light">CANDIDATE NAME</th>
+                                <th class="font-weight-light">CLIENT NAME</th>
+                                <th class="font-weight-light">POSTING TITLE</th>
+                                <th class="font-weight-light">INTERVIEW STATUS</th>
+                                <th class="font-weight-light">INTERVIEW OWNER</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let interview of interviewList">
+                                    <td></td>
+                                    <td>{{interview.interviewName}} </td>
+                                    <td>{{interview.from}} </td>
+                                    <td>{{interview.to}} </td>
+                                    <td>{{interview.candidateName}}</td>
+                                    <td>{{interview.clientName}} </td>
+                                    <td>{{interview.postingTitle}} </td>
+                                    <td>{{interview.interviewStatus}} </td>
+                                    <td>{{interview.interviewOwner}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="mb-3">
+                            <h6 class="ml-5 float-right" style="color:green;" (click)="viewmoreinterview()">View more
+                            </h6>
+                        </div><br><br>
+
+                        <div>
+                            <h5 class="float-left to-be-changed" id="list-item-5"><b>Contacts</b></h5>
+                            <h6 class="float-right" style="color: blue;" (click)="contact()">+New Contacts</h6>
+                        </div>
+
+                        <table class="table table-responsive-sm table-responsive-md table-responsive-lg ml-5"
+                            style="color: black;">
+                            <thead>
+                                <th class="font-weight-light">FIRST NAME</th>
+                                <th class="font-weight-light">LAST NAME</th>
+                                <th class="font-weight-light">CLIENT NAME</th>
+                                <th class="font-weight-light">EMAIL</th>
+                                <th class="font-weight-light">JOB TITLE</th>
+                                <th class="font-weight-light">MOBILE</th>
+                                <th class="font-weight-light">CONTACT OWNER</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let c of contactDetails">
+                                    <td>{{c.firstName}}</td>
+                                    <td>
+                                        <p class="color" [routerLink]="['../clickContactName', c.id]">{{c.lastName}}</p>
+                                    </td>
+                                    <td>{{c.clientName}}</td>
+                                    <td>{{c.email}}</td>
+                                    <td>{{c.jobTitle}}</td>
+                                    <td>{{c.mobile}}</td>
+                                    <td>{{c.contactOwner}}</td>
+                                    <th></th>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="ml-5">
+                            <button class="float-left" type="button" class="btn btn-secondary"
+                                routerLink="/superadmin/client">Cancel</button>
+                            <h6 class="float-right" style="color:green;" (click)="viewcontact()">View more</h6>
+                        </div>
+
+                        <div class="float-right pb-5 pt-2 footer">
+                            <button class="btn btn-lg btn-light shadow " (click)="gotoTop()"
+                                style="border-radius: 50%;">
+                                <i class="fa fa-angle-up" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

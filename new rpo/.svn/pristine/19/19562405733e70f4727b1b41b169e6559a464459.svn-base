@@ -1,0 +1,96 @@
+<div class="container-fluid mt-5 mb-5">
+
+    <div class="container-fluid p-3 mt-5" style="background-color: #ebe6e6;" >
+        <div>
+            <h5>
+                Skills
+            </h5>
+         <hr  style="margin-top: -0.5rem;" />        
+         <p>Add Skills</p>        
+         <button  class="btn  btn-sm float-right rounded-0  btn-info  " (click)="skills()"  style="margin-top: -2.5rem;">Add</button>
+        </div>
+    
+  
+    </div>
+
+
+
+    <div class="container mt-5 shadow p-3 mb-5 bg-white rounded"   *ngIf="skillshow">
+
+      <div class="shadow-sm p-2 mb-5   col-4  col-sm-2 col-md-2 text-center " style="margin-top: -40px; background-color: #ebe6e6;">
+          <h6 *ngIf="showtag">Add Skills</h6>
+          <h6 *ngIf="showtag1">Edit Skills</h6>
+      </div>
+
+    <form  [formGroup]="skillForm"  class="mt-3 mb-5 col-md-8 offset-md-2" >
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Skill Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control"  name="skillName" formControlName="skillName" >
+        </div>
+      </div>
+      
+      <button *ngIf="showtag" type="submit" class="btn btn-primary d-block float-right btn-sm rounded-0" 
+       [disabled]="!skillForm.valid"  (click)="addSkills()"    >Submit</button>
+
+      <button  *ngIf="showtag1" type="submit" class="btn btn-primary d-block float-right btn-sm rounded-0"  
+      [disabled]="!skillForm.valid"  (click)="editskills()"    >Update</button>
+    </form>
+    </div>
+
+
+
+    <div class="container-fluid text-center  mt-5 shadow p-2 mb-5 bg-white rounded">
+      <div class="table-responsive mt-3">
+     
+        <table class="table">
+          <thead>
+            <tr>
+              <th   class="border_color_th"  scope="col">Skill Name</th>
+              <th   class="border_color_th" scope="col">Edit</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of datashow | paginate: { itemsPerPage: page,currentPage: currentPage,totalItems: total } ">
+            
+              <td>{{p.skillName}}</td>
+              <td><button class="btn btn-sm btn-info rounded-0" (click)="getId(p.id)">Edit</button></td>
+            </tr>
+        
+       
+          </tbody>
+        </table>
+
+        <div class="col-sm-12">
+   
+          <div class="row">
+            <div class="col-xs-12 col-12 float-right">
+              <pagination-controls (pageChange)="setPages($event)"></pagination-controls>
+            </div>
+          </div>
+          </div>
+
+
+      </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+  
+
+
+</div>

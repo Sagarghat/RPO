@@ -1,0 +1,207 @@
+<nav class="navbar navbar-light bg-light">
+    <h3>Submit to client</h3>
+   </nav>
+ <form [formGroup]="registerForm" (ngSubmit)="save()">
+   
+   <div class="row">
+  
+    <div class=" col-sm-5 ml-5">
+      <div class="row p-0 ">
+          <div class="col-sm-4  p-0 ">
+              <input type="text" class="form-control" disabled value="Client Name" style=" border-bottom: 0px;">
+          </div>
+          <div class="col-sm-7 p-0 my-2">
+              <input type="text" class="form-control" placeholder="enter clientName" >
+            
+          </div>
+      </div>
+  </div>
+        
+      
+      
+   </div>
+
+
+   <div class="row">
+    <div class=" col-sm-5 ml-5">
+    <div class="row p-0 ">
+        <div class="col-sm-4  p-0 ">
+            <input type="text" class="form-control" disabled value="Select a Job Opening" style=" border-bottom: 0px;">
+        </div>
+        <div class="col-sm-7 p-0 my-2">
+            <input type="text" name="to" class="form-control"  formControlName="to" >
+          
+        </div>
+    </div>
+</div>
+
+
+  </div>
+  <br>
+
+   <div class="row">
+    <div class=" col-sm-5 ml-5">
+    <div class="row ">
+        <div class="col-sm-4 ">
+            <input type="text" class="form-control" disabled value="TO" style=" border-bottom: 0px;">
+        </div>
+        <div class="col-sm-7">
+            <input type="email" name="to" class="form-control"  formControlName="to" >
+          
+        </div>
+    </div>
+</div>
+
+
+  </div>
+  <br>
+ 
+   <div class="row">
+     <div class=" col-sm-5 ml-5">
+     <div class="row ">
+         <div class="col-sm-4 ">
+             <input type="text" class="form-control" disabled value="CC" style=" border-bottom: 0px;">
+         </div>
+         <div class="col-sm-7 ">
+             <input type="email" name="cc" class="form-control"   formControlName="cc">
+           
+         </div>
+     </div>
+ </div>
+ 
+ 
+   </div>
+   <br>
+   
+   <!-- <div class="row">
+     <div class=" col-sm-5 ml-5">
+     <div class="row ">
+         <div class="col-sm-4 ">
+             <input type="text" class="form-control" disabled value="BCC" style=" border-bottom: 0px;">
+         </div>
+         <div class="col-sm-7 ">
+             <input type="email" name="bcc" class="form-control"   formControlName="bcc">
+           
+         </div>
+     </div>
+ </div>
+ 
+ 
+   </div>
+   <br> -->
+   <div class="col-md-11 ">
+   <ejs-richtexteditor name="messageBody" ></ejs-richtexteditor>
+ </div>
+ <br>
+
+ 
+   <div class="row">
+     <div class=" col-sm-5 ml-5">
+     <div class="row ">
+         <div class="col-sm-4 ">
+             <input type="text" class="form-control" disabled value="STARTDATE" style=" border-bottom: 0px;">
+         </div>
+         <div class="col-sm-7 ">
+             <input type="date" name="startDate" class="form-control"   formControlName="startDate">
+           
+         </div>
+     </div>
+ </div>
+ 
+ 
+   </div>
+   <br>
+ 
+   
+   <div class="row">
+     <div class=" col-sm-5 ml-5">
+     <div class="row ">
+         <div class="col-sm-4 ">
+             <input type="text" class="form-control" disabled value="EndDate" style=" border-bottom: 0px;">
+         </div>
+         <div class="col-sm-7 ">
+             <input type="date" name="endDate" class="form-control"   formControlName="endDate">
+           
+         </div>
+     </div>
+ </div>
+ 
+ 
+   </div>
+   <br>
+   <div class="row">
+     <div class=" col-sm-5 ml-5">
+     <div class="row ">
+         <div class="col-sm-4 ">
+             <input type="text" class="form-control" disabled value="LOCATION" style=" border-bottom: 0px;">
+         </div>
+         <div class="col-sm-7 ">
+             <input type="text" name="location" class="form-control"   formControlName="location">
+           
+         </div>
+     </div>
+ </div>
+ 
+ 
+   </div>
+ 
+   <button type="submit" class="btn btn-success float-right"  >Submit</button>
+ </form>
+ 
+ 
+ 
+
+ 
+
+<!-- 
+ <div class="modal fade" id="clientname" style="margin-top: -29px;" tabindex="-1" role="dialog"
+ aria-labelledby="exampleModalLabel1" aria-hidden="true">
+ <div class="modal-dialog modal-lg" role="document">
+   <div class="modal-content">
+     <div class="container">
+       <nav class="navbar navbar-expand-lg p-3 ">
+         <h5>Client Name: </h5>
+         <div class="collapse navbar-collapse">
+           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+           </ul>
+           <form class="form-inline my-4 my-lg-0">
+             <input type="search" placeholder="Search"><i class="fa fa-search"></i>
+           </form>
+         </div>
+         <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </nav>
+       <table class="table">
+         <thead>
+           <th></th>
+           <th class="font-weight-normal">CLIENT ID</th>
+           <th class="font-weight-normal">CLIENT NAME</th>
+           <th class="font-weight-normal">CONTACT NUMBER</th>
+           <th class="font-weight-normal">CLIENT OWNER</th>
+         </thead>
+         <tbody>
+           <tr
+             *ngFor="let c of clientList ">
+             <td>
+               <input type="radio" [value]="c.clientName" [(ngModel)]="selectedClientName">
+             </td>
+             <td>{{c.id}}</td>
+             <td>{{c.clientName}}</td>
+             <td>{{c.phone}}</td>
+             <td>{{c.amName}}</td>
+           </tr>
+         </tbody>
+       </table>
+
+       
+       <button type="button" class="btn btn-sm btn-primary" style="float: right;"
+         data-dismiss="modal">Savechanges</button>
+       <button type="button" class="btn btn-sm btn-success" style="float: right;" data-dismiss="modal">Close</button>
+     </div>
+   </div>
+ </div>
+</div> -->
+
+
+ 

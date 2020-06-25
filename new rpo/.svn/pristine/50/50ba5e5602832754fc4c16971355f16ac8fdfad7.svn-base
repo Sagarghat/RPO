@@ -1,0 +1,99 @@
+import { Routes } from '@angular/router';
+import { HomeadminComponent } from './homeadmin/homeadmin.component';
+
+export const routes: Routes = [
+  {
+    path: '', component: HomeadminComponent,
+    children: [
+      {
+        path: '', children: [
+          { path: '', loadChildren: () => import('../skills/skills.module').then(m => m.SkillsModule) }
+        ]
+      },
+      {
+        path: 'skills', children: [
+          { path: '', loadChildren: () => import('../skills/skills.module').then(m => m.SkillsModule) }
+        ]
+      },
+      {
+        path: 'modeofinterview', children: [
+          { path: '', loadChildren: '../modeofinterview/modeofinterview.module#ModeofinterviewModule' }
+        ]
+      },
+      {
+        path: 'customertype', children: [
+          { path: '', loadChildren: '../customers/customers.module#CustomersModule' }
+        ]
+      },
+      {
+        path: 'billingmodal', children: [
+          { path: '', loadChildren: '../billingmodal/billingmodal.module#BillingmodalModule' }
+        ]
+      },
+      {
+        path: 'noticeperiod', children: [
+          {
+            path: '', loadChildren: '../noticeperiod/noticeperiod.module#NoticeperiodModule'
+          }
+        ]
+      },
+      {
+        path: 'qualifications', children: [
+          {
+            path: '', loadChildren: '../qualifications/qualifications.module#QualificationsModule'
+          }
+        ]
+      },
+      {
+        path: 'servicelist', children: [
+          {
+            path: '', loadChildren: '../servicelist/servicelist.module#ServicelistModule'
+          }
+        ]
+      },
+      {
+        path: 'paymentterms', children: [
+          {
+            path: '', loadChildren: '../paymentterms/paymentterms.module#PaymenttermsModule'
+          }
+        ]
+      },
+      {
+        path: 'permissions', children: [
+          {
+            path: '', loadChildren: '../permissions/permissions.module#PermissionsModule'
+          }
+        ]
+      },
+      {
+        path: 'roles', children: [
+          {
+            path: '', loadChildren: '../roles/roles.module#RolesModule'
+          }
+        ]
+      },
+      {
+        path: 'features', children: [
+          {
+            path: '', loadChildren: '../features/features.module#FeaturesModule'
+          }
+        ]
+      },
+      {
+        path: 'certificates', children: [
+          {
+            path: '', loadChildren: '../certificates/certificates.module#CertificatesModule'
+          }
+        ]
+      },
+      {
+        path: 'joblocation', children: [
+          {
+            path: '', loadChildren: '../joblocation/joblocation.module#JoblocationModule'
+          }
+        ]
+      }
+    ]
+  }
+
+];

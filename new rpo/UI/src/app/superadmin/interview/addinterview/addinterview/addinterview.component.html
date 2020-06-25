@@ -1,0 +1,767 @@
+<div class="container-fluid pt-5 pb-5 ">
+  <div class=" shadow p-3 mb-5  ml-4 mr-4 bg-white rounded">
+    <form [formGroup]="interviewForm" (ngSubmit)="save()" autocomplete="off">
+      <div class="container-fluid">
+        <br>
+        <h3>Interview /Add</h3>
+
+        <br>
+        <h5>Interview Information</h5>
+        <br>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 ">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Interview Type<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0 my-2">
+                <input type="text" name="InterviewName" class="form-control" id="Interviewid"
+                  placeholder="Select Interview Name" [(ngModel)]="selectedInterviewName"
+                  formControlName="interviewName" data-toggle="modal" data-target="#interviewname">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-building" aria-hidden="true" data-toggle="modal"
+                    data-target="#interviewname"></i></span>
+                <div *ngIf="f.interviewName.touched && f.interviewName.invalid">
+                  <p *ngIf="f.interviewName.errors.required" class="valid"> Interview Name is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Discussion Type<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0 my-2">
+                <input type="text" name="round" formControlName="round" class="form-control" id="InterviewR"
+                  placeholder="Select Round Name" data-toggle="modal" data-target="#Round"
+                  [(ngModel)]="selectedroundName">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-building" aria-hidden="true" data-toggle="modal" data-target="#Round"></i></span>
+                <div *ngIf="f.round.touched && f.round.invalid">
+                  <p *ngIf="f.round.errors.required" style="color: red;">Round is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Client Name<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0 my-2">
+                <input type="text" name="clientName" formControlName="clientName" class="form-control" id="clientName"
+                  placeholder="Select Client Name" data-toggle="modal" data-target="#clientname"
+                  [(ngModel)]="selectedClientName" (ngModelChange)="modelChanged($event)">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-building" aria-hidden="true" data-toggle="modal" data-target="#clientname"></i></span>
+                <div *ngIf="f.clientName.touched && f.clientName.invalid">
+                  <p *ngIf="f.clientName.errors.required" style="color: red;">ClientName is required</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0">
+                <label type="text" class="form-control" disabled value="Posting Title"
+                  style=" border-bottom: 0px;">Posting Title<span class="starcolor">*</span></label>
+              </div>
+
+              <div *ngIf="divStatus" class="col-sm-7 p-0 my-2" data-toggle="tooltip"
+                title="please Select Client Name First" style="cursor:not-allowed">
+                <input type="text" name="postname" disabled class="form-control" formControlName="postingTitle"
+                  id="postid" placeholder="Select Posting Title" style="cursor:not-allowed">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-user" aria-hidden="true">
+                  </i>
+                </span>
+              </div>
+              <div *ngIf="!divStatus" class="col-sm-7 p-0 my-2">
+                <input type="text" name="postname" class="form-control" formControlName="postingTitle" id="postid"
+                  [(ngModel)]="selectedPostingTitle" placeholder="Enter Posting Title" data-toggle="modal"
+                  data-target="#postingtitle" (ngModelChange)="bdmRequirementId($event)">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-building" aria-hidden="true" data-toggle="modal"
+                    data-target="#postingtitle"></i></span>
+                <div *ngIf="f.postingTitle.touched && f.postingTitle.invalid">
+                  <p *ngIf="f.postingTitle.errors.required" style="color: red;">Posting Title is required</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="row">
+
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 ">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Candidate Name<span
+                    class="starcolor">*</span></label>
+              </div>
+
+              <div *ngIf="divStatus1" class="col-sm-7 p-0 my-2" data-toggle="tooltip"
+                title="Please Select Client Name and Posting Title" style="cursor:not-allowed">
+                <input type="text" class="form-control" disabled placeholder="Select Candidate Name"
+                  formControlName="candidateName" style="cursor:not-allowed">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-user" aria-hidden="true">
+                  </i>
+                </span>
+              </div>
+              <div *ngIf="!divStatus1" class="col-sm-7 p-0 my-2">
+                <input type="text" class="form-control" placeholder="Select Candidate Name"
+                  [(ngModel)]="selectedCandidateName" formControlName="candidateName" data-toggle="modal"
+                  data-target="#candidatename">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-building" data-toggle="modal" data-target="#candidatename"></i></span>
+                <div *ngIf="f.candidateName.touched && f.candidateName.invalid">
+                  <p *ngIf="f.candidateName.errors.required" class="valid"> CandidateName is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">From<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0 my-2">
+                <input type="date" class="form-control" formControlName="From" name="From" id="From"
+                  [min]="minDate | date: 'yyyy-MM-dd'" [max]="maxDate">
+                <div *ngIf="f.From.touched && f.From.invalid">
+                  <p *ngIf="f.From.errors.required" style="color: red;"> Date is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">From Time<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0 my-2">
+                <input type="time" min="09:00" max="18:00" class="form-control" formControlName="fromtime"
+                  name="fromtime" id="fromtime">
+                <div *ngIf="f.fromtime.touched && f.fromtime.invalid">
+                  <p *ngIf="f.fromtime.errors.required" style="color: red;"> From Time is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">To</label>
+              </div>
+              <div class="col-sm-7 p-0 my-2">
+                <input type="date" class="form-control" formControlName="To" name="To" id="To"
+                  [min]="minDate | date: 'yyyy-MM-dd'" [max]="maxDate">
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">To Time</label>
+              </div>
+              <div class="col-sm-7 p-0 my-2">
+                <input type="time" min="09:00" max="18:00" class="form-control" formControlName="To Time" name="totime"
+                  id="totime">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Contact Person<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div *ngIf="divStatus" class="col-sm-7 p-0 my-2" data-toggle="tooltip"
+                title="Please Select Client Name First" style="cursor:not-allowed">
+                <input type="text" class="form-control" disabled placeholder="Select Interview Contact"
+                  formControlName="interview" style="cursor:not-allowed">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-user" aria-hidden="true">
+                  </i>
+                </span>
+              </div>
+              <div *ngIf="!divStatus" class="col-sm-7 p-0 my-2">
+                <input type="text" name="interview" class="form-control" id="interview"
+                  placeholder="Select Interview Contact" formControlName="interview" data-toggle="modal"
+                  data-target="#interviewcontact" [(ngModel)]="selectedInterviewContact">
+                <!-- [(ngModel)]="selectedInterviewContact" -->
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-users" data-toggle="modal" data-target="#interviewcontact"></i></span>
+                <div *ngIf="f.interview.touched && f.interview.invalid">
+                  <p *ngIf="f.interview.errors.required" style="color: red;">Interview is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Interview Owner<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0 my-2">
+                <input type="text" class="form-control" formControlName="interviewOwner" data-toggle="modal"
+                  data-target="#interviewowner" [(ngModel)]="selectedInterviewOwner" name="interviewOwner"
+                  id="interviewOwner" id="wExid" placeholder="Select Interview Owner">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-users" data-toggle="modal" data-target="#interviewowner"></i></span>
+                <div *ngIf="f.interviewOwner.touched && f.interviewOwner.invalid">
+                  <p *ngIf="f.interviewOwner.errors.required" style="color: red;">InterviewOwner is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Location<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0 my-2">
+                <input type="text" name="Location" class="form-control" id="Location" placeholder="Enter Location"
+                  formControlName="Location">
+                <div *ngIf="f.Location.touched && f.Location.invalid">
+                  <p *ngIf="f.Location.errors.required" style="color: red;"> Location is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 ">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Schedule Comments</label>
+              </div>
+              <div class="col-sm-7 p-0 ">
+                <textarea type="text" class="form-control " id="comment" formControlName="scheduleComments"
+                  placeholder="Enter Comments"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Assessment Name<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0 ">
+                <input type="text" name="assessmentName" class="form-control" id="assessmentName"
+                  [(ngModel)]="selectedAssessmentName" placeholder="Select Assessment Name"
+                  formControlName="assessmentName" data-toggle="modal" data-target="#assessmentname">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-users" data-toggle="modal" data-target="#assessmentname"></i></span>
+                <div *ngIf="f.assessmentName.touched && f.assessmentName.invalid">
+                  <p *ngIf="f.assessmentName.errors.required" style="color: red;"> Assesment name is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Remainder<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0 my-2">
+                <input type="text" name="remainder" class="form-control" id="remainder" [(ngModel)]="selectedReaminder"
+                  placeholder="Select Remainder" formControlName="remainder" data-toggle="modal"
+                  data-target="#remaindermodal">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-users" data-toggle="modal" data-target="#remaindermodal"></i></span>
+                <div *ngIf="f.remainder.touched && f.remainder.invalid">
+                  <p *ngIf="f.remainder.errors.required" style="color: red;"> Remainder is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+        <br>
+        <h5>Attachment Information</h5>
+        <br>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0">
+                <input type="text" value="Others" class="form-control" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0 my-2">
+                <input type="file" class="btn-file-upload form-control" value="Browser" formControlName="browse" ngModel
+                  (change)="getContactFile($event)" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br>
+      </div>
+      <button type="button" class="btn btn-secondary ml-2" routerLink="/superadmin/interview">Cancel</button>
+      <button type="submit" class="btn btn-success ml-2" style="float:right">Submit</button>
+      <button type="reset" class="btn btn-success" style="float:right">Reset</button>
+    </form>
+  </div>
+</div>
+
+
+<!-- Interview Name Modal -->
+<div class="modal fade" id="interviewname" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Interview Type</h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fa fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let interview of interviewNameList">
+              <td>
+                <input type="radio" [value]="interview.modeofInterview" [(ngModel)]="selectedInterviewName">
+              <!-- </td>
+              <td> -->
+                {{interview.modeofInterview}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- inTERVIEW ROUND -->
+<div class="modal fade" id="Round" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Discussion Type</h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fa fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let r of interviewdata">
+              <td>
+                <input type="radio" [value]="r.level" [(ngModel)]="selectedroundName">
+              <!-- </td>
+              <td> -->
+                {{r.level}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Candidate Name Modal -->
+<div class="modal fade" id="candidatename" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-xl p-3 ">
+          <h5>Candidate Name: </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-xl-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-xl-0">
+              <input type="search" placeholder="Search"><i class="fa fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <thead>
+            <th></th>
+            <th class="font-weight-normal  text-nowrap bd-highlight">Candidate ID</th>
+            <th class="font-weight-normal  text-nowrap bd-highlight">Candidate Name</th>
+            <th class="font-weight-normal  text-nowrap bd-highlight">Candidate Status</th>
+            <th class="font-weight-normal  text-nowrap bd-highlight">Candidate Owner</th>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let d of candidateData | paginate: {id:'test1', itemsPerPage: pageSize,currentPage: currentPageCandid,totalItems: totalCandidateItems }">
+              <td>
+                <div class="form-check">
+                  <input class="form-check-input" (change)="onChange(d.candidateName, $event.target.checked)"
+                    name="{{d.candidateName }}" type="checkbox" id="{{d.candidateName}}">
+                </div>
+              </td>
+              <td>{{d.candidateId}}</td>
+              <td>{{d.candidateName}}</td>
+              <td>{{d.status}}</td>
+              <td>{{d.userName}}</td>
+            </tr>
+          </tbody>
+        </table>
+            <pagination-controls id="test1" (pageChange)="setPageCandidate($event)" style="float: left;"></pagination-controls>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Client Name Modal -->
+<div class="modal fade" id="clientname" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Client Name </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fa fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <thead>
+            <th></th>
+            <th class="font-weight-normal text-nowrap bd-highlight">Client Id</th>
+            <th class="font-weight-normal text-nowrap bd-highlight">Client Name</th>
+            <th class="font-weight-normal text-nowrap bd-highlight">Contact Number</th>
+            <th class="font-weight-normal text-nowrap bd-highlight">Client Owner</th>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let c of clientList | paginate: {id:'test2', itemsPerPage: pageSize,currentPage: currentPageClient,totalItems: totalClientItems }">
+              <td>
+                <input type="radio" [value]="c.clientName" [(ngModel)]="selectedClientName">
+              </td>
+              <td>{{c.id}}</td>
+              <td>{{c.clientName}}</td>
+              <td>{{c.phone}}</td>
+              <td>{{c.amName}}</td>
+            </tr>
+          </tbody>
+        </table>
+            <pagination-controls id="test2" (pageChange)="setPageClient($event)" style="float: left;"></pagination-controls>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Posting Title Modal -->
+<div class="modal fade" id="postingtitle" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-xl p-3 ">
+          <h5>Posting Title: </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-xl-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-xl-0">
+              <input type="search" placeholder="Search"><i class="fa fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <thead>
+            <th></th>
+            <th class="font-weight-normal text-nowrap bd-highlight" style="width: 2rem;">Job Opening Id</th>
+            <th class="font-weight-normal text-nowrap bd-highlight" style="width: 8rem;">Posting Title</th>
+            <th class="font-weight-normal text-nowrap bd-highlight">Target Date</th>
+            <th class="font-weight-normal text-nowrap bd-highlight">Job Opening Status</th>
+            <th class="font-weight-normal text-nowrap bd-highlight">Client Name</th>
+            <th class="font-weight-normal text-nowrap bd-highlight"> Contact Name</th>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let c of profileDetails  | paginate: {id:'test3', itemsPerPage: pageSize,currentPage: currentPageJob,totalItems: totalProfileItems }">
+              <td>
+                <input type="radio" [value]="c.nameOfRequirement" [(ngModel)]="selectedPostingTitle">
+              </td>
+              <td>{{c.id}}</td>
+              <td>{{c.nameOfRequirement}}</td>
+              <td>{{c.requirementEndDate|date:"dd-MM-yyyy"}}</td>
+              <td>{{c.requirementStatus}}</td>
+              <td>{{c.clientName}}</td>
+              <td>{{c.contactEmail}}</td>
+            </tr>
+          </tbody>
+        </table>
+            <pagination-controls id="test3" (pageChange)="setPageJob($event)" style="float: left;"></pagination-controls>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Interview Contacts Modal -->
+<div class="modal fade" id="interviewcontact" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Interview Contact </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fa fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <thead>
+            <th></th>
+            <th class="font-weight-light text-nowrap bd-highlight">Contact Id</th>
+            <th class="font-weight-light text-nowrap bd-highlight">Contact Name</th>
+            <th class="font-weight-light text-nowrap bd-highlight">Client Name</th>
+            <th class="font-weight-light text-nowrap bd-highlight">Email</th>
+            <th class="font-weight-light text-nowrap bd-highlight">Contact Owner</th>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let c of contactDetails | paginate: {id:'test4', itemsPerPage: pageSize,currentPage: currentPageContact,totalItems: totalContactItems }">
+              <td>
+                <input type="radio" [value]="c.lastName" [(ngModel)]="selectedInterviewContact">
+              </td>
+              <td>{{c.id}}</td>
+              <td>{{c.firstName}} {{c.lastName}}</td>
+              <td>{{c.clientName}}</td>
+              <td>{{c.email}}</td>
+              <td>{{c.contactOwner}}</td>
+            </tr>
+          </tbody>
+        </table>
+            <pagination-controls id="test4" (pageChange)="setPageContact($event)" style="float: left;"></pagination-controls>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Interview Owner Modal -->
+<div class="modal fade" id="interviewowner" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Interview Owner </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fa fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <thead>
+            <th></th>
+            <th class="font-weight-light text-nowrap bd-highlight">Interview Owner</th>
+            <th class="font-weight-light text-nowrap bd-highlight">Email</th>
+            <th class="font-weight-light text-nowrap bd-highlight">Role</th>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let users of usersData | paginate: {id:'test5', itemsPerPage: pageSize,currentPage: currentPageOwner,totalItems: totalOwnerItems }">
+              <td>
+                <input type="radio" [value]="users.name" [(ngModel)]="selectedInterviewOwner">
+              </td>
+              <td>{{users.name}}</td>
+              <td>{{users.email}} </td>
+              <td>{{users.role}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls id="test5" (pageChange)="setPageOwner($event)" style="float: left;"></pagination-controls>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Assessment Name Modal -->
+<div class="modal fade" id="assessmentname" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Assessment Name </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fa fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <!-- <thead>
+            <th></th>
+            <th class="font-weight-normal">ASSESSMENT NAME</th>
+          </thead> -->
+          <tbody>
+            <tr *ngFor="let a of assessmentNameList">
+              <td>
+                <input type="radio" [value]="a.assessmentName" [(ngModel)]="selectedAssessmentName">
+                <!-- </td>
+              <td> -->
+                {{a.assessmentName}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Remainder Modal -->
+<div class="modal fade" id="remaindermodal" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Remainder </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fa fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <!-- <thead>
+            <th>Remainder</th>
+          </thead> -->
+          <tbody>
+            <tr *ngFor="let r of remainderList">
+              <td>
+                <input type="radio" [value]="r.time" [(ngModel)]="selectedReaminder">
+                <!-- </td>
+              <td> -->
+                {{r.time}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

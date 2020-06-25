@@ -1,0 +1,445 @@
+import { Component, OnInit } from '@angular/core';
+import { SuperadminserviceService } from 'src/app/superadmin/superadminservice.service';
+import { HttpClient } from '@angular/common/http';
+import { FormBuilder, Validators, FormControl } from '@angular/forms';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ExcelService } from 'src/app/excel.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+declare var $;
+
+@Component({
+  selector: 'app-map',
+  templateUrl: './map.component.html',
+  styleUrls: ['./map.component.css']
+})
+export class MapComponent implements OnInit {
+
+  download: any;
+  MapComponent: any;
+  first: any;
+  RegId: any;
+  screendetails: any;
+  status: any;
+  result: any;
+  RegistrationId: string;
+  statusgetall: any;
+  view: boolean = false;
+  view1: boolean = false;
+  view2: boolean = false;
+  view3: boolean = false;
+  viewcheck: boolean = false;
+  viewcheck2: boolean = false;
+  viewcheck1: boolean = false;
+  viewcheck3: boolean = false;
+  mappingId: any;
+  candidatestatus: any;
+  profile;
+  s: any;
+  expec: any;
+  candidateid: any;
+  bdmreq: any;
+  canid: any;
+  bdmReqId: any;
+  resume: any;
+  totalItems;
+  pageSize = 10;
+  currentPage = 1;
+  btnName: any
+  candidateId: any;
+  reviewstatus;
+  review;
+  candt;
+  exprence;
+  tlexp;
+  SKILLS;
+  expectecctc;
+  requirmt;
+  SKILLSrq;
+  exprencee;
+  tlexpp;
+  mappid;
+  mapping;
+  candstatusss;
+  resumeeee;
+  mappingI;
+  bdmReqI;
+  candidateI;
+  statusSS;
+  reqid;
+  reqTexp;
+  canecptc;
+  reqexcpted;
+  subclientid;
+  submail;
+  userrid;
+  leadEmail;
+  clientEmail
+  userId: string;
+  amEmail;
+  submitClient;
+  files: any;
+  filestringContact: string;
+  FileName: any;
+  FileNameOfAttachment: any;
+  mpdId;
+  bdmreqid:any;
+  // userId: string;
+  constructor(private ser: SuperadminserviceService, private formBuilder: FormBuilder, private serv: ExcelService,
+    private rout: Router, private toaster: ToastrManager,private activeRoute: ActivatedRoute) {
+  }
+
+  registerForm = this.formBuilder.group({
+    to: ['', Validators.required],
+    cc: ['', Validators.required],
+    bcc: ['', Validators.required],
+    messageBody: ['', Validators.required],
+    fileAttachement: ['', Validators.required],
+    messageSubject: [''],
+    fileType: [''],
+
+  })
+  // serach code
+
+  search_result: boolean = false;
+  showNodata: boolean = false;
+  search_Previous_result: boolean = false;
+  dummy: boolean = true;
+  asli: boolean = false;
+  firstt: boolean = false;
+  second: boolean = false;
+  asd: boolean = false;
+  qwe: boolean = false;
+  lkj: boolean = false;
+  searchTerm: FormControl = new FormControl();
+  registrationId: any;
+  searchvalue: any;
+  data: [];
+  obj: any;
+  searchInput: any;
+  pageNumsearch: number;
+  pageSizesearch: number;
+  registrationIdsearch: number;
+  postdata;
+  getnoteDeletedata;
+  profileExcel: any;
+  ishotVar: number;
+  search_values(event) {
+    this.searchInput = event;
+  }
+
+
+  serchform = this.formBuilder.group({
+    clientName: [''],
+    requirementName: [''],
+    fromDate: [''],
+    toDate: ['']
+  });
+
+  // search code end
+
+  ngOnInit() {
+
+    $(document).click(function (e) {
+      console.log(e);
+      if (e.target.id == "usr") {
+        $(".item").show();
+      }
+      else {
+        $(".item").hide();
+      }
+    });
+    this.searchTerm.valueChanges.subscribe(
+      term => {
+        var post1 = {
+          pageNum: this.currentPage,
+          pageSize: this.pageSize,
+          regId: this.RegId,
+          flag: true,
+          requirementName: term
+        };
+        console.log("post values", post1)
+        if (term != '') {
+          this.ser.mappings(post1).subscribe(
+            resp => {
+              this.status = resp;
+              this.statusgetall = this.status.result;
+              console.log(this.statusgetall, "dataaa");
+              if (this.statusgetall.status === "Accepted") {
+                this.search_result = true;
+                this.data = this.statusgetall.result;
+                this.showNodata = false;
+              } else if (this.statusgetall.status === "DataIsEmpty") {
+                this.showNodata = true;
+                if (this.showNodata == true) {
+                  this.search_result = false;
+                  this.search_Previous_result = true;
+                }
+              }
+            })
+        }
+      });
+    this.getscreendetails()
+    this.RegId = sessionStorage.getItem('registrationId');
+    this.userId = sessionStorage.getItem('userId');
+    this.bdmreqid = this.activeRoute.snapshot.paramMap.get('id');
+    
+    console.log(this.userId, "userId");
+    console.log(this.RegId, "hfjgkhl");
+    console.log(this.bdmreqid, "bdmreqid");
+
+
+    
+    this.exel()
+
+  }
+  
+  save() {
+    const searchData = {
+      regId: this.RegId,
+      pageSize: this.pageSize,
+      pageNum: this.currentPage,
+      flag: true,
+      clientName: this.serchform.value.clientName,
+      requirementName: this.serchform.value.requirementName,
+      fromDate: Date.parse(this.serchform.value.fromDate),
+      toDate: Date.parse(this.serchform.value.toDate)
+    };
+    this.ser.mappings(searchData).subscribe(res => {
+      this.status = res;
+      this.statusgetall = this.status.result;
+      console.log(this.statusgetall, "dataaa");
+    });
+  }
+
+  setPage(pagNo: number): void {
+    this.currentPage = pagNo;
+    this.getscreendetails();
+  }
+
+  getscreendetails() {
+    this.bdmreqid = this.activeRoute.snapshot.paramMap.get('id');
+     this.RegId = sessionStorage.getItem('registrationId');
+    let data = {
+      bdmReq:
+      {
+        id:this.bdmreqid
+      },
+
+      stage: "screening",
+      pageSize: this.pageSize,
+      pageNum: this.currentPage,
+      regId: this.RegId,
+       flag:true
+      
+      
+    }
+  
+    this.ser.getscreendetails(data).subscribe(resp => {
+      this.status = resp;
+       this.totalItems = this.status.totalRecords;
+      this.statusgetall = this.status.result;
+      console.log("data in table", this.statusgetall);
+
+     
+      for (let i = 0; i < this.statusgetall.length; i++) {
+        this.mappingI = this.statusgetall[i].mappingId;
+        console.log(this.mappingI, "mappingI");
+      }
+      for (let i = 0; i < this.statusgetall.length; i++) {
+        this.bdmReqI = this.statusgetall[i].bdmReqId;
+        console.log(this.bdmReqI, "bdmReqI");
+      }
+      for (let i = 0; i < this.statusgetall.length; i++) {
+        this.candidateI = this.statusgetall[i].candidateId;
+        console.log(this.candidateI, "candidateI");
+      }
+      for (let i = 0; i < this.statusgetall.length; i++) {
+        this.statusSS = this.statusgetall[i].status;
+        console.log(this.statusSS, "statusSS");
+      }
+
+    });
+  }
+
+  getContactFile(contact) {
+    this.files = contact.target.files;
+    console.log(this.files, "files========");
+    var reader = new FileReader();
+    reader.onload = this.handleReaderLoad.bind(this);
+    reader.readAsBinaryString(this.files[0]);
+    // this.FileName=this.files[0].name;
+    // console.log(this.FileName,"this.files[0]");
+    // var splitted = this.FileName.split(".", 30); 
+    // console.log(splitted[1],"splitted");
+
+    // this.FileNameOfAttachment='.'+splitted[1];
+    // console.log( this.FileNameOfAttachment+" this.FileNameOfAttachment");
+    
+  }
+
+  handleReaderLoad(readerEvt) {
+    var binaryString = readerEvt.target.result;
+    this.filestringContact = btoa(binaryString);
+     console.log(this.filestringContact, "file string");
+  }
+
+  selectedData(c, d, ld, am, cm) {
+    this.candidateId = c;
+    console.log("Candidate ID from table", c);
+    this.bdmReqId = d;
+    console.log("BDM Req ID from table", d);
+    this.leadEmail = ld;
+    console.log("Lead mail from table", this.leadEmail);
+    this.clientEmail = cm;
+    console.log("client mail from table", this.clientEmail);
+    this.amEmail = am;
+    console.log("AM mail from table", this.amEmail);
+  }
+
+  candidatereview() {
+    debugger;
+    this.candstatusss = status;
+    this.ser.Reviewprofile(this.candidateId, this.bdmReqId, this.RegId).subscribe(resp => {
+      this.profile = resp;
+      this.review = this.profile.result;
+      console.log(this.review, "dssdsfdfsd");
+      this.reqTexp = this.review.requirementDetails.totalExperience;
+      console.log(this.reqTexp, "reqTexp");
+
+      this.canecptc = this.review.candidateDetails.expectedCTC;
+      console.log(this.canecptc, "canecptc");
+      this.reqexcpted = this.review.requirementDetails.expectedCTC;
+      console.log(this.reqexcpted, "reqexcpted");
+
+      this.tlexp = this.review.candidateDetails.totalExperience;
+      this.exprencee = this.review.requirementDetails.relavantExperience;
+      this.resumeeee = this.review.candidateDetails.candidateResume;
+      this.exprence = this.review.candidateDetails.relavantExperience;
+      if (this.review.relavantExperience === true) {
+        this.view = false;
+        this.viewcheck1 = true;
+      }
+      else {
+        this.view = true;
+        this.viewcheck1 = false;
+      }
+      if (this.review.totalExperience === true) {
+        this.view1 = false;
+        this.viewcheck2 = true;
+      }
+      else {
+        this.view1 = true;
+        this.viewcheck2 = false;
+      }
+      if (this.review.skills === true) {
+        this.view3 = false;
+        this.viewcheck = true;
+      } else {
+        this.view3 = true;
+        this.viewcheck = false;
+      }
+      if (this.review.expectedCTC === true) {
+        this.view2 = true;
+        this.viewcheck3 = true;
+      }
+      else {
+        this.view2 = true;
+        this.viewcheck3 = false;
+
+      }
+      this.SKILLSrq = this.review.requirementDetails.skills;
+      for (let i = 0; i < this.SKILLSrq.length; i++) {
+        this.s = this.SKILLSrq[i].skillName
+      }
+      this.SKILLS = this.review.candidateDetails.skills;
+      for (let i = 0; i < this.SKILLS.length; i++) {
+        this.s = this.SKILLS[i].skillName
+
+      }
+
+    })
+  }
+   downloadExcel() {
+
+    console.log(this.statusgetall, "fffffffff")
+    this.serv.exportAsExcelFile(this.statusgetall, 'Mapped Candidates');
+  }
+  buttonclic(cand, userId) {
+    this.subclientid = cand;
+    this.userrid = userId;
+    console.log(this.userrid)
+
+  }
+   sendclientmail() {
+    debugger
+    let data = {
+      to: this.registerForm.value.to,
+      cc: this.registerForm.value.cc,
+      bcc: this.registerForm.value.bcc,
+      messageBody: this.registerForm.value.messageBody,
+      messagesubject: this.registerForm.value.messageSubject,
+      fileAttachement: this.filestringContact,
+      fileType:this.files[0]
+    }
+    this.ser.candidateEmails(data).subscribe(resp => {
+      this.submail = resp;
+      console.log(this.submail, "submail");
+
+
+    })
+  }
+  commetform = this.formBuilder.group(
+    {
+      remars: ['', Validators.required]
+    }
+  )
+
+  cmtsave(flag) {
+    let data = {
+      remarks: this.commetform.value.remars,
+      id: this.mappingI,
+      candidateStatus: this.statusSS,
+      regId: JSON.parse(this.RegId),
+      statusFlag: flag
+    }
+    this.ser.reviewstatus(data).subscribe(resp => {
+      this.reviewstatus = resp;
+      console.log(this.reviewstatus, "Review status")
+      if (this.reviewstatus['status'] === 'StatusSuccess') {
+        this.toaster.successToastr('candidate reviewed successfully');
+        this.getscreendetails();
+      }
+    });
+  }
+  submitCustomer(mappingIDDD) {
+    this.mpdId=mappingIDDD
+    debugger;
+
+    let data = {
+      regId: this.RegId,
+      
+      id: this.mpdId,
+      candidateStatus: this.statusSS,
+      statusFlag: true
+    };
+    this.ser.submitcustomer(data).subscribe(resp => {
+      this.submitClient = resp;
+    });
+  }
+
+  exel() {
+    const post = {
+      stage: 'screening',
+      pageSize: this.pageSize,
+      pageNum: this.currentPage,
+      regId: this.RegId,
+
+    };
+    this.ser.getscreendetails(post).subscribe(res => {
+      this.status = res;
+      this.statusgetall = this.status.result.json();
+    });
+   }
+
+}

@@ -1,0 +1,275 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators, FormControl, FormGroup, FormArray } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { SuperadminserviceService } from 'src/app/superadmin/superadminservice.service';
+
+@Component({
+  selector: 'app-adduser',
+  templateUrl: './adduser.component.html',
+  styleUrls: ['./adduser.component.css']
+})
+export class AdduserComponent implements OnInit {
+  baseUrl = `${environment.serviceUrl}`;
+  submitted: boolean;
+  permissionName: any;
+  selecteddata: any;
+  selectedFeature: any;
+  featureName: any;
+  onChange: any;
+  minDate: any;
+  maxDate: any;
+  selectedRole: any;
+  RegId: string;
+  Domain: string;
+  userToken: string;
+  usersDetails: any;
+  usersData: any;
+  featureMapper:any;
+  selectedTargetDuration: any;
+  selectedReportingManager: any;
+  ReportingId: any;
+  reportingManager: any;
+  addUser;
+
+  totalItems: any;
+
+
+
+  RoleData = ['Admin', 'BDM', 'AM', 'Lead', 'Recruiter'];
+
+
+
+  userRegistrationForm = this.formBuilder.group({
+    FirstName: ['', [Validators.required, Validators.pattern("[A-Za-z]+")]],
+    LastName: ['', [Validators.required, Validators.pattern("[A-Za-z]+")]],
+    Email: ['', [Validators.required, Validators.email]],
+    MobileNumber: ['', [Validators.required, Validators.pattern("^(\([0-9]{3}\) |[6-9]{1})[0-9]{9}$")]],
+    ExtensionNumber: ['', [Validators.required, Validators.pattern("[0-9]+")]],
+    Role: ['', Validators.required],
+    DOB: [''],
+    DOJ: [''],
+    ReportingManager: [''],
+    EmployeeId: [''],
+    addPermission: ['']
+
+    // form features 
+
+  });
+
+  array: any
+  checkedArray: any = []
+  totalUserItems;
+  currentPageUser = 1;
+  pageSize: any = 4;
+  flag: boolean;
+  usersData1: any;
+  role: string;
+  permissionData: any;
+  permission;
+  perm: any;
+  permissionsres: any;
+  featureid: any;
+  permissionsid: any;
+
+  myForm = this.formBuilder.group({
+    useremail: this.formBuilder.array([])
+  })
+
+
+
+
+  emails = [];
+  showpermissions: boolean = false;
+
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router,
+    private toaster: ToastrManager, private service: SuperadminserviceService) {
+
+    this.service.getpermission().subscribe(resp => {
+      this.permissionsres = resp;
+      console.log("result ---->", this.permissionsres.result);
+      this.perm = this.permissionsres.result;
+      this.emails = this.perm
+    })
+  }
+
+  featureselect(id) {
+    this.featureid = id;
+    console.log("id", this.featureid);
+    this.showpermissions = true;
+    // this.myForm(as FormArray)
+  }
+
+  // permissionselect(id){
+  //   this.permissionsid = id;
+  //   console.log("id",this.permissionsid );
+  // }
+
+  onChange1(email, isChecked, id) {
+    // const emailFormArray = <FormArray>this.myForm.controls.useremail;
+
+    // if (isChecked) {
+    //   emailFormArray.push(new FormControl(email));
+    // } else {
+    //   let index = emailFormArray.controls.findIndex(x => x.value == email)
+    //   emailFormArray.removeAt(index);
+    // }
+   // console.log(email, isChecked, id);
+    if (isChecked) {
+      var newObj = new Object({ id: id, flag: isChecked })
+      let data=this.array.find(x=>x.featureId==this.featureid)
+      data.permissionId.push(newObj)  
+    }
+    else {
+      let data=this.array.findIndex(x=>x.featureId==this.featureid)
+      let index =this.array[data].permissionId.findIndex(x => x.id == id)
+      this.array[data].permissionId.splice(index,1)      
+    }
+    console.log("final obj", this.array);
+
+
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+  setPageUser(pag: number): any {
+    this.currentPageUser = pag;
+    this.getReportingManagerList();
+  }
+
+
+  ngOnInit() {
+    this.RegId = sessionStorage.getItem('registrationId');
+    this.Domain = sessionStorage.getItem('Domain');
+    this.userToken = sessionStorage.getItem('Token');
+    this.role = sessionStorage.getItem('role');
+    this.getReportingManagerList();
+    console.log(this.userRegistrationForm.value, "formdata");
+    this.getpermission();
+
+
+  }
+
+  get f() {
+    return this.userRegistrationForm.controls;
+  }
+
+
+  getReportingManagerList() {
+
+    let postdata = {
+      pageNo: this.currentPageUser,
+      pageSize: this.pageSize,
+      flag: true,
+      registrationId: this.RegId,
+      role: this.role
+    }
+
+    this.service.getuserList(postdata).subscribe((res: any) => {
+      console.log(res, 'userlist');
+      this.usersDetails = res;
+      this.totalUserItems = this.usersDetails.totalRecords;
+      console.log(this.totalUserItems, "total user items");
+      this.usersData1 = this.usersDetails.result;
+      this.usersData = this.usersData1.list;
+
+    });
+  }
+
+
+
+  saveUser() {
+    if (this.userRegistrationForm.invalid) {
+      this.toaster.errorToastr('Please fill the mandatory fields', 'Notification');
+    } else {
+      this.submitted = true;
+      for (let i = 0; i <= this.usersData.length; i++) {
+        if (this.selectedReportingManager === this.usersData[i].name) {
+          this.ReportingId = this.usersData[i].id;
+          this.reportingManager = this.usersData[i].name;
+          break;
+        }
+      }
+
+      
+
+      let userData = {
+        firstName: this.userRegistrationForm.value.FirstName,
+        lastName: this.userRegistrationForm.value.LastName,
+        name: this.userRegistrationForm.value.Email,
+        email: this.userRegistrationForm.value.Email,
+        contactNumber: this.userRegistrationForm.value.MobileNumber,
+        extension: JSON.parse(this.userRegistrationForm.value.ExtensionNumber),
+        role: this.userRegistrationForm.value.Role,
+        dob: Date.parse(this.userRegistrationForm.value.DOB),
+        doj: Date.parse(this.userRegistrationForm.value.DOJ),
+        reportingId: { "id": this.ReportingId },
+        employeeId: this.userRegistrationForm.value.EmployeeId,
+        registrationId: JSON.parse(this.RegId),
+        domin: this.Domain,
+     
+
+
+
+
+
+
+
+
+        // add features here ..!
+
+
+
+
+
+
+
+
+      };
+      let userMapper = {
+        user:userData,
+        featureMapper:this.array,
+      }
+
+
+      this.service.saveUser(userMapper).subscribe(resp => {
+        console.log(resp);
+        this.addUser = resp;
+        if (this.addUser.status == "StatusSuccess") {
+          this.toaster.successToastr('User added successfully');
+          this.router.navigate(['/superadmin/user']);
+        }
+      })
+    }
+  }
+
+  getpermission() {
+    var create = []
+    this.service.getFeatures().subscribe(res => {
+      console.log("repsdvsdbvsdb", res);
+      this.permission = res;
+      this.permissionData = this.permission.result;
+      for (let i in this.permissionData) {
+        var obj = new Object({ featureId: this.permissionData[i].id, permissionId:[] })
+        create.push(obj)
+      }
+      this.array = create
+      console.log("creating obj", this.array);
+    })
+  }
+
+
+
+
+}

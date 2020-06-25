@@ -1,0 +1,951 @@
+<div class="container-fluid pt-5 pb-5 ">
+  <div class=" shadow p-3 mb-5  ml-4 mr-4 bg-white rounded">
+    <form [formGroup]="requirementForm" (ngSubmit)="save()" autocomplete="off">
+      <div class="container-fluid">
+        <br>
+        <h3>Job/Edit</h3>
+
+        <br>
+        <h5>Job Opening Information</h5>
+        <br>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Client name<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0" data-toggle="tooltip" title="can not modify client name"
+                style="cursor:not-allowed">
+                <input type="text" class="form-control" formControlName="clientName" disabled
+                  placeholder="Select Client" style="cursor:not-allowed">
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Contact name<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0" data-toggle="tooltip" title="can not modify contact name"
+                style="cursor:not-allowed">
+                <input type="text" class="form-control" disabled placeholder="Select Contact"
+                  formControlName="contactName" style="cursor:not-allowed">
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" disabled value="Posting Title"
+                  style=" border-bottom: 0px;">Posting Title<span class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="postname" class="form-control" formControlName="postingTitle" id="postid"
+                  placeholder="enter Posting Title">
+                <div *ngIf="f.postingTitle.touched && f.postingTitle.invalid">
+                  <p *ngIf="f.postingTitle.errors.required" style="color: red;">Posting Title is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Number of positions<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="noOfposname" formControlName="noOfPositions" class="form-control"
+                  id="noOfposid" placeholder="Enter Number of Positions">
+                <div *ngIf="f.noOfPositions.touched && f.noOfPositions.invalid">
+                  <p *ngIf="f.noOfPositions.errors.required" style="color: red;">positions are required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Requirement Open Date<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="date" class="form-control" formControlName="openDate" name="rOdatename" id="rOdateid"
+                  [min]="minDate | date: 'yyyy-MM-dd'" [max]="maxDate">
+                <div *ngIf="f.openDate.touched && f.openDate.invalid">
+                  <p *ngIf="f.openDate.errors.required" style="color: red;">OpenDate is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Requirement End Date<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="date" class="form-control" formControlName="endDate" name="rEdatename" id="rEdateid">
+                <div *ngIf="f.endDate.touched && f.endDate.invalid">
+                  <p *ngIf="f.endDate.errors.required" style="color: red;">EndDate is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Work Experience<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="wExname" class="form-control" id="wExid" placeholder="Select Work Experience"
+                  formControlName="experience" [(ngModel)]="selectedWorkExperience" value="{{selectedWorkExperience}}"
+                  data-toggle="modal" data-target="#workExperience">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-caret-down" data-toggle="modal" data-target="#workExperience"></i></span>
+                <div *ngIf="f.experience.touched && f.experience.invalid">
+                  <p *ngIf="f.experience.errors.required" style="color: red;">Experience is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Country" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" class="form-control" formControlName="Country" name="Country" id="Country"
+                  placeholder="Enter Country" id="wExid">
+
+                <div *ngIf="f.Country.touched && f.Country.invalid">
+                  <p *ngIf="f.Country.errors.required" style="color: red;">Country is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Skills<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="skillname" class="form-control" id="skillid" placeholder="Select Skills"
+                  formControlName="skill" [(ngModel)]="selectedSkillname" data-toggle="modal"
+                  data-target="#skillsModal1">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-caret-down" aria-hidden="true" data-toggle="modal"
+                    data-target="#skillsModal1"></i></span>
+                <div *ngIf="f.skill.touched && f.skill.invalid">
+                  <p *ngIf="f.skill.errors.required" style="color: red;"> Skills are required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Qualification<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="qualname" class="form-control" id="qualid" placeholder="Select Qualification"
+                  formControlName="qualification" [(ngModel)]="selectedQualificationname" data-toggle="modal"
+                  data-target="#qualificationModal1">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-caret-down" aria-hidden="true" data-toggle="modal"
+                    data-target="#qualificationModal1"></i></span>
+                <div *ngIf="f.qualification.touched && f.qualification.invalid">
+                  <p *ngIf="f.qualification.errors.required" style="color: red;">Qualification is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Other Skills" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="skillname" class="form-control" id="skillid" placeholder="Enter Skills"
+                  formControlName="otherskill">
+
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value=" Other Qualification"
+                  style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="qualname" class="form-control" id="qualid" placeholder="Enter Qualification"
+                  formControlName="otherqualification">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="City" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="rolename" formControlName="city" class="form-control" id="roleid"
+                  placeholder="Enter city">
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Location<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="locationName" formControlName="location" class="form-control" id="locationid"
+                  placeholder="Select Location" [(ngModel)]="selectedlocationname" data-toggle="modal"
+                  data-target="#locationModal1">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-caret-down" aria-hidden="true" data-toggle="modal"
+                    data-target="#locationModal1"></i></span>
+                <div *ngIf="f.location.touched && f.location.invalid">
+                  <p *ngIf="f.location.errors.required" style="color: red;">Location is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+
+        <h5>Additional Information</h5>
+        <br>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Job Type<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="jobTname" formControlName="jobType" class="form-control" id="jobTid"
+                  placeholder="Select Job Type" [(ngModel)]="selectedjobType" data-toggle="modal"
+                  data-target="#jobTypeModal">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-caret-down" aria-hidden="true" data-toggle="modal"
+                    data-target="#jobTypeModal"></i></span>
+                <div *ngIf="f.jobType.touched && f.jobType.invalid">
+                  <p *ngIf="f.jobType.errors.required" style="color: red;">Job Type is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Job Opening Status"
+                  style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="joSname" class="form-control" id="joSid" placeholder="Select Job Status"
+                  formControlName="openingStatus" [(ngModel)]="selectedjobStatus" data-toggle="modal"
+                  data-target="#JobOpeningStatus">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-caret-down" aria-hidden="true" data-toggle="modal"
+                    data-target="#JobOpeningStatus"></i></span>
+                <div *ngIf="f.openingStatus.touched && f.openingStatus.invalid">
+                  <p *ngIf="f.openingStatus.errors.required" style="color: red;"> Status is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="selectedjobType == 'Contract to Hire' ">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Min Budget" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="number" name="minBname" class="form-control" id="minBid" placeholder="Enter Minimum Budget"
+                  formControlName="minBudget">
+                <div *ngIf="f.minBudget.touched && f.minBudget.invalid">
+                  <p *ngIf="f.minBudget.errors.required" style="color: red;">Minimum Budget is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Max Budget" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="number" name="maxBname" class="form-control" id="maxBid" placeholder="Enter Maximum Budget"
+                  formControlName="maxBudget">
+                <div *ngIf="f.maxBudget.touched && f.maxBudget.invalid">
+                  <p *ngIf="f.maxBudget.errors.required" style="color: red;">Maximum Budget is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="selectedjobType == 'Contract' ">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Min Budget" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0 ">
+                <input type="number" name="minBname" class="form-control" id="minBid" placeholder="Enter Minimum Budget"
+                  formControlName="minBudget">
+                <div *ngIf="f.minBudget.touched && f.minBudget.invalid">
+                  <p *ngIf="f.minBudget.errors.required" style="color: red;">Minimum Budget is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5  ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Max Budget" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="number" name="maxBname" class="form-control" id="maxBid" placeholder="Enter Maximum Budget"
+                  formControlName="maxBudget">
+                <div *ngIf="f.maxBudget.touched && f.maxBudget.invalid">
+                  <p *ngIf="f.maxBudget.errors.required" style="color: red;">Maximum Budget is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class=" col-sm-5 ml-5">
+            <div class="row">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Contract Duration" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <select class="form-control" placeholder="Select Duration" formControlName="durationOfContract">
+                  <option disabled selected value="">--select--</option>
+                  <option value="1">1 year</option>
+                  <option value="2">2 years</option>
+                  <option value="2">3 years</option>
+                  <option value="2">4 years</option>
+                  <option value="2">5 years</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row" *ngIf="selectedjobType == 'Permanent' ">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2 my-2">
+                <input type="radio" id="defaultRadio" name="example2" checked>
+                <label for="defaultRadio">Percentage</label><br>
+                <input type="radio" id="defaultRadio" name="example2">
+                <label for="defaultRadio">Fixed</label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" class="form-control" placeholder="Enter ">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Designation<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="designationname" formControlName="designation" class="form-control"
+                  id="designationid" placeholder="Select Designation" [(ngModel)]="selectedDesignation"
+                  data-toggle="modal" data-target="#designationModal1">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-caret-down" aria-hidden="true" data-toggle="modal"
+                    data-target="#designationModal1"></i></span>
+                <div *ngIf="f.designation.touched && f.designation.invalid">
+                  <p *ngIf="f.designation.errors.required" style="color: red;"> Designation is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <label type="text" class="form-control" style=" border-bottom: 0px;">Certificates<span
+                    class="starcolor">*</span></label>
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="certname" class="form-control" id="certid" placeholder="Select Certificates"
+                  formControlName="certificate" [(ngModel)]="selectedCertificatename" data-toggle="modal"
+                  data-target="#certificatesModal1">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-caret-down" aria-hidden="true" data-toggle="modal"
+                    data-target="#certificatesModal1"></i></span>
+                <div *ngIf="f.certificate.touched && f.certificate.invalid">
+                  <p *ngIf="f.certificate.errors.required" style="color: red;"> Certificates are required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row ">
+              <div class="col-sm-3 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Notice Period" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-3 p-0">
+                <input type="number" name="noticePeriodname" formControlName="noticePeriod" class="form-control"
+                  id="noticePeriodid" placeholder="Enter Notice Period">
+              </div>
+
+              <div class="col-sm-3 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Days/Months" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-3 p-0">
+                <input type="text" name="noticePeriodname" formControlName="daysMonths" class="form-control"
+                  id="noticePeriodid" placeholder="Select Notice type" [(ngModel)]="selectedNoticePeriod"
+                  data-toggle="modal" data-target="#noticePeriod">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-caret-down" aria-hidden="true" data-toggle="modal"
+                    data-target="#noticePeriod"></i></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-5 ml-5">
+            <div class="row ">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Requirement Type" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="requirementTypename" formControlName="requirementType" class="form-control"
+                  id="requirementTypeid" placeholder="Select Requirement Type" [(ngModel)]="selectedrequirement"
+                  data-toggle="modal" data-target="#requirementtype">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-caret-down" aria-hidden="true" data-toggle="modal"
+                    data-target="#requirementtype"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Notice Period" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="noticePeriodname" formControlName="noticePeriod" class="form-control"
+                  id="noticePeriodid" placeholder="Select Notice Period" [(ngModel)]="selectedNoticePeriod"
+                  data-toggle="modal" data-target="#noticePeriod">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-caret-down" aria-hidden="true" data-toggle="modal"
+                    data-target="#noticePeriod"></i></span>
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Requirement Type" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="requirementTypename" formControlName="requirementType" class="form-control"
+                  id="requirementTypeid" placeholder="Select Requirement Type" [(ngModel)]="selectedrequirement"
+                  data-toggle="modal" data-target="#requirementtype">
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-caret-down" aria-hidden="true" data-toggle="modal"
+                    data-target="#requirementtype"></i></span>
+              </div>
+            </div>
+          </div>
+
+        </div> -->
+
+        <br>
+        <h5>Forecast Details</h5>
+        <br>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Revenue Per Position "
+                  style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="rolename" formControlName="RevenueperPosition" class="form-control" id="roleid"
+                  placeholder="Enter  Revenue Per Position ">
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Expected Revenue" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="certname" class="form-control" id="certid"
+                  placeholder=" Enter Expected Revenue" formControlName="ExpectedRevenue">
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Actual Revenue" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="rolename" formControlName="ActualRevenue" class="form-control" id="roleid"
+                  placeholder=" Enter Actual Revenue">
+              </div>
+            </div>
+          </div>
+          <div class=" col-sm-5 ml-5">
+            <div class="row p-0">
+              <div class="col-sm-4 p-0 my-2">
+                <input type="text" class="form-control" disabled value="Missed Revenue" style=" border-bottom: 0px;">
+              </div>
+              <div class="col-sm-7 p-0">
+                <input type="text" name="certname" class="form-control" id="certid" placeholder="Enter Missed Revenue"
+                  formControlName="MissedRevenue">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col-sm-5 ml-5 my-2">
+            <div class="form-group">
+              <label type="text" class="form-control" style=" border-bottom: 0px;">Job Description:<span
+                class="starcolor">*</span></label>
+              <textarea class="form-control" formControlName="jobdescription" rows="2" id="comment"
+                placeholder="Enter Job Description"></textarea>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <button type="button" class="btn btn-secondary ml-2" routerLink="/superadmin/jobopening">Cancel</button>
+      <button type="submit" class="btn btn-success ml-2" style="float:right">Submit</button>
+      <button type="reset" class="btn btn-success" (click)="getjobOpeningById()" style="float:right">Reset</button>
+    </form>
+  </div>
+</div>
+
+
+<!-- Job Type modal -->
+<div class="modal fade" id="jobTypeModal" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Job type: </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fas fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let job of jobType">
+              <td>
+                <input type="radio" [value]="job" [(ngModel)]="selectedjobType">{{job}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-sm btn-primary ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- skills modal -->
+<div class="modal fade" id="skillsModal1" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Skills: </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fas fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let skill of skillDetails">
+              <td>
+                <input type="radio" value="{{skill.skillName}}" [(ngModel)]="selectedSkillname">
+                {{skill.skillName}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- certifficates modal -->
+<div class="modal fade" id="certificatesModal1" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Certificates: </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fas fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let cer of certificateDetails">
+              <td>
+                <input type="radio" value="{{cer.certificationName}}" [(ngModel)]="selectedCertificatename">
+                {{cer.certificationName}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- designation modal -->
+<div class="modal fade" id="designationModal1" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Designation: </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fas fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let de of designationDetails">
+              <td>
+                <input type="radio" value="{{de.designation}}" [(ngModel)]="selectedDesignation">
+                {{de.designation}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- qualification modal -->
+<div class="modal fade" id="qualificationModal1" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Qualification: </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fas fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let qual of qualificationDetails">
+              <td>
+                <input type="radio" value="{{qual.qualificationName}}" [(ngModel)]="selectedQualificationname">
+                {{qual.qualificationName}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- location modal -->
+<div class="modal fade" id="locationModal1" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Location: </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fas fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let loca of locationDetails">
+              <td>
+                <input type="radio" value="{{loca.locationName}}" [(ngModel)]="selectedlocationname">
+                {{loca.locationName}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WorkExperience Modal -->
+<div class="modal fade" id="workExperience" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Work Experience: </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fas fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let w of WorkExperience">
+              <td>
+                <input type="radio" value="{{w}}" [(ngModel)]="selectedWorkExperience">
+                {{w}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NoticePeriod Modal -->
+<div class="modal fade" id="noticePeriod" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Notice period: </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fas fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let notice of noticePeriod">
+              <td>
+                <input type="radio" value="{{notice}}" [(ngModel)]="selectedNoticePeriod">
+                {{notice}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- jobOpeningStatus Modal -->
+<div class="modal fade" id="JobOpeningStatus" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>JobOpening Status: </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fas fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let js of JobStatus">
+              <td>
+                <input type="radio" value="{{js}}" [(ngModel)]="selectedjobStatus">
+                {{js}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- requirementType Modal -->
+<div class="modal fade" id="requirementtype" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Requirement Type: </h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fas fa-search"></i>
+            </form> -->
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let rt of requirementType">
+              <td>
+                <input type="radio" value="{{rt}}" [(ngModel)]="selectedrequirement">
+                {{rt}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-sm btn-primary  ml-3 mb-3" style="float: right;" data-dismiss="modal">Save
+          Changes</button>
+        <button type="button" class="btn btn-sm btn-success mb-3" style="float: right;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

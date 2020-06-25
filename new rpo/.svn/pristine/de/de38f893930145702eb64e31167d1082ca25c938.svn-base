@@ -1,0 +1,384 @@
+<div Class="container-fluid ">
+  <div class="row">
+    <div class="w-20 " style="background-color:#EEEEEE">
+      <br><br>
+
+      <div id="list-example" class="list-group sidenavbartext sticky-top">
+        <table>
+          <tr>
+            <td><a ref="#top" class="nav-item nav-link" style="color:rgb(38, 105, 238)">Info</a></td>
+          </tr>
+          <tr>
+            <td><a class="nav-item nav-link">TimeLine</a></td>
+          </tr>
+          <tr>
+            <td><a class="nav-item nav-link " style="color:#9197A3">RELATED LIST</a></td>
+          </tr>
+
+          <tr>
+            <td><a href="#list-item-1" class="nav-item nav-link sidenavbartext">Notes</a></td>
+          </tr>
+          <tr>
+            <td> <a href="#list-item-2" class="nav-item nav-link sidenavbartext">Attachments</a></td>
+          </tr>
+          <tr>
+            <td> <a href="#list-item-3" class="nav-item nav-link sidenavbartext">ASSOCIATED TAGS</a></td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+    <div class="w-75">
+      <div class="shadow p-3 mb-5  ml-4 mr-4 bg-white rounded p-0 pb-5 " data-spy="scroll" data-target="#list-example"
+        class="scrollspy-example">
+
+        <div class="example z-depth-1 bg-white ml-3 mr-3">
+          <div class=" p-0  pb-5">
+
+            <nav class="navbar navbar-expand-lg sticky-top sticky-offset navbar-light bg-light">
+              <i class="fa fa-arrow-left fa-lg" aria-hidden="true" routerLink="/superadmin/interview"></i>
+              <i class="fa fa-star fa-lg ml-3" aria-hidden="true"></i>
+              <!-- <h5>{{interviewName}}</h5> -->
+              <h4 class="pl-5"><span>{{postingTitle}}{{candidateNames}}</span></h4>
+            </nav>
+
+            <div class="col-sm-4 pb-2 pt-4  ml-5">
+              <div class="left side"> Client Name:</div>
+              <div class="right  side">{{interviewList.client.clientName}}</div>
+              <div class="left side"> Posting Title</div>
+              <div class="right side">{{interviewList.bdmReq.nameOfRequirement}}</div>
+              <div class="left side">Contact Person</div>
+              <div class="right side"> {{interviewList.interviewer.lastName}}</div>
+              <div class="left side">form</div>
+              <div class="right side"> {{this.interviewList.interviewFrom|date:"dd-MM-yyyy"}}</div>
+              <!-- <div class="left side"> To</div>
+              <div class="right side"> {{interviewList.interviewEnd|date:"dd-MM-yyyy"}}</div> -->
+              <div class="left side">Location</div>
+              <div class="right side">{{interviewList.interviewLocation}}</div>
+              <button class="btn btn-sm pt-3" (click)="hidedd()" style="color:#2C7BD0; font-size: 1.2rem;">
+                {{text}}
+                <i class="fa fa-angle-down"></i> </button>
+            </div>
+
+            <div *ngIf="status1">
+              <div class="container-fluid pt-2 pb-5 ">
+                <div>
+                  <form [formGroup]="interviewForm" (ngSubmit)="save()" autocomplete="off">
+                    <div class="container-fluid">
+                      <br>
+                      <h5 class="ml-5">Interview Information</h5>
+                      <br>
+
+
+                      <div class="row">
+                        <div class=" col-sm-5 ml-5">
+                          <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                              <label type="text" class="form-control" style=" border-bottom: 0px;">Interview
+                                Type</label>
+                            </div>
+                            <div class="col-sm-7 p-0">
+                              <input type="text" name="InterviewName" class="form-control" id="Interviewid"
+                                formControlName="interviewName" disabled>
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class=" col-sm-5 ml-5">
+                          <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                              <label type="text" class="form-control" style=" border-bottom: 0px;">Discussion
+                                Type</label>
+                            </div>
+                            <div class="col-sm-7 p-0">
+                              <input type="text" class="form-control"  name="round"  formControlName="round" disabled>
+
+
+                            </div>
+                          </div>
+                        </div>  
+                       </div>
+                      <br>
+                      <div class="row">
+                        <div class=" col-sm-5 ml-5">
+                          <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                              <label type="text" class="form-control" style=" border-bottom: 0px;">CandidateName</label>
+                              
+                            </div>
+                            <div class="col-sm-7 p-0">
+                              <input type="text" class="form-control" formControlName="candidateName" disabled>
+
+
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+
+                      <div class="row">
+                        <div class=" col-sm-5 ml-5">
+                          <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                              <label type="text" class="form-control" style=" border-bottom: 0px;">Client Name</label>
+                            </div>
+                            <div class="col-sm-7 p-0">
+                              <input type="text" name="clientName" formControlName="clientName" class="form-control"
+                                id="clientName" disabled>
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class=" col-sm-5 ml-5">
+                          <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                              <label type="text" class="form-control" disabled value="Posting Title"
+                                style=" border-bottom: 0px;">Posting Title</label>
+                            </div>
+                            <div class="col-sm-7 p-0">
+                              <input type="text" name="postname" class="form-control" formControlName="postingTitle"
+                                id="postid" disabled>
+
+
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <br>
+
+                      <div class="row">
+                        <div class=" col-sm-5  ml-5">
+                          <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                              <label type="text" class="form-control" style=" border-bottom: 0px;">From</label>
+                            </div>
+                            <div class="col-sm-7 p-0">
+                              <input type="date" class="form-control" formControlName="From" name="From" id="From"
+                                [min]="minDate | date: 'yyyy-MM-dd'" [max]="maxDate" disabled>
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class=" col-sm-5  ml-5">
+                          <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                              <label type="text" class="form-control" style=" border-bottom: 0px;">From Time</label>
+                            </div>
+                            <div class="col-sm-7 p-0">
+                              <input type="time" min="09:00" max="18:00" required class="form-control"
+                                formControlName="fromtime" name="fromtime" id="fromtime" disabled>
+
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <br>
+
+                      <div class="row">
+                        <div class=" col-sm-5  ml-5"
+                          [ngClass]="{'inputStatus': todate == null || todate == ''|| todate != '0'}">
+                          <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                              <label type="text" class="form-control" style=" border-bottom: 0px;">To</label>
+                            </div>
+                            <div class="col-sm-7 p-0">
+                              <input type="date" class="form-control" formControlName="To" name="To" id="To"
+                                [min]="minDate | date: 'yyyy-MM-dd'" [max]="maxDate" disabled>
+
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class=" col-sm-5  ml-5" [ngClass]="{'inputStatus': toTime == null || toTime == ''}">
+                          <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                              <label type="text" class="form-control" style=" border-bottom: 0px;">To Time</label>
+                            </div>
+                            <div class="col-sm-7 p-0">
+                              <input type="time" min="09:00" max="18:00" required class="form-control"
+                                formControlName="totime" name="totime" id="totime" disabled>
+
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <br>
+
+                      <div class="row">
+                        <div class=" col-sm-5  ml-5">
+                          <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                              <label type="text" class="form-control" style=" border-bottom: 0px;">Contact
+                                Person</label>
+                            </div>
+                            <div class="col-sm-7 p-0">
+                              <input type="text" name="interview" class="form-control" id="interview"
+                                placeholder="select InterviewContact" formControlName="interview" disabled>
+
+
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class=" col-sm-5  ml-5">
+                          <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                              <label type="text" class="form-control" style=" border-bottom: 0px;">Interview
+                                Owner</label>
+                            </div>
+                            <div class="col-sm-7 p-0">
+                              <input type="text" class="form-control" formControlName="interviewOwner"
+                                data-toggle="modal" name="interviewOwner" id="interviewOwner" id="wExid" disabled>
+
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <br>
+
+                      <div class="row">
+                        <div class=" col-sm-5 ml-5">
+                          <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                              <label type="text" class="form-control" style=" border-bottom: 0px;">Location</label>
+                            </div>
+                            <div class="col-sm-7 p-0">
+                              <input type="text" name="Location" class="form-control" id="Location"
+                                formControlName="Location" disabled>
+
+
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class=" col-sm-5 ml-5" [ngClass]="{'inputStatus': comments == null || comments == ''}">
+                          <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                              <label type="text" class="form-control" style=" border-bottom: 0px;">Schedule
+                                Comments</label>
+                            </div>
+                            <div class="col-sm-7 p-0">
+                              <textarea type="text" class="form-control" id="comment" formControlName="scheduleComments"
+                                disabled></textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </div><br>
+
+
+                      <div class="row">
+                        <div class=" col-sm-5 ml-5">
+                          <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                              <label type="text" class="form-control" style=" border-bottom: 0px;">Assessment
+                                Name</label>
+                            </div>
+                            <div class="col-sm-7 p-0">
+                              <input type="text" name="assessmentName" class="form-control" id="assessmentName"
+                                formControlName="assessmentName" disabled>
+
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class=" col-sm-5 ml-5">
+                          <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                              <label type="text" class="form-control" style=" border-bottom: 0px;">Remainder</label>
+                            </div>
+                            <div class="col-sm-7 p-0">
+                              <input type="text" name="remainder" class="form-control" id="remainder"
+                                formControlName="remainder" disabled>
+
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+
+            <table width="100%" class="table cd ml-5">
+              <tbody>
+                  <tr *ngFor="let c of getdetails">
+                      <td>
+                          <div class="italic" style="margin-top:15px; margin-bottom:15px;">
+                              <b>{{c.noteData}}</b>
+                              <i class="fa fa-trash fa-lg" aria-hidden="true" data-toggle="tooltip"
+                                  title="delete note" (click)="interviewNotedelete(c.id)"
+                                  style="float: right; "></i>
+                          </div>
+                          <div class="italic" style="margin-top:15px; margin-bottom:15px;">
+                              {{c.noteType}}
+                          </div>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+
+            <div class="left ml-5" id="list-item-1"><b>Notes</b></div>
+            <form [formGroup]="noteForm" (ngSubmit)="saveInterviewnotes()">
+              <table width="5%" class="table ml-5">
+                  <tbody>
+                      <div class="jumbotron col-sm-9">
+                          <div *ngIf="!status">
+                              <p>Note Type</p>
+                              <select name="cars" class="col-2 " formControlName="noteSelect">
+                                  <option value="Call" class="form-control">Call</option>
+                                  <option value="Meeting" class="form-control">Meeting</option>
+                                  <option value="Notes" class="form-control">Notes</option>
+                                  <option value="Others" class="form-control">Others</option>
+                              </select>
+                              <textarea class="form-control" rows="2" id="comment"
+                                  formControlName="note"> </textarea>
+                          </div>
+                          <div *ngIf="status">
+                              <textarea class="form-control" rows="2"
+                                  (click)="ShowHideClick()"></textarea>
+                          </div><br>
+                          <button type="submit" class="btn btn-primary btn-sm"
+                              style="float: right;">Save</button>&nbsp;&nbsp;
+                          <button type="reset" class="btn btn-success btn-sm"
+                              style="float: right;">Cancel</button>
+                      </div>
+                  </tbody>
+              </table>
+
+          </form>
+
+            <!-- <table width="100%" class="table cd ml-5">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="italic" style="margin-top:15px; margin-bottom:15px;">No Records Found</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+
+            <div class="left  ml-5" id="list-item-2"><b>Attachments</b></div>
+            <table width="100%" class="table cd ml-5">
+              <thead>
+                <th>File Name</th>
+                <th>Attached By</th>
+                <th>Date Added</th>
+                <th>Size</th>
+                <th>Category</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>

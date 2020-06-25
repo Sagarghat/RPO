@@ -1,0 +1,263 @@
+<div class="container-fluid pt-5 pb-5 ">
+    <div class="example z-depth-1  bg-white ml-3 mr-3 shadow p-3 mb-5 bg-white rounded">
+        <form [formGroup]="EditUserForm" (ngSubmit)="saveUser()" autocomplete="off">
+            <div class="container-fluid">
+                <br>
+                <h4>Users /Edit </h4>
+                <br>
+
+                <div class="row">
+                    <div class=" col-sm-5 ml-5">
+                        <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                                <label type="text" class="form-control" style=" border-bottom: 0px;">First Name
+                                    <span class="starColor">*</span></label>
+                            </div>
+                            <div class="col-sm-7 p-0 my-2">
+                                <input type="text" name="FirstName" class="form-control" id="FirstName"
+                                    placeholder="Enter First Name" formControlName="FirstName">
+                                <div *ngIf="f.FirstName.touched && f.FirstName.invalid">
+                                    <p *ngIf="f.FirstName.errors.required" class="validationColor"> FirstName name is
+                                        required</p>
+                                    <p *ngIf="f.FirstName.errors.pattern" class="validationColor">Enter alphabet only
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-sm-5 ml-5">
+                        <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                                <label type="text" class="form-control" style=" border-bottom: 0px;">Last Name
+                                    <span class="starColor">*</span></label>
+                            </div>
+                            <div class="col-sm-7 p-0 my-2">
+                                <input type="text" name="LastName" formControlName="LastName" class="form-control"
+                                    id="LastName" placeholder="Enter LastName">
+                                <div *ngIf="f.LastName.touched && f.LastName.invalid">
+                                    <p *ngIf="f.LastName.errors.required" class="validationColor">LastName is required
+                                    </p>
+                                    <p *ngIf="f.LastName.errors.pattern" class="validationColor">Enter alphabet only</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class=" col-sm-5 ml-5">
+                        <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                                <label type="text" class="form-control" style=" border-bottom: 0px;">Email
+                                    <span class="starColor">*</span></label>
+                            </div>
+                            <div class="col-sm-7 p-0 my-2">
+                                <input type="text" name="Email" class="form-control" formControlName="Email" id="postid"
+                                    placeholder="Enter Email">
+                                <div *ngIf="f.Email.touched && f.Email.invalid">
+                                    <p *ngIf="f.Email.errors.required" class="validationColor">Email is required</p>
+                                    <p *ngIf="f.Email.errors.email" class="validationColor">Enter valid Email</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-sm-5 ml-5">
+                        <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                                <label type="text" class="form-control" style=" border-bottom: 0px;">Mobile Number
+                                    <span class="starColor">*</span></label>
+                            </div>
+                            <div class="col-sm-7 p-0 my-2">
+                                <input type="text" name="MobileNumber" formControlName="MobileNumber"
+                                    class="form-control" id="MobileNumber" placeholder="Enter Mobile Number">
+                                <div *ngIf="f.MobileNumber.touched && f.MobileNumber.invalid">
+                                    <p *ngIf="f.MobileNumber.errors.required" class="validationColor">MobileNumber is
+                                        required</p>
+                                    <p *ngIf="f.MobileNumber.errors.pattern" class="validationColor">Enter valid
+                                        MobileNumber</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class=" col-sm-5 ml-5">
+                        <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                                <label type="text" class="form-control" style=" border-bottom: 0px;">Extension Number
+                                    <span class="starColor">*</span></label>
+                            </div>
+                            <div class="col-sm-7 p-0 my-2">
+                                <input type="number" name="ExtensionNumber" class="form-control"
+                                    formControlName="ExtensionNumber" id="ExtensionNumber"
+                                    placeholder="Enter Extension Number">
+                                <div *ngIf="f.ExtensionNumber.touched && f.ExtensionNumber.invalid">
+                                    <p *ngIf="f.ExtensionNumber.errors.required" class="validationColor">ExtensionNumber
+                                        is
+                                        required</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-sm-5 ml-5">
+                        <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                                <label type="text" class="form-control" style=" border-bottom: 0px;">Role
+                                    <span class="starColor">*</span></label>
+                            </div>
+                            <div class="col-sm-7 p-0 my-2">
+                                <input type="text" name="Role" formControlName="Role" class="form-control" id="Role"
+                                    placeholder="Select Role" [(ngModel)]="selectedRole" data-toggle="modal"
+                                    data-target="#RoleModal">
+                                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                                    <i class="fa fa-caret-down" aria-hidden="true" data-toggle="modal"
+                                        data-target="#RoleModal"></i></span>
+                                <div *ngIf="f.Role.touched && f.Role.invalid">
+                                    <p *ngIf="f.Role.errors.required" class="validationColor">Role is required</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class=" col-sm-5  ml-5">
+                        <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                                <input type="text" class="form-control" disabled value="Date Of Birth"
+                                    style=" border-bottom: 0px;">
+                            </div>
+                            <div class="col-sm-7 p-0 my-2">
+                                <input type="date" class="form-control" formControlName="DOB" name="DOB" id="DOB"
+                                    [min]="minDate | date: 'yyyy-MM-dd'" [max]="maxDate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-sm-5  ml-5">
+                        <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                                <input type="text" class="form-control" disabled value="Date Of Joining"
+                                    style=" border-bottom: 0px;">
+                            </div>
+                            <div class="col-sm-7 p-0 my-2">
+                                <input type="date" class="form-control" formControlName="DOJ" name="DOJ" id="DOJ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class=" col-sm-5 ml-5">
+                        <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                                <label type="text" class="form-control" style=" border-bottom: 0px;">Reporting Manager
+                                    <span class="starColor">*</span></label>
+                            </div>
+                            <div class="col-sm-7 p-0 my-2">
+                                <input type="text" name="ReportingManager" class="form-control" id="ReportingManager"
+                                    placeholder="Select ReportingManager" formControlName="ReportingManager"
+                                    [(ngModel)]="selectedReportingManager" data-toggle="modal" data-target="#reporting">
+
+                                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                                    <i class="fa fa-caret-down" aria-hidden="true" data-toggle="modal"
+                                        data-target="#reporting"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-sm-5 ml-5">
+                        <div class="row p-0">
+                            <div class="col-sm-4 p-0">
+                                <input type="text" class="form-control" disabled value="Employee Id"
+                                    style=" border-bottom: 0px;">
+                            </div>
+                            <div class="col-sm-7 p-0 my-2">
+                                <input type="text" name="EmployeeId" class="form-control" id="EmployeeId"
+                                    placeholder="Enter Employee Id" formControlName="EmployeeId">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary ml-2" routerLink="/superadmin/user">Cancel</button>
+                <button type="submit" class="btn btn-success ml-2" style="float:right">Submit</button>
+                <button type="button" class="btn btn-success" style="float:right" (click)="getUserById()">Reset</button>
+            </div>
+            <br><br>
+        </form>
+    </div>
+</div>
+
+<!-- Roles Modal -->
+<div class="modal fade " id="RoleModal" style="margin-top: -29px;" tabindex="-1" role="dialog"
+    aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg ">
+        <div class="modal-content ">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg p-3 ">
+                    <h5>Roles</h5>
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        </ul>
+                        <!-- <form class="form-inline my-4 my-lg-0">
+                            <input type="search" placeholder="Search">
+                        </form> -->
+                    </div>
+                    <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </nav>
+                <table class="table">
+                    <tbody>
+                        <tr *ngFor="let u of RoleData">
+                            <td>
+                                <input type="radio" name="foobar" value="{{u.name}}" [(ngModel)]="selectedRole">
+                                {{u.name}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-sm btn-primary mb-3" style="float: right;"
+                    data-dismiss="modal">Save
+                    changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reporting Manager -->
+<div class="modal fade " id="reporting" style="margin-top: -29px;" tabindex="-1" role="dialog"
+    aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg ">
+        <div class="modal-content ">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg p-3 ">
+                    <h5>Reporting Manager</h5>
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        </ul>
+                        <!-- <form class="form-inline my-4 my-lg-0">
+                            <input type="search" placeholder="Search">
+                        </form> -->
+                    </div>
+                    <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </nav>
+                <table class="table">
+                    <tbody>
+                        <tr
+                            *ngFor="let u of usersData | paginate: { itemsPerPage: pazeSize,currentPage: currentPageUser,totalItems: totalItems }">
+                            <td> <input type="radio" name="foobar" value="{{u.name}}"
+                                    [(ngModel)]="selectedReportingManager">
+                                {{u.name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="setPage($event)" style="float: left;"></pagination-controls>
+                <button type="button" class="btn btn-sm btn-primary mb-3" style="float: right;"
+                    data-dismiss="modal">Save
+                    changes</button>
+            </div>
+        </div>
+    </div>
+</div>

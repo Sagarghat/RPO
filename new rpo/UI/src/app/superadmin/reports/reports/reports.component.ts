@@ -1,0 +1,178 @@
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { SuperadminserviceService } from '../../superadminservice.service';
+declare var $;
+@Component({
+  selector: 'app-reports',
+  templateUrl: './reports.component.html',
+  styleUrls: ['./reports.component.css']
+})
+export class ReportsComponent implements OnInit {
+
+  first: any;
+  profileDetails: any;
+  serchform: any;
+  save: any;
+  addprop1: any;
+
+  search_result: boolean = false;
+  showNodata: boolean = false;
+  search_Previous_result: boolean = false;
+  dummy: boolean = true;
+  asli: boolean = false;
+  firstt: boolean = false;
+  second: boolean = false;
+  asd: boolean = false;
+  qwe: boolean = false;
+  lkj: boolean = false;
+  searchTerm : FormControl = new FormControl();
+  pageNum: any ;
+  pageSize:any;
+  registrationId:any;
+  searchvalue: any;
+  data: [];
+  obj: any;
+  searchInput:any;
+  RegId;
+  userId;
+  role;
+  Requirements;
+  Onboards;
+  constructor( private service: SuperadminserviceService) {
+
+  this.pageNum = 1;
+  this.pageSize = 5;
+ this.registrationId = 43;
+   }
+
+
+   search_values(event){
+    this.searchInput=event;
+    }
+
+  ngOnInit() {
+
+    $(document).click(function (e) {
+      console.log(e);
+      if (e.target.id == "usr") {
+        $(".item").show();
+      }
+      else {
+        // this.dummy=true;
+        // this.asli=false;
+        $(".item").hide();
+          //alert("razak");
+          // $(".dummyinp").hide();
+          // $(".dummyclass").show();
+      }
+
+    });
+
+    this.searchTerm.valueChanges.subscribe(
+      term => {
+       
+         var post1 = {
+            pageNum: this.pageNum,
+            pageSize: this.pageSize,
+            registrationId: this.registrationId,
+            candidateName: term,
+            flag: true
+          };
+            console.log("post values",post1);
+
+            console.log("term",term);
+
+            if (term != '') {
+             
+
+          this.service.search1(post1).subscribe(
+            resp => {
+
+              this.obj = resp;
+
+
+              this.search_result = true;
+              console.log("status",this.obj.status);
+              this.data = this.obj.result;
+              console.log("yoo",this.data);
+              console.log(" data ",this.obj);
+              console.log("gaaa",this.obj.result[0].fullName);
+              console.log(" data - RESULT ", this.obj.totalRecords);
+
+
+
+          })
+        }
+        
+      
+    });
+
+
+
+    this.RegId = sessionStorage.getItem('registrationId');
+    this.userId = sessionStorage.getItem('userId');
+    this.role=sessionStorage.getItem('role');
+
+
+ 
+    this.reports()
+  }
+  repor;
+  reportss;
+  imagee
+
+
+
+  submissions(){
+
+ 
+   
+    this.Requirements="Submissions";
+    this.Onboards="Rejections";
+    
+    this.reports()
+    }
+
+
+
+    customers(){
+
+      this.Requirements= "Customer"; 
+      this.Onboards="Rejections"; 
+    
+      this.reports()
+    }
+    
+reports(){
+
+ let data={
+
+  registrationId:this.RegId,
+  role:this.role,
+  roleUserId:this.userId,
+  submissionCondition:this.Requirements,
+  rejectedCondition:this.Onboards
+
+
+
+ }
+
+
+ this.service.reports(data).subscribe(resp=>{
+
+  this.repor=resp;
+  console.log(this.repor);
+  this.reportss=this.repor.result;
+  this.imagee=this.reportss.base64Value;
+
+ })
+
+}
+
+
+ 
+
+
+}
+
+

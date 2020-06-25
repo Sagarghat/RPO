@@ -1,0 +1,108 @@
+package com.ojas.rpo.security.dao.Qualification;
+
+import java.util.List;
+
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import org.springframework.transaction.annotation.Transactional;
+
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+import com.ojas.rpo.security.dao.JpaDao;
+import com.ojas.rpo.security.entity.AddQualification;
+import com.ojas.rpo.security.entity.ExceptionMessage;
+import com.ojas.rpo.security.entity.Response;
+
+public class JpaQualificationDao extends JpaDao<AddQualification, Long> implements QualificationDao {
+	public JpaQualificationDao() {
+		super(AddQualification.class);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<AddQualification> findAll() {
+		final CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
+		final CriteriaQuery<AddQualification> criteriaQuery = builder.createQuery(AddQualification.class);
+
+		Root<AddQualification> root = criteriaQuery.from(AddQualification.class);
+		criteriaQuery.orderBy(builder.desc(root.get("date")));
+
+		TypedQuery<AddQualification> typedQuery = this.getEntityManager().createQuery(criteriaQuery);
+		return typedQuery.getResultList();
+	}
+
+	@Override
+	@Transactional
+	public void updateQualificationsByCandidateId(Long id, List<AddQualification> education) {
+		if (null != education) {
+
+			Query qualDeleteQuery = this.getEntityManager()
+					.createNativeQuery(" DELETE FROM candidateeducationmap WHERE candidate_ID = ?");
+			qualDeleteQuery.setParameter(1, id);
+			qualDeleteQuery.executeUpdate();
+			for (AddQualification addQualification : education) {
+				Query addQualQuery = this.getEntityManager().createNativeQuery(
+						" INSERT INTO candidateeducationmap(candidate_ID,education_ID) values(?,?) ");
+				addQualQuery.setParameter(1, id);
+				addQualQuery.setParameter(2, addQualification.getId());
+				addQualQuery.executeUpdate();
+
+			}
+		}
+	}
+
+	
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<AddQualification> findAllAddQualification(Integer startingRow, Integer pagesize) {
+
+		final CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
+		final CriteriaQuery<AddQualification> criteriaQuery = builder.createQuery(AddQualification.class);
+
+		Root<AddQualification> root = criteriaQuery.from(AddQualification.class);
+		criteriaQuery.orderBy(builder.asc(root.get("id")));
+
+		TypedQuery<AddQualification> typedQuery = this.getEntityManager().createQuery(criteriaQuery);
+		typedQuery.setFirstResult(startingRow).setMaxResults(pagesize).getResultList().toString();
+		return typedQuery.getResultList();
+	}
+
+}
+
+/*
+ * public List<AddQualification> findAll(int pageNo, int pageSize) throws
+ * java.io.IOException { Integer startingRow = 0; Query query = null; Response
+ * response = null; try { query =
+ * getEntityManager().createNativeQuery("SELECT *from addqualification"); List
+ * resultList = query.getResultList();
+ * 
+ * if (resultList.isEmpty()) { response = new
+ * Response(ExceptionMessage.DataIsEmpty); } else { response = new
+ * Response(ExceptionMessage.OK, resultList); } startingRow = 0; if ((0 !=
+ * pageNo) && (0 != pageSize)) {
+ * 
+ * if (pageNo == 1) { startingRow = 0; } else { startingRow = ((pageNo - 1) *
+ * pageSize); }
+ * 
+ * Integer totalPages = 1; int totalRecords = findAll().size(); ((Response)
+ * resultList).setTotalRecords(totalRecords); if (totalRecords == 0) {
+ * ((Response) resultList).setTotalPages(0); }
+ * 
+ * if ((totalRecords > 0) && (Integer.valueOf(totalRecords) <= pageSize)) {
+ * ((Response) resultList).setTotalPages(1); } else { totalPages =
+ * Integer.valueOf(totalRecords) / pageSize; totalPages = (totalPages == 0) ?
+ * totalPages : totalPages + 1; ((Response)
+ * resultList).setTotalPages(totalPages); } response = new
+ * Response(ExceptionMessage.StatusSuccess, resultList);
+ * response.setTotalPages(totalPages); response.setTotalRecords(totalRecords); }
+ * 
+ * } catch (Exception e) { e.printStackTrace(); response = new
+ * Response(ExceptionMessage.Exception, "500",
+ * "Unable to Retrive qualification details"); } return null;
+ * 
+ * }
+ */

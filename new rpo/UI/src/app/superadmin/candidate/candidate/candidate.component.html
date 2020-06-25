@@ -1,0 +1,609 @@
+<nav class="navbar  bg-white p-1  bg-white rounded shadow p-3 mb-3 ">
+  <span><a class="ml-3">
+
+    <i class="fa fa-arrow-left fa-lg" aria-hidden="true" routerLink="/superadmin/dashboard"></i> <h5> Candidates</h5>
+     
+    </a>
+
+    
+    <div *ngIf="selectedRadio">
+     
+      <div class="dropdown" >
+      
+        <div class="dropdown" >
+          <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Action
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngFor="let candidate of candgetall">
+            <a class="dropdown-item" href="#" [routerLink]="['../email',candidate.id]">Send Mail</a>
+            <div *ngIf="candistatusmaster=='New'">
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#mapping"
+              (click)="candidateId(candidate.id)">Associate To Requirement</a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+
+    
+  </span>
+  <button class="btn  btn-white shadow  rounded" data-toggle="modal" data-target="#exampleModal">
+    <i class="fa fa-plus" style="color:cornflowerblue;" aria-hidden="true" ></i>
+  </button>
+</nav>
+<br>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Do you want to fill the form through resume parsing???
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" [routerLink]="['../addcandidate']" data-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-primary"  [routerLink]="['../addcanresume']"  data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- search code -->
+<div class="mt-4  col-sm-10  offset-sm-1  shadow p-1 bg-white rounded">
+  <div class="position-relative mt-2 ">
+    <div class="form-group dummyclass" *ngIf="dummy">
+      <div class="position-relative  col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 ">
+        <i class="fa fa-search  fa-search1 pull-right "></i>
+        <input type="text" class=" madhu form-control_search2" id="usr" placeholder="Search with Candidate Name"
+          (click)="dummy=false;asli=true;first=true">
+      </div>
+    </div>
+    <div class="form-group dummyinp" *ngIf="asli">
+      <div class=" col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1    position-relative">
+        <i class="fa fa-angle-down pull-right" id="usr" (click)="first=false;second=true"></i>
+        <input type="text" class="form-control_search2" id="usr" value={{searchInput}} (click)="first=true;second=false"
+          [formControl]="searchTerm">
+      </div>
+    </div>
+    <div class="first item   col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 p-0 mt1-0 " *ngIf="first"
+      tabindex="0" id="usr">
+      <div class=" p-3 mt-2" id="usr">
+        <strong>candidate Name</strong>
+        <p *ngIf="showNodata" id="usr">No Data</p>
+        <p *ngIf="search_result" id="usr">Search Result</p>
+        <p *ngIf="search_Previous_result" id="usr">Previous Search Result</p>
+  
+        <ul *ngFor="let p of candgetall" id="usr">
+          <li id="usr" (click)="search_values(p.fullName)" style="list-style-type: none; cursor: pointer;">{{ p.fullName }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="second item   col-sm-8 offset-sm-2  col-md-8 offset-md-2  col-10 offset-1 mt1-0 " *ngIf="second"
+      id="usr">
+      <div class=" p-3  mt-2" id="usr">
+        <form id="usr" [formGroup]="searchCandidateForm" (ngSubmit)="saveCandidateSearch()">
+          <div class="form-group row" id="usr">
+            <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">CandidateId</label>
+            <div class="col-sm-10" id="usr">
+              <input id="usr" class="form-control boxcolor" formControlName="candidateId">
+            </div>
+          </div>
+          <div class="form-group row" id="usr">
+            <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">Email</label>
+            <div class="col-sm-10" id="usr">
+              <input id="usr" class="form-control boxcolor" formControlName="email">
+            </div>
+          </div>
+          <div class="form-group row" id="usr">
+            <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">Mobile</label>
+            <div class="col-sm-10" id="usr">
+              <input id="usr" class="form-control boxcolor" formControlName="mobile">
+            </div>
+          </div>
+          <div class="form-group row" id="usr">
+            <label for="inputPassword" class="col-sm-2 col-form-label" id="usr">Highest Qualification</label>
+            <div class="col-sm-10" id="usr"> 
+              <input id="usr" class="form-control boxcolor" formControlName="highestQualification">
+            </div>
+          </div>
+          <button type="reset" id="usr" class="btn bg-info pull-left">Reset</button>
+          <button type="submit" id="usr" class="btn bg-info pull-right">submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- search code end -->
+<div class="container-fluid pt-4">
+<div class=" shadow p-3 mb-5  ml-4 mr-4 bg-white rounded ">
+  <abbr title="download Excel"><i class="fa fa-file-excel-o mr-4 mb-1"
+      style="color:green ;font-size: x-large; float:right" (click)=" downloadExcel()" aria-hidden="true"></i></abbr>
+  <table class="table table responsive bg-white">
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th class="font-weight-light">CANDIDATE ID</th>
+        <th></th>
+        <th class="font-weight-light"> RATING</th>
+        <th class="font-weight-light">CANDIDATE NAME</th>
+        <th class="font-weight-light">CANDIDATE STATUS</th>
+        <th class="font-weight-light">MODIFIED DATE </th>
+        <th class="font-weight-light">SOURCE</th>
+        <th class="font-weight-light">CANDIDATE OWNER</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let candidate of candgetall | paginate: { itemsPerPage: pageSize,currentPage: currentPage,totalItems: totalItems }">
+        <td><i class="fa fa-pencil" [routerLink]="['../editcandidate', candidate.id]" data-toggle="tooltip"
+            data-placement="bottom" title="edit"></i></td>
+        <td><input type="radio" [value]="candidate.id" [(ngModel)]="selectedRadio"
+          (click)="emailf(candidate.id,candidate.candidateStatusMaster)"  name="foobar"></td>
+       
+        <td>{{candidate.id}}</td>
+        <td>
+          <i class="fa fa-list" aria-hidden="true" data-toggle="modal" data-target="#description"
+            (click)="getCandidateById(candidate.id)"> </i>
+        </td>
+        <td (click)="getCandida(candidate.id)">
+
+          <!-- <span id="rcorners" data-toggle="modal" data-target="#exampleModal1"><i class="fa fa-star-o"
+              [ngClass]="{'org':candidate.candidateRating!==null}" (click)="getCandidrating(candidate.id,candidate.candidateRating)">
+
+          <span id="rcorners" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-star-o"
+              [ngClass]="{'org':candidate.candidateRating!==null}" (click)="getCandidrating(candidate.id,candidate.candidateRating)"> -->
+
+          <span id="rcorners" data-toggle="modal" data-target="#exampleModal1" (click)="getCandidrating(candidate.id,candidate.candidateRating)"><i class="fa fa-star-o"
+              [ngClass]="{'org':candidate.candidateRating!==null}" >&nbsp;&nbsp;
+
+              {{candidate.candidateRating}}</i></span>
+        </td>
+        <td>
+          <p style="color: #2C7BD0;" (click)="candidatef(candidate.id)">{{candidate.fullName}}</p>
+        </td>
+        <td>{{candidate.candidateStatusMaster}}</td>
+        <td>{{candidate.lastUpdatedDate|date:"dd-MM-yyyy"}}</td>
+        <td>{{candidate.source}}</td>
+        <td>{{candidate.owner}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-xs-12 col-12 mt-4 text-right">
+      <pagination-controls (pageChange)="setPage($event)"></pagination-controls>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- rating modal -->
+<div class="modal" id="exampleModal1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="btn btn-white btn-sm ml-auto" type="submit"> Submit Rating</button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <form [formGroup]="ratingForm" (ngSubmit)="postcandidaterating()">
+            <div class="row">
+              <div class="col">
+                Rating
+              </div>
+              <div class="col">
+                <ngb-rating [(rate)]="currentRate">
+                  <ng-template let-fill="fill" let-index="index">
+                    <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+                  </ng-template>
+                </ngb-rating>
+                <br>
+                <pre> <b ></b ></pre>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6 col-sm-3">Rating</div>
+              <div class="col-6 col-sm-3">
+                <input formControlName="rating" type="text" [(ngModel)]="currentRate">
+              </div>
+              <!-- Force next columns to break to new line -->
+              <div class="w-100"></div>
+              <div class="col-6 col-sm-3">Jop opening name</div>
+              <div class="col-6 col-sm-3">
+                <input type="text" name="nameOfRequirement" class="form-control" placeholder="posting title"
+                  formControlName="nameOfRequirement" [(ngModel)]="selectedclient" data-toggle="modal"
+                  data-target="#clientName">
+                <!-- (ngModelChange)="modelChanged($event)" -->
+                <!-- formControlName="nameOfRequirement" -->
+                <span class="d-inline float-right" style="margin-top: -1.6rem;">
+                  <i class="fa fa-building" aria-hidden="true" data-toggle="modal" data-target="#clientName"></i></span>
+              </div>
+              <div class="w-100"></div>
+              <div class="col-6 col-sm-3">comments</div>
+              <div class="col-6 col-sm-3"> <textarea formControlName="Comments" type="text"
+                  placeholder="Leave a comment" class="form-control"></textarea></div>
+            </div>
+            <button type="submit" class="btn btn-success btn-sm d-block float-right" data-dismiss="modal">Save</button>
+            <button type="cancel" class="btn btn-white btn-sm d-block float-right"data-dismiss="modal">cancel</button>
+          </form>
+        </div>
+        <!-- <div class="left side mx-2 " style="color: black;">Jobopening Name</div>  -->
+      </div>
+    </div>
+    <div class="modal-footer">
+    </div>
+  </div>
+</div>
+
+<!-- jobopening modal for rating -->
+<div class="modal fade " id="clientName" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Client Name:</h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search"><i class="fas fa-search"></i>
+            </form>
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>JOBOPENING ID</th>
+              <th>posting title</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let client1 of profileDetails |paginate: {id:'test2' ,itemsPerPage: pageSize,currentPage: candidatepage,totalItems: totalItemsjob}">
+              <td>
+                <input type="radio" [value]="client1.nameOfRequirement" [(ngModel)]="selectedclient" class="answer"
+                  (click)="getId(client1.id)">
+              </td>
+              <td>{{client1.id}}</td>
+              <td>{{client1.nameOfRequirement}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-xs-12 col-12">
+            <pagination-controls id="test2" (pageChange)="setPagejob($event)"></pagination-controls>
+          </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-primary" style="float: right;"
+          data-dismiss="modal">Savechanges</button>
+        <button type="button" class="btn btn-sm btn-success" style="float: right;" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- mapping model -->
+<div class="modal fade" id="mapping" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="container">
+        <nav class="navbar navbar-expand-xl p-3 ">
+          <h5 class="modal-title">Requirement data</h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-xl-0">
+            </ul>
+            <form class="form-inline my-4 my-xl-0">
+              <input type="search" placeholder="Search"><i class="fa fa-search"></i>
+            </form>
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+        <table class="table">
+          <thead>
+            <th> </th>
+            <th class="font-weight-normal  text-nowrap bd-highlight">JOB OPENING ID</th>
+            <th class="font-weight-normal  text-nowrap bd-highlight">POSTING TITLE</th>
+            <th class="font-weight-normal  text-nowrap bd-highlight">START DATE</th>
+            <th class="font-weight-normal  text-nowrap bd-highlight">JOB OPENING STATUS</th>
+            <th class="font-weight-normal  text-nowrap bd-highlight">CLIENT NAME</th>
+            <th class="font-weight-normal  text-nowrap bd-highlight">CONTACT NAME</th>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let c of profileDetails | paginate: {id:'test1', itemsPerPage: pageSize,currentPage: currentPageContact,totalItems: totalContactItems }">
+              <td> <input type="radio" (click)="bdmId(c.id)" [(ngModel)]="selectedRadio"></td>
+
+            
+              <td>{{c.id}}</td>
+              <td>{{c.nameOfRequirement}}</td>
+              <td>{{c.requirementStartdate|date:"dd-MM-yyyy"}}</td>
+              <td>{{c.requirementStatus}}</td>
+              <td>{{c.clientName}}</td>
+              <td>{{c.contactFirstName}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-xs-12 col-12">
+            <pagination-controls id="test1" (pageChange)="setPageContact($event)"></pagination-controls>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success" (click)="mappingsubmit()">Associate To Requirement</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- description modal -->
+<div class="modal right fade" id="description" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel2">{{firstName}}{{lastName}}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <nav>
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-Details-tab" data-toggle="tab" href="#nav-Details" role="tab"
+              aria-controls="nav-Details" aria-selected="true">Details</a>
+            <a class="nav-item nav-link " id="nav-Notes-tab" data-toggle="tab" href="#nav-Notes" role="tab"
+              aria-controls="nav-Notes" aria-selected="true">Resume</a>
+
+            <!-- <a class="nav-item nav-link " id="nav-view-tab" data-toggle="tab" href="#nav-view" role="tab"
+                aria-controls="nav-view" aria-selected="true">Review Profile</a> -->
+
+          </div>
+        </nav>
+
+        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+
+          <div class="tab-pane fade show active" id="nav-Details" role="tabpanel" aria-labelledby="nav-Details-tab">
+            <div class="container" id="Details">
+              <h5 class="pt-5"><b>
+                  Basic Info</b></h5>
+              <table class="paddingBetweenCols">
+                <thead>
+                  <th class="id">Candidate ID</th>
+                  <th class="id">First Name</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{this.candidateid}}</td>
+                    <td class="id">{{firstName}}</td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <th class="id">Last Name</th>
+                  <th class="id">Email</th>
+
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{lastName}}</td>
+                    <td class="id">{{email}}</td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <th class="id">Mobile</th>
+                  <th class="id">Phone</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{mobile}}</td>
+                    <td class="id">{{alternateMobile}}</td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <th class="id">Fax</th>
+                  <th class="id">Website</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{fax}}</td>
+                    <td class="id">{{website}}</td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <th class="id">Secondary Email</th>
+
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{altenateEmail}}</td>
+
+                  </tr>
+                </tbody>
+              </table>
+              <hr>
+
+              <h5 class="pt-5"><b>
+                  Address Information
+                </b></h5>
+              <table class="paddingBetweenCols">
+                <thead>
+                  <th class="id">Street</th>
+                  <th class="id">City</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{street1}}</td>
+                    <td class="id">{{city}}</td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <th class="id">State/Province</th>
+                  <th class="id">Zip/Postal Code</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{state}}</td>
+                    <td class="id">{{pincode}}</td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <th class="id">Country</th>
+
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{country}}</td>
+
+                  </tr>
+                </tbody>
+
+              </table>
+              <hr>
+
+
+              <h5 class="pt-5"><b>
+                  Professional Details
+                </b></h5>
+              <table class="paddingBetweenCols">
+                <thead>
+                  <th class="id">Experience in Years</th>
+
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{totalExperience}}</td>
+
+                  </tr>
+                </tbody>
+
+
+                <tbody>
+                  <tr>
+
+                    <td class="id">{{currentCompanyName}}</td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <th class="id">Expected Salary</th>
+                  <th class="id">Current Salary</th>
+
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="id">{{expectedCTC}}</td>
+                    <td classs="id">{{currentCTC}}</td>
+                  </tr>
+                </tbody>
+
+              </table>
+              <hr>
+
+            </div>
+
+         
+          </div>
+
+
+
+
+
+
+
+
+
+          <div class="tab-pane fade " id="nav-Notes" role="tabpanel" aria-labelledby="nav-Notes-tab">
+            <div class="container" id="Resume">
+              <h5 class="pt-5"><b>
+                  Resume</b></h5>
+              <div >
+
+                <abbr title="Download pdf"> <i class="fa fa-file-pdf-o" style="color:red" (click)="docx()"
+                    aria-hidden="true"></i></abbr>
+
+                <div>
+                 <pdf-viewer [src]="'data:application/*;base64,'+candidateResume" [original-size]="true">
+                  </pdf-viewer>     
+                    
+                  <!-- <ngx-doc-viewer [url]="https:/" viewer="office" style="width:100%;height:50vh;"></ngx-doc-viewer> -->
+              
+                  <!-- <img src="{{'data:image/jpg;base64,' + candidateResume}}" /> -->
+               
+                  <!-- <ngx-doc-viewer [url]=candidateResume viewer="google" googleCheckContentLoaded = true style="width:100%;height:50vh;"></ngx-doc-viewer> -->
+
+
+           
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+          <!-- view -->
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- status -->
+<div class="modal fade " id="candidatestatus" style="margin-top: -29px;" tabindex="-1" role="dialog"
+  aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg p-3 ">
+          <h5>Show:</h5>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            </ul>
+            <form class="form-inline my-4 my-lg-0">
+              <input type="search" placeholder="Search">
+            </form>
+          </div>
+          <button type="button" class="close ml-4" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </nav>
+       
+        <button type="button" class="btn btn-sm btn-primary" style="float: right;" data-dismiss="modal">Save
+          changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

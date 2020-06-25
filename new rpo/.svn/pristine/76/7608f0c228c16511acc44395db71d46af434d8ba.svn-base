@@ -1,0 +1,24 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ModeofinterviewComponent } from './modeofinterview/modeofinterview.component';
+import { RouterModule } from '@angular/router';
+import { routes } from './modeofinterview.routing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
+
+
+@NgModule({
+  declarations: [ModeofinterviewComponent],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    FormsModule, 
+    ReactiveFormsModule,
+    NgxPaginationModule
+  ]
+})
+export class ModeofinterviewModule { 
+  constructor(){
+    console.log("ModeofinterviewModule");
+  }
+}

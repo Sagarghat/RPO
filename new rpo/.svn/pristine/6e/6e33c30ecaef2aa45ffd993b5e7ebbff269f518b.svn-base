@@ -1,0 +1,30 @@
+.router-link-active{
+    /* color:#3f729b; */
+ /* background-color: aquamarine;  */
+ border-left: .20rem solid rgb(255, 195, 112);
+ color: rgb(255, 195, 112) !important;
+ /* background-color:rgb(243, 159, 41); */
+ /* border-right: .15rem solid rgb(255, 195, 112); */
+ /* border-bottom: .15rem solid rgb(255, 195, 112); */
+}
+
+
+
+.nav-link{
+    padding: 0rem 0rem ; 
+}
+.navbar-expand-lg .navbar-nav .nav-link {
+ padding-right: 0.8rem;
+ padding-left: 0.3rem;
+}
+.fa{
+cursor: pointer;
+}
+
+
+/* .color_text{
+  filter: brightness(8.5);
+} */
+
+
+

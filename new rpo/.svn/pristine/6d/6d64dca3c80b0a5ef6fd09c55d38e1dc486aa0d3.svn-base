@@ -1,0 +1,92 @@
+<nav  class="navbar navbar-expand-lg " style="background-color: #3f729b; padding: .2rem 1rem;">
+    <a class="navbar-brand text-white"> Admin</a>
+    <button class="navbar-toggler text-dark" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item ">
+          <a class="nav-link  text-white" routerLink="./skills"  routerLinkActive="router-link-active">Skills </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white"   routerLink="./modeofinterview" routerLinkActive="router-link-active" >Mode of Interview</a>
+        </li>
+        <!-- <li class="nav-item ">
+            <a class="nav-link text-white"    routerLink="./customertype"  routerLinkActive="router-link-active">Customer Type</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="./noticeperiod"   routerLinkActive="router-link-active"> Notice Period</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white"   routerLink="./qualifications"   routerLinkActive="router-link-active"> Qualifications</a>
+          </li>
+
+          <!-- <li class="nav-item">
+            <a class="nav-link text-white"  routerLink="./billingmodal"   routerLinkActive="router-link-active">Billing Model</a>
+          </li> -->
+
+           <li class="nav-item">
+            <a class="nav-link text-white"   routerLink="./servicelist" routerLinkActive="router-link-active">Service List</a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link text-white"   routerLink="./paymentterms" routerLinkActive="router-link-active">Payment Terms</a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link text-white"   routerLink="./permissions" routerLinkActive="router-link-active">Permissions</a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link text-white"  routerLink="./roles"  routerLinkActive="router-link-active">Roles</a>
+          </li> 
+
+          <li class="nav-item">
+            <a class="nav-link text-white"    routerLink="./features"   routerLinkActive="router-link-active">Features</a>
+          </li> 
+
+          <!-- <li class="nav-item">
+            <a class="nav-link text-white"   routerLink="./certificates"  routerLinkActive="router-link-active">Certificates</a>
+          </li>  -->
+          <!-- <li class="nav-item">
+            <a class="nav-link text-white"   routerLink="./joblocation"  routerLinkActive="router-link-active">Job Location</a>
+          </li>  -->
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              More
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" routerLink="./certificates"  routerLinkActive="router-link-active">Certificates</a>
+              
+              <a class="dropdown-item"  routerLink="./joblocation"  routerLinkActive="router-link-active">Job Location</a>
+
+              <a class="dropdown-item"  routerLink="./billingmodal"   routerLinkActive="router-link-active">Billing Model</a>
+
+              <a class="dropdown-item"  routerLink="./customertype"  routerLinkActive="router-link-active">Customer Type</a>
+              
+            </div>
+          </li>
+      
+          
+      </ul>
+      <form class="form-inline my-2 my-lg-0 text-white">
+        <a class="my-2 my-sm-0" >
+          <i class="fa fa-user fa-lg" aria-hidden="true" ></i></a>
+      </form>
+
+      <form class="form-inline my-2 my-lg-0 text-white">
+        <a class="my-2 my-sm-0 ml-2"  Style=" cursor: pointer;" >{{user_name}}</a>
+      </form>
+
+      <form class="form-inline my-2 my-lg-0 text-white">
+        <a class="my-2 my-sm-0 ml-2"   (click)="signOut()" Style="color:rgb(255, 195, 112); cursor: pointer;" > SignOut </a>
+      </form>
+
+    </div>
+  </nav>
+
+
+ 
+
+  
+  <div class="container-fluid p-0">
+      <router-outlet></router-outlet>
+  </div>

@@ -1,0 +1,525 @@
+package com.ojas.rpo.security.entity;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@Table(name = "candidate")
+@javax.persistence.Entity
+
+public class Candidate implements Entity {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GenericGenerator(name = "candidate_id", strategy = "com.ojas.rpo.security.util.CandidateIdGenerator")
+	@GeneratedValue(generator = "candidate_id")
+	private Long id;
+	@Column
+	private String firstName;
+	@Column
+	private String lastName;
+	@Column
+	private String mobile;
+	@Column(unique = true)
+	private String email;
+	@Column
+	private String altenateEmail;
+	@Column
+	private String alternateMobile;
+	@Column
+	private String fax;
+	@Column
+	private String website;
+	@Column
+	private String street1;
+	@Column
+	private String street2;
+	@Column
+	private String pincode;
+	@Column
+	private String city;
+	@Column
+	private String country;
+	@Column
+	private String state;
+	@Column
+	private String totalExperience;
+	@ManyToOne
+	private AddQualification addQualificationHeld;
+	@Column
+	private String currentCompanyName;
+	@ManyToOne
+	private CandidateJobTitle candidateJobTitle;
+	@Column
+	private String currentCTC;
+
+	@Column
+	private String noticePeriod;
+
+	@Column
+	private String expectedCTC;
+
+	@Column(name = "skillset", columnDefinition = "LONGTEXT")
+	private String skillset;
+	@Column
+	private String twitterId;
+	@Column
+	private String skypeID;
+	@ManyToOne
+	private Source source;
+	@ManyToOne
+	private CandidateStatusMaster candidateStatusMaster;
+	@Transient
+	private Long setDiffDays;
+	@Column
+	private Boolean emailOptOut;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<EducationalDetails> educationalDetails;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Experiencedetails> experiencedetails;
+
+	@Column
+	private Date lastUpdatedDate;
+	@Column
+	private Long registrationId;
+
+	@ManyToMany
+	@JsonProperty
+	@JoinTable(name = "canSkillMapping", joinColumns = @JoinColumn(name = "CAN_ID", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "SKILL_ID", referencedColumnName = "ID"))
+	private List<Skill> primarySkills = new ArrayList<Skill>();
+
+	@ManyToOne
+	private User user;
+
+	@ManyToOne
+	private User modifiedOwner;
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	// documents
+	@Column
+	private String resume;
+
+	@Column
+	private String fileExtension;
+
+	@Column
+	private String fileName;
+
+	@Transient
+	private byte[] resumeByte;
+	@Column(columnDefinition = "LONGTEXT")
+	private String summary;
+	@Column
+	private Long rating;
+
+	@Column(name = "resumeAwards", columnDefinition = "LONGTEXT")
+	private String awards;
+
+	@Column(columnDefinition = "LONGTEXT")
+	private String educationAndTraining;
+
+	@Column
+	private Long aadharCard;
+	@Column
+	private Long panCard;
+	@Column
+	private String jobTittle;
+
+	@Column(columnDefinition = "LONGTEXT")
+	private String workExp;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAltenateEmail() {
+		return altenateEmail;
+	}
+
+	public void setAltenateEmail(String altenateEmail) {
+		this.altenateEmail = altenateEmail;
+	}
+
+	public String getAlternateMobile() {
+		return alternateMobile;
+	}
+
+	public void setAlternateMobile(String alternateMobile) {
+		this.alternateMobile = alternateMobile;
+	}
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
+	public String getStreet1() {
+		return street1;
+	}
+
+	public void setStreet1(String street1) {
+		this.street1 = street1;
+	}
+
+	public String getStreet2() {
+		return street2;
+	}
+
+	public void setStreet2(String street2) {
+		this.street2 = street2;
+	}
+
+	public String getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(String pincode) {
+		this.pincode = pincode;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getTotalExperience() {
+		return totalExperience;
+	}
+
+	public void setTotalExperience(String totalExperience) {
+		this.totalExperience = totalExperience;
+	}
+
+	public AddQualification getAddQualificationHeld() {
+		return addQualificationHeld;
+	}
+
+	public void setAddQualificationHeld(AddQualification addQualificationHeld) {
+		this.addQualificationHeld = addQualificationHeld;
+	}
+
+	public String getCurrentCompanyName() {
+		return currentCompanyName;
+	}
+
+	public void setCurrentCompanyName(String currentCompanyName) {
+		this.currentCompanyName = currentCompanyName;
+	}
+
+	public CandidateJobTitle getCandidateJobTitle() {
+		return candidateJobTitle;
+	}
+
+	public void setCandidateJobTitle(CandidateJobTitle candidateJobTitle) {
+		this.candidateJobTitle = candidateJobTitle;
+	}
+
+	public String getCurrentCTC() {
+		return currentCTC;
+	}
+
+	public void setCurrentCTC(String currentCTC) {
+		this.currentCTC = currentCTC;
+	}
+
+	public String getNoticePeriod() {
+		return noticePeriod;
+	}
+
+	public void setNoticePeriod(String noticePeriod) {
+		this.noticePeriod = noticePeriod;
+	}
+
+	public String getExpectedCTC() {
+		return expectedCTC;
+	}
+
+	public void setExpectedCTC(String expectedCTC) {
+		this.expectedCTC = expectedCTC;
+	}
+
+	public String getSkillset() {
+		return skillset;
+	}
+
+	public void setSkillset(String skillset) {
+		this.skillset = skillset;
+	}
+
+	public String getTwitterId() {
+		return twitterId;
+	}
+
+	public void setTwitterId(String twitterId) {
+		this.twitterId = twitterId;
+	}
+
+	public String getSkypeID() {
+		return skypeID;
+	}
+
+	public void setSkypeID(String skypeID) {
+		this.skypeID = skypeID;
+	}
+
+	public Source getSource() {
+		return source;
+	}
+
+	public void setSource(Source source) {
+		this.source = source;
+	}
+
+	public CandidateStatusMaster getCandidateStatusMaster() {
+		return candidateStatusMaster;
+	}
+
+	public void setCandidateStatusMaster(CandidateStatusMaster candidateStatusMaster) {
+		this.candidateStatusMaster = candidateStatusMaster;
+	}
+
+	public Long getSetDiffDays() {
+		return setDiffDays;
+	}
+
+	public void setSetDiffDays(Long setDiffDays) {
+		this.setDiffDays = setDiffDays;
+	}
+
+	public Boolean getEmailOptOut() {
+		return emailOptOut;
+	}
+
+	public void setEmailOptOut(Boolean emailOptOut) {
+		this.emailOptOut = emailOptOut;
+	}
+
+	public List<EducationalDetails> getEducationalDetails() {
+		return educationalDetails;
+	}
+
+	public void setEducationalDetails(List<EducationalDetails> educationalDetails) {
+		this.educationalDetails = educationalDetails;
+	}
+
+	public List<Experiencedetails> getExperiencedetails() {
+		return experiencedetails;
+	}
+
+	public void setExperiencedetails(List<Experiencedetails> experiencedetails) {
+		this.experiencedetails = experiencedetails;
+	}
+
+	public Date getLastUpdatedDate() {
+		return lastUpdatedDate;
+	}
+
+	public void setLastUpdatedDate(Date lastUpdatedDate) {
+		this.lastUpdatedDate = lastUpdatedDate;
+	}
+
+	public Long getRegistrationId() {
+		return registrationId;
+	}
+
+	public void setRegistrationId(Long registrationId) {
+		this.registrationId = registrationId;
+	}
+
+	public List<Skill> getPrimarySkills() {
+		return primarySkills;
+	}
+
+	public void setPrimarySkills(List<Skill> primarySkills) {
+		this.primarySkills = primarySkills;
+	}
+
+	public String getResume() {
+		return resume;
+	}
+
+	public void setResume(String resume) {
+		this.resume = resume;
+	}
+
+	public String getFileExtension() {
+		return fileExtension;
+	}
+
+	public void setFileExtension(String fileExtension) {
+		this.fileExtension = fileExtension;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public User getModifiedOwner() {
+		return modifiedOwner;
+	}
+
+	public void setModifiedOwner(User modifiedOwner) {
+		this.modifiedOwner = modifiedOwner;
+	}
+
+	public byte[] getResumeByte() {
+		return resumeByte;
+	}
+
+	public void setResumeByte(byte[] resumeByte) {
+		this.resumeByte = resumeByte;
+	}
+
+	public Long getRating() {
+		return rating;
+	}
+
+	public void setRating(Long rating) {
+		this.rating = rating;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
+	public String getAwards() {
+		return awards;
+	}
+
+	public void setAwards(String awards) {
+		this.awards = awards;
+	}
+
+	public String getEducationAndTraining() {
+		return educationAndTraining;
+	}
+
+	public void setEducationAndTraining(String educationAndTraining) {
+		this.educationAndTraining = educationAndTraining;
+	}
+
+	public Long getAadharCard() {
+		return aadharCard;
+	}
+
+	public void setAadharCard(Long aadharCard) {
+		this.aadharCard = aadharCard;
+	}
+
+	public Long getPanCard() {
+		return panCard;
+	}
+
+	public void setPanCard(Long panCard) {
+		this.panCard = panCard;
+	}
+
+	public String getJobTittle() {
+		return jobTittle;
+	}
+
+	public void setJobTittle(String jobTittle) {
+		this.jobTittle = jobTittle;
+	}
+
+}

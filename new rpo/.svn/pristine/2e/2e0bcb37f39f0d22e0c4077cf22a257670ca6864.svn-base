@@ -1,0 +1,22 @@
+package com.ojas.rpo.security.dao.assesmentname;
+
+import org.springframework.transaction.annotation.Transactional;
+
+import com.ojas.rpo.security.dao.JpaDao;
+import com.ojas.rpo.security.entity.AssesmentName;
+
+public class JpaAssesmentNameDao  extends JpaDao<AssesmentName, Long> implements AssesmentNameDao {
+
+	public JpaAssesmentNameDao() {
+		super(AssesmentName.class);
+	}
+	
+	
+	
+	@Override
+    @Transactional
+    public AssesmentName save(AssesmentName entity)
+    {
+        return this.getEntityManager().merge(entity);
+    }
+}

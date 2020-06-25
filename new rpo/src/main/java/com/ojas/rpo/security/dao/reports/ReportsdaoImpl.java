@@ -1,0 +1,114 @@
+package com.ojas.rpo.security.dao.reports;
+
+import java.util.List;
+
+import javax.persistence.Query;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.ojas.rpo.security.dao.JpaDao;
+import com.ojas.rpo.security.dao.datareports.ReportsBarChartTemplates;
+import com.ojas.rpo.security.entity.Candidate;
+import com.ojas.rpo.security.entity.ExceptionMessage;
+import com.ojas.rpo.security.entity.Response;
+import com.ojas.rpo.security.util.QueryGenerationForReports;
+import com.ojas.rpo.security.util.Reports;
+import com.ojas.rpo.security.util.RequiredStatuses;
+
+public class ReportsdaoImpl extends JpaDao<Candidate, Long> implements ReportsDao {
+
+	public ReportsdaoImpl() {
+		super(Candidate.class);
+	}
+
+	@Autowired
+	private ReportsBarChartTemplates templates;
+
+	@Override
+	@Transactional
+	public Response getRecruiterReports(Reports reports) {
+		Response response = null;
+		String submssionCond = reports.getSubmissionCondition();
+		String rejectedCond = reports.getRejectedCondition();
+		if (submssionCond != null && !submssionCond.isEmpty() && rejectedCond != null && !rejectedCond.isEmpty()) {
+			/*
+			 * getting the Names of columns ,(x-y) axis headings and view name from the
+			 * QueryGenerationForReports class
+			 */
+			RequiredStatuses statuses = QueryGenerationForReports.getStatuses(submssionCond, rejectedCond);
+
+			String xHeading = statuses.getxHeading();
+			String yHeading = statuses.getyHeading();
+			/*
+			 * getting a view from QueryGenerationForReports class for the given role and
+			 * UserId
+			 */
+
+			String createview = QueryGenerationForReports.getQuery(reports);
+			Query executeViewQuery = this.getEntityManager().createNativeQuery(createview);
+			// Executing the view
+			executeViewQuery.executeUpdate();
+			String viewName = createview.substring(createview.indexOf("view ") + 5, createview.indexOf(" as"));
+			String getFromViewQuery = "select " + reports.getSubmissionCondition().replace(" ", "") + "count  ,"
+					+ reports.getRejectedCondition().replace(" ", "") + "count" + " from testing." + viewName;
+			/*
+			 * Executing the Query to get the values from the VIEW
+			 */
+			Query viewQuery = this.getEntityManager().createNativeQuery(getFromViewQuery);
+			List<Object[]> objs = viewQuery.getResultList();
+			Object[] values = objs.get(0);
+			ReportsTransfer transfer = new ReportsTransfer();
+			transfer.setShortlistedCount(Integer.parseInt(values[0] + ""));
+			transfer.setRejectedCount(Integer.parseInt(values[1] + ""));
+			/*
+			 * getting the pie chart Base64 String from ReportsBarChartTemplates class
+			 */
+			String submittedToClientAndRejectionsAtScreening = templates.getRecruiterReports(
+					transfer.getShortlistedCount(), transfer.getRejectedCount(), xHeading, yHeading);
+			transfer.setBase64Value(submittedToClientAndRejectionsAtScreening);
+			if (submittedToClientAndRejectionsAtScreening != null) {
+				response = new Response(ExceptionMessage.StatusSuccess, transfer);
+			}
+		} else {
+			response = new Response(ExceptionMessage.DataIsEmpty, "Both conditions must required");
+		}
+		return response;
+	}
+
+}
+
+/**
+ * @author dphani
+ *
+ */
+class ReportsTransfer {
+	private Integer shortlistedCount;
+	private Integer rejectedCount;
+	private String base64Value;
+
+	public String getBase64Value() {
+		return base64Value;
+	}
+
+	public void setBase64Value(String base64Value) {
+		this.base64Value = base64Value;
+	}
+
+	public Integer getShortlistedCount() {
+		return shortlistedCount;
+	}
+
+	public void setShortlistedCount(Integer shortlistedCount) {
+		this.shortlistedCount = shortlistedCount;
+	}
+
+	public Integer getRejectedCount() {
+		return rejectedCount;
+	}
+
+	public void setRejectedCount(Integer rejectedCount) {
+		this.rejectedCount = rejectedCount;
+	}
+
+}
